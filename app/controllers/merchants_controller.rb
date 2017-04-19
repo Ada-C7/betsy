@@ -5,6 +5,9 @@ class MerchantsController < ApplicationController
 
   def show
     @merchant = Merchant.find_by(params: id)
+    if @merchant.nil?
+      head :not_found
+    end
   end
 
   def login_form;  end
