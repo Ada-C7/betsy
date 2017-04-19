@@ -24,8 +24,8 @@ class MerchantsController < ApplicationController
       flash[:success] = "Successfully created new user #{merchant.username} with ID #{merchant.id}"
       redirect_to root_path
     else
-      if user.errors.any?
-        user.errors.each do |column, message|
+      if merchant.errors.any?
+        merchant.errors.each do |column, message|
           flash.now[:error] = "Could not log in #{message}"
         end
         render :login_form
@@ -34,7 +34,7 @@ class MerchantsController < ApplicationController
   end
 
   def logout
-    session[:user_id] = nil
+    session[:merchant_id] = nil
     flash[:success] = "Successfully logged out."
     redirect_to root_path
   end
