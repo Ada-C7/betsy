@@ -6,10 +6,11 @@ describe Merchant do
     let(:merchant) { Merchant.new }
 
     it "must create new merchant with good info" do
-      merchant.username = "cynbin"
+      merchant.username = "gymnast988"
       merchant.email = "hello@gmail.com"
       merchant.first_name = "cynthia"
       merchant.last_name = "cobb"
+      merchant.save!
       merchant.valid?.must_equal true
     end
 
@@ -18,7 +19,7 @@ describe Merchant do
       merchant.valid?.must_equal false
     end
 
-    it 'wont crate a merchant missing an email' do
+    it 'wont create a merchant missing an email' do
       merchant.username = "cynbin"
       merchant.valid?.must_equal false
     end

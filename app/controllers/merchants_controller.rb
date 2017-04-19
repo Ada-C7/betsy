@@ -4,7 +4,7 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find_by(params: id)
+    @merchant = Merchant.find_by(id: params[:id])
     if @merchant.nil?
       head :not_found
     end

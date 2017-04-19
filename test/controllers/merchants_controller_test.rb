@@ -5,10 +5,13 @@ describe MerchantsController do
 
 
   describe 'show' do
-    let (:merchant) { Merchant.first}
+    setup do
+      @merchant_id = Merchant.first.id
+    end
 
     it 'shows a merchants page' do
-      get merchant_path(merchant.id)
+
+      get merchant_path(@merchant_id)
       must_respond_with :success
     end
 
@@ -19,6 +22,5 @@ describe MerchantsController do
       must_respond_with :not_found
     end
 
-    end
   end
 end
