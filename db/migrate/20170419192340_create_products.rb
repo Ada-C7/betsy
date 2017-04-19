@@ -4,10 +4,10 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.belongs_to :merchant
       t.string :category
       t.string :name
-      t.number :price
+      t.decimal :price
       t.string :description
       t.string :image
-      
+
       t.integer :inventory
       t.string :status
 
