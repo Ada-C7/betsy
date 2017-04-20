@@ -4,14 +4,14 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-<<<<<<< HEAD
+
 merchant1:
   username: UN1
   first_name: FirstA
   last_name: LastA
   email: email1@hotmail.com
   oauth_uid: string1
-  oauth_provider: "github"
+  oauth_provider: github
 
 merchant2:
   username: UN2
@@ -19,7 +19,7 @@ merchant2:
   last_name: LastB
   email: email2@gmail.com
   oauth_uid: string2
-  oauth_provider: "github"
+  oauth_provider: github
 
 merchant3:
   username: UN3
@@ -27,8 +27,8 @@ merchant3:
   last_name: LastC
   email: email3@hotmail.com
   oauth_uid: "string3"
-  oauth_provider: "github"
-=======
+  oauth_provider: github
+
 one:
   username: cynbin
   email: cyn@gmail.com
@@ -48,4 +48,3 @@ four:
 five:
   username: rhianna
   email: shine_bright@diamond.com
->>>>>>> master
