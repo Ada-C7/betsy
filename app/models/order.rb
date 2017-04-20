@@ -9,5 +9,5 @@ class Order < ApplicationRecord
   validates :card_number, presence: true, length: { in: 14..19 }
   validates :card_expiration, presence: true
   validates :cvv, presence: true, length: { is: 3 }
-  validates :zipcode, presence: true
+  validates :zipcode, presence: true, length: { is: 5 }
 end
