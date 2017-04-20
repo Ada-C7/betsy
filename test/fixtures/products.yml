@@ -12,6 +12,8 @@ product1:
   image:
   inventory: 3
   status:
+  # merchant: merchant1
+
 
 product2:
   name: Food2
@@ -21,21 +23,24 @@ product2:
   image:
   inventory: 5
   status:
+  # merchant: merchant1
 
-  product3:
-    name: Food3
-    price: 8.50
-    category: Cat2
-    description: Smells good
-    image:
-    inventory: 5
-    status:
+product3:
+  name: Food3
+  price: 8.50
+  category: Cat2
+  description: Smells good
+  image:
+  inventory: 5
+  status:
+  # merchant: merchant2
 
-  product4:
-    name: Food4
-    price: 15.0
-    category: Cat3
-    description: Kind of expensive
-    image:
-    inventory: 1
-    status:
+product4:
+  name: Food4
+  price: 15.0
+  category: Cat3
+  description: Kind of expensive
+  image:
+  inventory: 1
+  status:
+  # merchant: merchant3 
