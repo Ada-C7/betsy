@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root "producs#homepage"
+  root "products#homepage"
 
   get "/auth/github/callback", to: "sessions#create"
   delete "/logout", to: "sessions#logout"
