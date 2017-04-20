@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   post '/login', to: 'merchants#login'
   post '/logout', to: 'merchants#logout', as: 'logout'
 
+  resources :products
+  resources :reviews
+
 end
