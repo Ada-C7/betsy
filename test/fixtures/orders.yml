@@ -15,6 +15,7 @@ one:
   card_expiration: 08/17
   cvv: "098"
   zipcode: "76549"
+  user_id: 1
 
 two:
   status: complete
@@ -25,6 +26,18 @@ two:
   card_expiration: 12/20
   cvv: "382"
   zipcode: "20932"
+  user_id: 1
+
+no_user:
+  status: cancelled
+  email: 123sparkles@gmail.com
+  billing_name: Hercules Poirot
+  address: 7438 Valley View 23489
+  card_number: "21233384574309984"
+  card_expiration: 10/19
+  cvv: "435"
+  zipcode: "23489"
+  user_id:
 
 default_status:
   status:
@@ -35,6 +48,7 @@ default_status:
   card_expiration: 11/19
   cvv: "364"
   zipcode: "95125"
+  user_id: 1
 
 # invalid data
 missing_email:
@@ -46,6 +60,7 @@ missing_email:
   card_expiration: 10/18
   cvv: "123"
   zipcode: "12345"
+  user_id:
 
 missing_billing_name:
   status:
@@ -56,6 +71,7 @@ missing_billing_name:
   card_expiration: 10/18
   cvv: "123"
   zipcode: "12345"
+  user_id:
 
 missing_address:
   status:
@@ -66,6 +82,7 @@ missing_address:
   card_expiration: 10/18
   cvv: "123"
   zipcode: "12345"
+  user_id:
 
 missing_card_num:
   status:
@@ -76,6 +93,7 @@ missing_card_num:
   card_expiration: 10/18
   cvv: "123"
   zipcode: "12345"
+  user_id:
 
 missing_card_exp:
   status:
@@ -86,6 +104,7 @@ missing_card_exp:
   card_expiration:
   cvv: "123"
   zipcode: "12345"
+  user_id:
 
 missing_cvv:
   status:
@@ -96,6 +115,7 @@ missing_cvv:
   card_expiration: 10/18
   cvv:
   zipcode: "12345"
+  user_id:
 
 missing_zip:
   status:
@@ -106,3 +126,4 @@ missing_zip:
   card_expiration: 10/18
   cvv: "123"
   zipcode:
+  user_id:
