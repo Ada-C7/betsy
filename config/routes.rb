@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   resources :users
   resources :orders
 
-
+  get "/account", to: "users#account"
 end
