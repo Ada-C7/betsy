@@ -17,20 +17,28 @@ describe "validations" do
     # product(:samename)
   end
 
-  it "is valid with a quantity" do
-    # product
-  end
-
-  it "is invalid without a quantity" do
-    # products(:noquantity)
-  end
-
   it "is valid with a price" do
     # product
   end
 
   it "is invalid without a price" do
     # products(:noprice)
+  end
+
+  it "is invalid without a numerical price" do
+    # products(:noprice)
+  end
+
+  it "is invalid without a numerical price greater than 0" do
+    # products(:noprice)
+  end
+
+  it "is valid with a quantity" do
+    # product
+  end
+
+  it "is invalid without a quantity" do
+    # products(:noquantity)
   end
 
   it "is valid with a description" do
