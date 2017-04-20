@@ -15,8 +15,8 @@ end
 
 orders = []
 
-CSV.foreach("orders_seeds.csv", { :headers => true }) do |line|
-  drivers << {status: line[0], email: line[1], billing_name: line[2], address: line[3], card_number: line[4], card_exporation: line[5], cvv: line[6], zipcode: line[7], user_id: line[8] }
+CSV.foreach("db/orders_seeds.csv", { :headers => true }) do |line|
+  orders << {status: line[0], email: line[1], billing_name: line[2], address: line[3], card_number: line[4], card_expiration: line[5], cvv: line[6], zipcode: line[7], user_id: line[8] }
 end
 
 success_count = 0
