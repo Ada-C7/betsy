@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update]
-  skip_before_action :require_login,  only: [:new, :edit, :destroy] # require specific user? or validate edits in model?
+  # skip_before_action :require_login,  only: [:new, :edit, :destroy] # require specific user? or validate edits in model?
 
   def homepage
     # products_by_categories =
