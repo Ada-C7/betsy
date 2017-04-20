@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   post '/logout', to: 'merchants#logout', as: 'logout'
 
   resources :products
-  resourses :reviews
+  resources :reviews
 
 end
