@@ -37,7 +37,16 @@ noname:
   image_url: test
   user: testuser
 
-samename:
+samename1:
+  name: copycat
+  quantity: 10
+  price: 10.0
+  description: test
+  image_url: test
+  user: testuser
+
+samename2:
+  name: copycat
   quantity: 10
   price: 10.0
   description: test
@@ -45,35 +54,35 @@ samename:
   user: testuser
 
 noquantity:
-  name: test
+  name: test1
   price: 10.0
   description: test
   image_url: test
   user: testuser
 
 noprice:
-  name: test
+  name: test4
   quantity: 10
   description: test
   image_url: test
   user: testuser
 
 nodesc:
-  name: test
+  name: test7
   quantity: 10
   price: 10.0
   image_url: test
   user: testuser
 
 noimg:
-  name: test
+  name: test8
   quantity: 10
   price: 10.0
   description: test
   user: testuser
 
 nouser:
-  name: test
+  name: test9
   quantity: 10
   price: 10.0
   description: test
