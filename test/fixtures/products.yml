@@ -37,6 +37,13 @@ noname:
   image_url: test
   user_id: 1
 
+samename:
+  quantity: 10
+  price: 10.0
+  description: test
+  image_url: test
+  user_id: 1
+
 noquantity:
   name: test
   price: 10.0
