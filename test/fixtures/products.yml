@@ -29,3 +29,45 @@ hotdamnjams:
   description: jams that you go "HOT DAMN! NICE JAMS!"
   image_url: http://hotdamnjams.com/hotdamnjam.jpg
   user_id: 4
+
+noname:
+  quantity: 10
+  price: 10.0
+  description: test
+  image_url: test
+  user_id: 1
+
+noquantity:
+  name: test
+  price: 10.0
+  description: test
+  image_url: test
+  user_id: 1
+
+noprice:
+  name: test
+  quantity: 10
+  description: test
+  image_url: test
+  user_id: 1
+
+nodesc:
+  name: test
+  quantity: 10
+  price: 10.0
+  image_url: test
+  user_id: 1
+
+noimg:
+  name: test
+  quantity: 10
+  price: 10.0
+  description: test
+  user_id: 1
+
+nouser:
+  name: test
+  quantity: 10
+  price: 10.0
+  description: test
+  image_url: test
