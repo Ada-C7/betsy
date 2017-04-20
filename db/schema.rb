@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20170419192347) do
   enable_extension "plpgsql"
 
   create_table "merchants", force: :cascade do |t|
+<<<<<<< HEAD
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,6 +33,21 @@ ActiveRecord::Schema.define(version: 20170419192347) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
+=======
+    t.string   "username"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "oauth_uid"
+    t.string   "oauth_provider"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+>>>>>>> master
   end
 
   create_table "reviews", force: :cascade do |t|

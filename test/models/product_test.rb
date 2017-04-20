@@ -1,6 +1,7 @@
 require "test_helper"
 
 describe Product do
+
   describe "relations" do
     # it "product has a mmerchant" do
     #    product = products(:product1)
