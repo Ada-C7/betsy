@@ -1,11 +1,31 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+kidjams:
+  name: pajamas for a baby goat
+  quantity: 20
+  price: 15.50
+  description: will make your goat 1000x cuter
+  image_url: http://cutegoats.com/cutegoatinjams.jpg
+  user_id: 1
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+famjams:
+  name: family pajama set
+  quantity: 50
+  price: 200.00
+  description: jams for the whole fam
+  image_url: http://famjams.com/famjam.jpg
+  user_id: 2
+
+jamjams:
+  name: jam-themed pajama set
+  quantity: 10
+  price: 40.00
+  description: jams with pics of jams on them
+  image_url: http://jamjams.com/jamjam.jpg
+  user_id: 3
+
+hotdamnjams:
+  name: hawt pajama set
+  quantity: 16
+  price: 25.30
+  description: jams that you go "HOT DAMN! NICE JAMS!"
+  image_url: http://hotdamnjams.com/hotdamnjam.jpg
+  user_id: 4
