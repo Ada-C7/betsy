@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'products#root'
   resources :merchants, only: [:index, :show]
   get "/auth/github/callback", to: "merchants#auth_callback"
   get '/logout', to: "merchants#logout"
