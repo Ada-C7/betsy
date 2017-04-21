@@ -1,5 +1,37 @@
-<h1>Product: <%= @product.name %> </h1>
-
-<div>
-  <%= link_to "Add to Cart", '#'%>
+<div class = "row">
+  <%=image_tag(@product.image, alt: "Product image", class: "image")%>
 </div>
+
+<h3 class = "row"> <%= @product.name %> </h3>
+<h4 class = "row">
+  by <%= @product.merchant.username%>
+</h4>
+
+<p class = "row">
+  $ <%= @product.price.to_f%>
+</p>
+
+<div class = "row">
+  <%= link_to "Add to Cart", '#', class: "button"%>
+</div>
+
+<div class = "row">
+  <%= link_to "Edit", '#', class: "button"%>
+  <%= link_to "Change status", '#', class: "button"%>
+  <%= link_to "Remove", '#', class: "button delete"%>
+</div>
+
+<section class = "row description">
+  <%=@product.description%>
+</section>
+
+<h4 class = "row"> Reviews </h4>
+<div class = "row">
+  <%= link_to "Add Reviews", '#', class: "button"%>
+</div>
+
+<section class = "row">
+  <P>
+    Revivievs-holder
+  </P>
+</section>
