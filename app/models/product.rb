@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }
   belongs_to :merchant
   # has_many :reviews
-  # has_many :orders, through :orderproducts
+  has_many :productorders
+  has_many :orders, through: :productorders
 
 end
