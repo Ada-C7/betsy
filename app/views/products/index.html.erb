@@ -1,7 +1,7 @@
 <section class = "row">
 
   <% @products.each do |product|%>
-  <section class = "large-4 colums">
+  <section>
     <div>
       <%=image_tag(product.image, alt: "Product image", class: "image")%>
     </div>
@@ -15,3 +15,7 @@
   <% end %>
 
 </section>
+
+<div class = "row">
+  <%= link_to "Add New", new_product_path, class: "button"%>
+</div>
