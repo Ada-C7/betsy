@@ -1,3 +1,17 @@
-<P>
-  This is the index page for products
-</P>
+<section class = "row">
+
+  <% @products.each do |product|%>
+  <section class = "large-4 colums">
+    <div>
+      <%=image_tag(product.image, alt: "Product image", class: "image")%>
+    </div>
+    <p>
+      <%= product.name %>
+    </p>
+    <div>
+      <%=product.description%>
+    </div>
+  </section>
+  <% end %>
+
+</section>

@@ -12,7 +12,7 @@ product1:
   image:
   inventory: 3
   status:
-  # merchant: merchant1
+  merchant: merchant1
 
 
 product2:
@@ -23,7 +23,7 @@ product2:
   image:
   inventory: 5
   status:
-  # merchant: merchant1
+  merchant: merchant1
 
 product3:
   name: Food3
@@ -33,7 +33,7 @@ product3:
   image:
   inventory: 5
   status:
-  # merchant: merchant2
+  merchant: merchant2
 
 product4:
   name: Food4
@@ -43,4 +43,4 @@ product4:
   image:
   inventory: 1
   status:
-  # merchant: merchant3 
+  merchant: merchant3
