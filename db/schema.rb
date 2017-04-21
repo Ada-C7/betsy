@@ -47,17 +47,8 @@ ActiveRecord::Schema.define(version: 20170421163758) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer  "merchant_id"
-    t.string   "category"
-    t.string   "name"
-    t.decimal  "price"
-    t.string   "description"
-    t.string   "image"
-    t.integer  "inventory"
-    t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
