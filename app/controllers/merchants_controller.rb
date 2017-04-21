@@ -10,27 +10,55 @@ class MerchantsController < ApplicationController
     end
   end
 
-  def login_form;  end
+  # def login_form;  end
+  #
+  # def login
+  #   merchant = Merchant.find_by(username: params[:username])
+  #   if user
+  #     session[:merchant_id] = merchant.id
+  #     flash[:success] = "Successfully logged in as existing user #{merchant.username}"
+  #     redirect_to root_path
+  #   elsif
+  #     merchant = Merchant.create(username: params[:username])
+  #     session[:merchant_id] = merchant.id
+  #     flash[:success] = "Successfully created new user #{merchant.username} with ID #{merchant.id}"
+  #     redirect_to root_path
+  #   else
+  #     if merchant.errors.any?
+  #       merchant.errors.each do |column, message|
+  #         flash.now[:error] = "Could not log in #{message}"
+  #       end
+  #       render :login_form
+  #     end
+  #   end
+  # end
 
-  def login
-    merchant = Merchant.find_by(username: params[:username])
-    if user
-      session[:merchant_id] = merchant.id
-      flash[:success] = "Successfully logged in as existing user #{merchant.username}"
-      redirect_to root_path
-    elsif
-      merchant = Merchant.create(username: params[:username])
-      session[:merchant_id] = merchant.id
-      flash[:success] = "Successfully created new user #{merchant.username} with ID #{merchant.id}"
-      redirect_to root_path
-    else
-      if merchant.errors.any?
-        merchant.errors.each do |column, message|
-          flash.now[:error] = "Could not log in #{message}"
+  def auth_callback
+    auth_hash = request.env['omniauth.auth']
+
+    # Attempt to find these credentials in out DB
+    merchant = Merchant.find_by(oauth_provider: params[:provider],
+                                oauth_uid: auth_hash["uid"])
+    if merchant.nil?
+      # Don't know this uder - Build a new merchant
+      merchant = Merchant.from_github(auth_hash)
+      if merchant.save
+        session[:merchant_id] = merchant.id
+        flash[:success] = "Successfully logged in as new Merchant #{merchant.username}"
+      else
+        flash[:message] = "Could not log in"
+        merchant.errors.messages.each do |field, problem|
+          flash[:field] = problem.join(', ')
         end
-        render :login_form
       end
+
+    else
+      # Welcome back!
+      session[:merchant_id] = merchant.id
+      flash[:success] = "Welcome back, #{merchant.username}"
     end
+
+    redirect_to root_path
   end
 
   def logout
