@@ -1,0 +1,7 @@
+<h2>Hi, this is the Merchant index page</h2>
+<p>
+  More to come ;)
+</p>
+<% @merchants.each do |merchant|%>
+  <%= link_to merchant.username, merchant_path(merchant) %>
+<% end %>

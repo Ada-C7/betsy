@@ -16,3 +16,19 @@
     </li>
   </ul>
 </div>
+
+<div class="row column text-center">
+  <h2>Our Newest Products</h2>
+  <hr>
+</div>
+
+<div class="row small-up-1 medium-up-2 large-up-4">
+  <% @products.each do |product| %>
+  <div class="column">
+    <%=image_tag(product.image, alt: "Product Image", class: "thumbnail")%>
+    <h5><%= product.name %></h5>
+    <p><%= product.price %></p>
+    <a href="#" class="button expanded">Buy</a>
+  </div>
+  <% end %>
+</div>
