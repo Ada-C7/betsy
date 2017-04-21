@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
 
   def root
+    
   end
 
   def index
