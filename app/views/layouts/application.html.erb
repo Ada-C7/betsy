@@ -1,19 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  <title> NomNomazon </title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-  </head>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
 
-  <body>
+<body>
 
+  <header>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li class="menu-text"><%= link_to "NomNomazon", root_path %></li>
+          <li><a href="#">Category</a></li>
+          <li><%= link_to "Merchants", "/merchants"%></li>
+          <li><%= link_to "Products", "/products"%></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <% if @current_user %>
+          <li><%= link_to "Log Out", "/logout", class: "button small" %></li>
+          <% else %>
+          <li><%= link_to "Log In", "/auth/github", class: "button small" %></li>
+          <% end %>
+          <li><a href="#">Cart</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main class="row">
     <%= yield %>
+  </main>
 
-  </body>
+</body>
 </html>

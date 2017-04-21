@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 
   def root
-    
+    @products = Product.all
   end
 
   def index
