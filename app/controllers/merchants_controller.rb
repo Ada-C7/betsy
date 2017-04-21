@@ -38,7 +38,7 @@ class MerchantsController < ApplicationController
 
     # Attempt to find these credentials in out DB
     merchant = Merchant.find_by(oauth_provider: params[:provider],
-    oauth_uid: auth_hash["uid"])
+                                oauth_uid: auth_hash["uid"])
     if merchant.nil?
       # Don't know this uder - Build a new merchant
       merchant = Merchant.from_github(auth_hash)
