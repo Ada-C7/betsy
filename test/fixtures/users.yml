@@ -1,6 +1,6 @@
-testuser:
-  username: tester
-  uid: 1
+one:
+  username: Flornan McDonegal
+  uid: 1234
   provider: github
-  email: test@test.com
-  image_url: test.com/test.jpg
+  email: florny@gmail.com
+  image_url: sandwiches.com/blt
