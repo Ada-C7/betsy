@@ -104,20 +104,35 @@ describe Product do
   describe "relationships" do
 
     # has many order_items
+    it "returns an array of order_items" do
+      product.order_items.each do |order_item|
+        order_item.must_be_instance_of OrderItem
+        order_item.product.must_equal product
+      end
+    end
 
     # belongs to user
+    it "returns a user" do
+      product.user.must_be_instance_of User
+      users(:testuser).products.must_include product
+    end
 
     # has and belongs to many categories
+    it "returns an array of categories" do
+      product.categories.each do |category|
+        category.must_be_instance_of Category
+        category.product.must_equal product
+      end
+    end
 
     # has reviews
     it "returns an array of reviews" do
       product.reviews.each do |review|
         review.must_be_instance_of Review
-        review.product.must_equal work
+        review.product.must_equal product
       end
     end
 
-    # fails, need to rewrite test
     it "returns an empty array of reviews when product deleted" do
       deleted_product = Product.create(name: "test", quantity: 11, price: 20.0, description: "test", image_url: "test", user: users(:testuser))
       Review.create(rating: 5, comment: "most perfect", product: deleted_product)
