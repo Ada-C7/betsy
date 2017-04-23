@@ -128,7 +128,7 @@ describe Order do
         order.address = "12345 Testing Ave 09876"
         order.card_number = "1234567890123456"
         order.card_expiration = "10/18"
-        order.cvv = "1234"
+        order.cvv = "12345"
         order.zipcode ="12345"
 
         order.valid?.must_equal false
@@ -141,7 +141,7 @@ describe Order do
         order.address = "12345 Testing Ave 09876"
         order.card_number = "1234567890123456"
         order.card_expiration = "10/18"
-        order.cvv = "1234"
+        order.cvv = "123"
         order.zipcode ="1234"
 
         order.valid?.must_equal false
