@@ -1,5 +1,5 @@
 <div class = "row">
-  <%=image_tag(@product.image, alt: "Product image", class: "image")%>
+
 </div>
 
 <h3 class = "row"> <%= @product.name %> </h3>
@@ -8,11 +8,11 @@
 </h4>
 
 <p class = "row">
-  $ <%= @product.price.to_f%>
+  <%= @product.price.to_f%>
 </p>
 
 <div class = "row">
-  <%= link_to "Add to Cart", '#', class: "button"%>
+  <%= link_to "Add to Cart", '#', class:"button" %>
 </div>
 
 <div class = "row">

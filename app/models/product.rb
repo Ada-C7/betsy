@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   belongs_to :merchant
   # has_many :reviews
   has_many :productorders
-  has_many :orders, through: :productorders
+  # has_many :orders, through: :productorders
+  has_and_belongs_to_many :orders
 
 end

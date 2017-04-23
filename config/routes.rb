@@ -11,4 +11,11 @@ Rails.application.routes.draw do
   resources :products
   resources :reviews
 
+  resources :products do
+    post '/add_item', to: 'orders#add_item'
+  end
+
+  get '/cart', to: 'orders#cart', as: 'cart'
+  # post 'product/:id/add_item', to: 'orders#add_item', as: 'add_item'
+
 end
