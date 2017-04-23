@@ -15,7 +15,7 @@ one:
   card_expiration: 08/17
   cvv: "098"
   zipcode: "76549"
-  user_id: 1
+  user: testuser
 
 two:
   status: complete
@@ -38,17 +38,6 @@ no_user:
   cvv: "435"
   zipcode: "23489"
   user_id:
-
-default_status:
-  status:
-  email: rainbowhoney@yahoo.com
-  billing_name: Ada Lovelace
-  address: 11111 University Ave 95125
-  card_number: "2123338457430998498"
-  card_expiration: 11/19
-  cvv: "364"
-  zipcode: "95125"
-  user_id: 1
 
 # invalid data
 missing_email:
