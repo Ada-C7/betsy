@@ -14,12 +14,11 @@ class OrdersController < ApplicationController
       redirect_to cart_path
     else
       flash.now[:failure] = "Could not add item"
-      render :back
+      render :back, status: :bad_request
     end
   end
 
-  def checkout
-    order = current_order
-
-  end
+  # def checkout
+  #   order = current_order
+  # end
 end
