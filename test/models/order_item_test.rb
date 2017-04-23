@@ -24,6 +24,15 @@ describe OrderItem do
       order_item.errors.messages.must_include :quantity
     end
 
+    it "Cannot create an OrderItem with non-numeric quantity" do
+      order_item.order = orders(:two)
+      order_item.product = products(:famjams)
+      order_item.quantity = "fifteen"
+
+      order_item.valid?.must_equal false
+      order_item.errors.messages.must_include :quantity
+    end
+
     it "Cannot create an OrderItem without an order" do
       item = order_items(:missing_order)
       item.valid?.must_equal false
