@@ -162,24 +162,24 @@ describe Order do
       end
     end
 
-    describe "relations" do
-      it "has a user" do
-        order = orders(:one)
-        order.user.must_equal users(:testuser)
-      end
+  describe "relations" do
+    it "has a user" do
+      order = orders(:one)
+      order.user.must_equal users(:testuser)
+    end
 
-      it 'Can set the user through "user"' do
-        order = orders(:one)
-        order.user = users(:testuser)
+    it 'Can set the user through "user"' do
+      order = orders(:one)
+      order.user = users(:testuser)
 
-        order.user_id.must_equal users(:testuser).id
-      end
+      order.user_id.must_equal users(:testuser).id
+    end
 
-      it 'Can set the user through "user_id"' do
-        order = orders(:two)
-        order.user_id = users(:testuser).id
+    it 'Can set the user through "user_id"' do
+      order = orders(:two)
+      order.user_id = users(:testuser).id
 
-        order.user.must_equal users(:testuser)
-      end
+      order.user.must_equal users(:testuser)
+    end
   end
 end
