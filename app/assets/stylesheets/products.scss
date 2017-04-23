@@ -3,22 +3,41 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .row {
-  text-align: center;
+  // text-align: center;
 }
 
 .delete {
   background: red;
 }
 
-.image {
-  height: 200px;
-  padding: 1.5rem;
+.image_index {
+  max-height: 10rem;
 }
 
 .button {
   border-radius: 0.5rem;
 }
 
-.description {
+.buy {
+  background-color: lightgreen;
+}
+
+.buy:hover {
+  background-color: green;
+}
+
+.review_section {
+  border-top: 0.05rem solid lightgrey;
+  border-right: 0.15rem solid lightgrey;
+  border-left: 0.15rem solid lightgrey;
+  border-bottom: 0.05rem solid lightgrey;
+}
+
+h3.products {
   padding: 2rem;
+}
+
+.product {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
