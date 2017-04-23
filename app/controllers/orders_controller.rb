@@ -18,6 +18,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  # def complete_order
-  # end
+  def checkout
+    order = current_order
+
+  end
 end

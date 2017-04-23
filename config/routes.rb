@@ -16,6 +16,6 @@ Rails.application.routes.draw do
   end
 
   get '/cart', to: 'orders#cart', as: 'cart'
+  get '/checkout', to: 'orders#checkout', as: 'checkout'
   # post 'product/:id/add_item', to: 'orders#add_item', as: 'add_item'
-
 end

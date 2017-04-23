@@ -28,7 +28,7 @@
     <%= image_tag(product.image, alt: "Product Image", class: "thumbnail")%>
     <h5><%= product.name %></h5>
     <p><%= product.price %></p>
-    <%= link_to "Buy", product_add_item_path(product.id), method: :post, class: "button" %>
+    <%= link_to "Add to Cart", product_add_item_path(product.id), method: :post, class: "button" %>
   </div>
   <% end %>
 </div>
