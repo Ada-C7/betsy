@@ -32,7 +32,7 @@ describe Order do
       order.valid?.must_equal false
     end
 
-    it "will note createa new instance unless given a 16 digit cc" do
+    it "will not create new instance unless given a 16 digit cc" do
       order.customer_name = "cynthia"
       order.customer_address = "123 First St."
       order.customer_email = "cyn@gmail.com"

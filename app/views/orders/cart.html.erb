@@ -1,12 +1,14 @@
 <h1>Cart</h1>
 
 <h2> Products: </h2>
-<% @products.each do |product_order| %>
-  <% product = Product.find(product_order.products_id) %>
-  <ul>
-    <li> <%= product.name %> </li>
-    <li> <%= product.price %> </li>
-  </ul>
+<% if !@products.nil? %>
+  <% @products.each do |product_order| %>
+    <% product = Product.find(product_order.products_id) %>
+    <ul>
+      <li> <%= product.name %> </li>
+      <li> <%= product.price %> </li>
+    </ul>
+  <% end %>
 <% end %>
 
 <%= link_to "Proceed to checkout", checkout_path, method: :get, class: 'button' %>
