@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   end
 
   def cart
-    @products = Productorder.where(orders_id: session[:order_id])
+    @products = Productorder.where(order_id: session[:order_id])
   end
 
   def add_item

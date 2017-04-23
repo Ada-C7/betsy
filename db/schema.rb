@@ -37,13 +37,13 @@ ActiveRecord::Schema.define(version: 20170421163758) do
   end
 
   create_table "productorders", force: :cascade do |t|
-    t.integer  "products_id"
-    t.integer  "orders_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "product_id"
+    t.integer  "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "quantity"
-    t.index ["orders_id"], name: "index_productorders_on_orders_id", using: :btree
-    t.index ["products_id"], name: "index_productorders_on_products_id", using: :btree
+    t.index ["order_id"], name: "index_productorders_on_order_id", using: :btree
+    t.index ["product_id"], name: "index_productorders_on_product_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|

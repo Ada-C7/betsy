@@ -9,8 +9,8 @@ describe OrdersController do
       order = Order.new
       product = products(:product1)
       order_product = Productorder.new
-      order_product.products_id = product.id
-      order_product.orders_id = order.id
+      order_product.product_id = product.id
+      order_product.order_id = order.id
       order_product.save
     end
 
