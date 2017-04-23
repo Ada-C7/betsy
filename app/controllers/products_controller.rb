@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
 
+
   def root
     @products = Product.all
   end
@@ -31,6 +32,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    @login_user = Product.find_by(id: 1).merchant # Must be removed when right code for @login_user is added to the ApplicationController
   end
 
-end
+end # END of class ProductsController
