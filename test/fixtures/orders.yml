@@ -4,8 +4,115 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+
+# valid data
+one:
+  status: paid
+  email: archer@gmail.com
+  billing_name: Sterling Archer
+  address: 1234 Main Ave NE 78932
+  card_number: "21233384574309"
+  card_expiration: 08/17
+  cvv: "098"
+  zipcode: "76549"
+  user: one
+
+two:
+  status: complete
+  email: banana@hotmil.com
+  billing_name: Grace Hopper
+  address: 7897 Long rd 20932
+  card_number: "21233384574309984"
+  card_expiration: 12/20
+  cvv: "382"
+  zipcode: "20932"
+  user_id: 1
+
+no_user:
+  status: cancelled
+  email: 123sparkles@gmail.com
+  billing_name: Hercules Poirot
+  address: 7438 Valley View 23489
+  card_number: "21233384574309984"
+  card_expiration: 10/19
+  cvv: "435"
+  zipcode: "23489"
+  user_id:
+
+# invalid data
+missing_email:
+  status:
+  email:
+  billing_name: Test Tester
+  address: 12345 Testing Ave 09876
+  card_number: "1234567890123456"
+  card_expiration: 10/18
+  cvv: "123"
+  zipcode: "12345"
+  user_id:
+
+missing_billing_name:
+  status:
+  email: test@test.com
+  billing_name:
+  address: 12345 Testing Ave 09876
+  card_number: "1234567890123456"
+  card_expiration: 10/18
+  cvv: "123"
+  zipcode: "12345"
+  user_id:
+
+missing_address:
+  status:
+  email: test@test.com
+  billing_name: Test Tester
+  address:
+  card_number: "1234567890123456"
+  card_expiration: 10/18
+  cvv: "123"
+  zipcode: "12345"
+  user_id:
+
+missing_card_num:
+  status:
+  email: test@test.com
+  billing_name: Test Tester
+  address: 12345 Testing Ave 09876
+  card_number:
+  card_expiration: 10/18
+  cvv: "123"
+  zipcode: "12345"
+  user_id:
+
+missing_card_exp:
+  status:
+  email: test@test.com
+  billing_name: Test Tester
+  address: 12345 Testing Ave 09876
+  card_number: "1234567890123456"
+  card_expiration:
+  cvv: "123"
+  zipcode: "12345"
+  user_id:
+
+missing_cvv:
+  status:
+  email: test@test.com
+  billing_name: Test Tester
+  address: 12345 Testing Ave 09876
+  card_number: "1234567890123456"
+  card_expiration: 10/18
+  cvv:
+  zipcode: "12345"
+  user_id:
+
+missing_zip:
+  status:
+  email: test@test.com
+  billing_name: Test Tester
+  address: 12345 Testing Ave 09876
+  card_number: "1234567890123456"
+  card_expiration: 10/18
+  cvv: "123"
+  zipcode:
+  user_id:

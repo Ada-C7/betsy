@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe User do
-
   it "doesn't allow a user without a username" do
     user = User.new
     user.valid?.must_equal false
@@ -27,5 +26,4 @@ describe User do
 
     duplicate.valid?.must_equal false
   end
-
 end

@@ -64,7 +64,6 @@ describe "validations" do
   it "is invalid without a user" do
     # products(:nouser)
   end
-
 end
 
 
