@@ -102,7 +102,7 @@ describe Order do
       end
 
       it "Cannot create an order if zipcode is too short" do
-        orders = order(:one)
+        order = orders(:one)
         order.zipcode ="1234"
 
         order.valid?.must_equal false
@@ -110,7 +110,7 @@ describe Order do
       end
 
       it "Cannot create an order if zipcode is too long" do
-        order = order(:two)
+        order = orders(:two)
         order.zipcode ="123456"
 
         order.valid?.must_equal false
