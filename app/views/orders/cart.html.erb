@@ -13,4 +13,7 @@
   <% end %>
 <% end %>
 
-<%= link_to "Proceed to checkout", checkout_path, method: :get, class: 'button' %>
+<nav>
+  <%= link_to "Continue Shopping", products_path, class: "button" %>
+  <%= link_to "Proceed to checkout", checkout_path, method: :get, class: 'button' %>
+</nav>

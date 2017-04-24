@@ -3,35 +3,14 @@
 
   <article>
     <h2>Total</h2>
-
   </article>
 
   <article>
-    <h2>Enter Your Information</h2>
-    <%= form_for @order do |f| %>
-      <%= f.label :full_name %>
-      <%= f.text_field :customer_name %>
-
-      <%= f.label :email %>
-      <%= f.text_field :customer_email %>
-
-      <%= f.label :street_address %>
-      <%= f.text_field :customer_address %>
-
-      <%= f.label :city %>
-      <%= f.text_field :customer_city %>
-
-      <%= f.label :zipcode %>
-      <%= f.text_field :customer_zipcode %>
-
-      <%= f.label :state %>
-      <%= f.text_field :customer_state%>
-
-      <%= f.label :Credit_card_number%>
-      <%= f.text_field :customer_cc_info %>
-
-      <%= f.submit value: "Buy", class: 'button' %>
-    <% end %>
+    <%= render partial: "form" %>
   </article>
+
+  <nav>
+    <%= link_to "Continue Shopping", products_path, class: "button" %>
+  </nav>
 
 </section>
