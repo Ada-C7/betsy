@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     if order.nil?
       raise
     end
-
+    # check products for availablity - decrease quanitity here?
     product_order = Productorder.add_product(params[:product_id], session[:order_id] )
 
     if product_order.valid?
@@ -27,6 +27,7 @@ class OrdersController < ApplicationController
   # edit
   def checkout
     @order = current_order
+    @products = Productorder.where(order_id: session[:order_id])
   end
 
   # buy method
@@ -37,7 +38,8 @@ class OrdersController < ApplicationController
     # @order.validate_user_info(params)
     @order.update_attributes(order_params)
 
-    #need to decrease product quantityfor all products
+    #need to decrease product quantity for all products
+    # loop through products and call product class method on each to decrease
 
     if @order.valid?
       @order.status = "paid"
@@ -60,6 +62,4 @@ private
                                           :customer_state,
                                           :customer_cc_info)
   end
-
-# strong params
 end

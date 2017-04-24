@@ -45,13 +45,3 @@ describe Order do
     # end
   end
 end
-
-
-
-
-# columns in db
-# t.string :customer_name
-# t.string :customer_address
-# t.string :customer_email
-# t.string :customer_cc_info
-# t.string :status

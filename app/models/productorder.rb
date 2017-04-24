@@ -8,6 +8,6 @@ class Productorder < ApplicationRecord
     product_order.product_id = product_id
     product_order.order_id = order_id
     product_order.quantity = 1
-    return product_order if product_order.valid?
+    return product_order
   end
 end

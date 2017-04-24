@@ -20,9 +20,6 @@ Rails.application.routes.draw do
   get '/cart', to: 'orders#cart', as: 'cart'
   # order#edit form
   get '/checkout', to: 'orders#checkout', as: 'checkout'
-  # order # update
-
-  # patch '/checkout', to: 'orders#buy', as: 'order_path'
   resources :orders, only: [:update]
 
 

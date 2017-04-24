@@ -41,16 +41,17 @@ describe OrdersController do
       must_redirect_to cart_path
     end
 
-    # it 'will not add a product if there is an error' do
-    #   p id = @product.id + 1
-    #   p Productorder.all
-    #   p before_count = Productorder.count
-    #   post product_add_item_path(id)
-    #   p after_count = Productorder.count
-    #   p Productorder.all
-    #   after_count.must_equal before_count
-    #   # must_respond_with :bad_request
-    # end
+    it 'will not add a product if there is an error' do
+      id = @product.id + 1
+      p  Product.find(id)
+      p Productorder.all
+      p before_count = Productorder.count
+      post product_add_item_path(id)
+      p after_count = Productorder.count
+      p Productorder.all
+      after_count.must_equal before_count
+      # must_respond_with :bad_request
+    end
   end
 
   describe 'checkout' do
