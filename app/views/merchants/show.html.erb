@@ -2,6 +2,7 @@
 
 <% if @login_merchant.nil? || @login_merchant.id != @merchant.id %>
 <!-- Logged out -->
+<div class="row small-up-1 medium-up-2 large-up-4">
   <% @merchant.products.each do |product| %>
   <div class="column">
     <%=image_tag(product.image, alt: "Product Image", class: "thumbnail")%>
@@ -10,6 +11,7 @@
     <a href="#" class="button expanded">Buy</a>
   </div>
   <% end %>
+</div>
 
 <% elsif @login_merchant.present? && @login_merchant.id == @merchant.id %>
 <!-- Logged in -->
