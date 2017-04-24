@@ -1,1 +1,23 @@
+<section>
 <h1>Checkout</h1>
+
+  <article>
+    <h2>Enter Your Information</h2>
+    <%= form_for @order do |f| %>
+      <%= f.label :customer_name %>
+      <%= f.text_field :customer_name %>
+
+      <%= f.label :customer_address %>
+      <%= f.text_field :customer_address %>
+
+      <%= f.label :customer_email %>
+      <%= f.text_field :customer_email %>
+
+      <%= f.label :customer_cc_info %>
+      <%= f.text_field :customer_cc_info %>
+
+      <%= f.submit value: "Buy", class: 'button' %>
+    <% end %>
+  </article>
+
+</section>

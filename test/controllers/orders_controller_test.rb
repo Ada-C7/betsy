@@ -41,16 +41,35 @@ describe OrdersController do
       must_redirect_to cart_path
     end
 
-    it 'will not add a product if there is an error' do
-      p id = @product.id + 1
-      p Productorder.all
-      p before_count = Productorder.count
-      post product_add_item_path(id)
-      p after_count = Productorder.count
-      p Productorder.all
-      after_count.must_equal before_count
+    # it 'will not add a product if there is an error' do
+    #   p id = @product.id + 1
+    #   p Productorder.all
+    #   p before_count = Productorder.count
+    #   post product_add_item_path(id)
+    #   p after_count = Productorder.count
+    #   p Productorder.all
+    #   after_count.must_equal before_count
+    #   # must_respond_with :bad_request
+    # end
+  end
 
-      # must_respond_with :bad_request
+  describe 'checkout' do
+
+    it 'sets current_order status to paid if given payment' do
+
     end
+
+    it 'saves the order in the db if given good payment' do
+      # or should the order be saved and this will update the order...
+    end
+
+    it 'returns error messages if given bad payment info' do
+
+    end
+
+    it 'resets the order session if payment is good' do
+
+    end
+
   end
 end

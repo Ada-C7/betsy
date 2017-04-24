@@ -8,14 +8,22 @@ Rails.application.routes.draw do
   # post '/login', to: 'merchants#login'
   # post '/logout', to: 'merchants#logout', as: 'logout'
 
-  resources :products
+  # resources :products
   resources :reviews
 
   resources :products do
     post '/add_item', to: 'orders#add_item'
   end
-
-  get '/cart', to: 'orders#cart', as: 'cart'
-  get '/checkout', to: 'orders#checkout', as: 'checkout'
   # post 'product/:id/add_item', to: 'orders#add_item', as: 'add_item'
+
+  # order#show page
+  get '/cart', to: 'orders#cart', as: 'cart'
+  # order#edit form
+  get '/checkout', to: 'orders#checkout', as: 'checkout'
+  # order # update
+
+  # patch '/checkout', to: 'orders#buy', as: 'order_path'
+  resources :orders, only: [:update]
+
+
 end

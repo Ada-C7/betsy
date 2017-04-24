@@ -1,13 +1,16 @@
 class OrdersController < ApplicationController
-  def new
-  end
 
   def cart
     @products = Productorder.where(order_id: session[:order_id])
   end
-
+  # new
   def add_item
     order = current_order
+
+    if order.nil?
+      raise
+    end
+
     product_order = Productorder.add_product(params[:product_id], session[:order_id] )
     if product_order.valid?
       product_order.save
@@ -18,7 +21,16 @@ class OrdersController < ApplicationController
     end
   end
 
-  # def checkout
-  #   order = current_order
-  # end
+  # edit
+  def checkout
+    @order = current_order
+  end
+
+  # buy method
+  def update
+  end
+
+private
+
+# strong params
 end

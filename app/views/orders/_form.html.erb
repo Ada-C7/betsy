@@ -1,0 +1,33 @@
+<% if @order.errors.messages.length > 0 %>
+<section class="errors">
+  <h2>Something went wrong!</h2>
+  <ul>
+    <% @order.errors.messages.each do |field, problem_list| %>
+      <% problem_list.each do |problem| %>
+        <li>
+          <strong><%= field %>:</strong>
+          <%= problem %>
+        </li>
+        <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>
+
+<section>
+<%= form_for @order do |f| %>
+  <%= f.label :customer_name %>
+  <%= f.text_field :customer_name %>
+
+  <%= f.label :customer_address %>
+  <%= f.text_field :customer_address %>
+
+  <%= f.label :customer_email %>
+  <%= f.text_field :customer_email %>
+
+  <%= f.label :customer_cc_info %>
+  <%= f.text_field :customer_cc_info %>
+
+  <%= f.submit value: "Buy", class: 'button' %>
+<% end %>
+</section>
