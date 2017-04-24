@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#logout"
 
   resources :categories do
-    get "/products", to: "products#index"
+    get "/products", to: "products#homepage"
   end
 
-  resources :products
+  resources :products, except: :index
   resources :users
   resources :orders
 
