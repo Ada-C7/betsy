@@ -20,9 +20,9 @@ Rails.application.routes.draw do
   get '/cart', to: 'orders#cart', as: 'cart'
   # order#edit form
   get '/checkout', to: 'orders#checkout', as: 'checkout'
-  patch '/checkout', to: 'orders#update_quantity', as: 'qty_update'
+  patch '/checkout/:id', to: 'orders#update_quantity', as: 'qty_update'
   resources :orders, only: [:update]
-
+  delete '/checkout/:id', to: 'orders#remove_product', as: 'remove_product'
 
 
 end

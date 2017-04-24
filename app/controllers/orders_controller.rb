@@ -64,6 +64,15 @@ class OrdersController < ApplicationController
     redirect_to checkout_path
   end
 
+  def remove_product
+    # order = current_order
+    # product = Product.find_by(id: params[:id])
+    product_order = ProductOrder.find_by(order_id: session[:order_id], product_id: params[:id])
+    product_order.destroy
+    redirect_to checkout_path
+    # raise
+  end
+
 private
   def order_params
     return params.required(:order).permit(:customer_name,
@@ -82,4 +91,8 @@ private
   def get_products
     ProductOrder.where(order_id: session[:order_id])
   end
+
+  # def get_product_order(product_id)
+  #   ProductOrder.find_by(order_id: session[:order_id], product_id: product_id)
+  # end
 end
