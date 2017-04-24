@@ -24,13 +24,13 @@
         </ul>
       </div>
       <div class="top-bar-right">
+        <%= link_to 'Cart', cart_path, class: "button small" %>
         <ul class="menu">
           <% if @current_user %>
           <li><%= link_to "Log Out", "/logout", class: "button small" %></li>
           <% else %>
           <li><%= link_to "Log In", "/auth/github", class: "button small" %></li>
           <% end %>
-          <li><%= link_to 'Cart', cart_path, class: "button small" %></li>
         </ul>
       </div>
     </div>

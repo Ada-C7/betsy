@@ -1,16 +1,51 @@
-<section>
+<nav>
+  <%= link_to "Continue Shopping", products_path, class: "button" %>
+</nav>
+
+<section class="row">
 <h1>Checkout</h1>
 
-  <article>
+  <div class="large-5 columns">
     <h2>Total</h2>
-  </article>
+  </div>
 
-  <article>
+  <div class="large-7 columns">
+    <% if !@products.nil? %>
+      <% @products.each do |product_order| %>
+        <% product = Product.find(product_order.product_id) %>
+        <article>
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Change Quantity</th>
+                <th>Remove From Cart</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th><%= product.name %></th>
+                <th><%= product.price %></th>
+                <th><%= product_order.quantity %></th>
+                <%= form_for product_order, url: qty_update_path(product_order.id), method: :patch do |f| %>
+                <th>
+                    <%= f.hidden_field :product_id %>
+                    <%= f.text_field :quantity %>
+                    <%= f.submit value: "Update Quantity", class: "button" %>
+                </th>
+                  <% end %>
+                <th><%= link_to 'Remove', '#' %></th>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="large-12 columns">
     <%= render partial: "form" %>
-  </article>
-
-  <nav>
-    <%= link_to "Continue Shopping", products_path, class: "button" %>
-  </nav>
-
+  </div>
 </section>

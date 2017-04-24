@@ -2,21 +2,17 @@ class OrdersController < ApplicationController
 
   def cart
     # raise
-    @products = ProductOrder.where(order_id: session[:order_id])
+    @products = get_products
   end
 
   # new
   def add_item
-    order = current_order
+    order = get_order
 
-    if order.nil?
-      raise
-    end
     # check products for availablity - decrease quanitity here?
-    # product_order = Productorder.add_product(params[:product_id], session[:order_id] )
-    product_order = ProductOrder.new
-    product_order.product_id = params[:product_id]
-    product_order.order_id = session[:order_id]
+
+    # a new ProductOrder is created here
+    product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
 
     if product_order.valid?
       product_order.save
@@ -25,24 +21,24 @@ class OrdersController < ApplicationController
       flash[:failure] = "Could not add item"
       redirect_back(fallback_location: root_path)
     end
+
   end
 
   # edit
   def checkout
     @order = current_order
     @products = ProductOrder.where(order_id: session[:order_id])
+    # raise
   end
 
   # buy method
   def update
     @order = current_order
 
-    # how do I validate all the income - need to write my own helper methods..
-    # @order.validate_user_info(params)
+    # how do I validate all the incoming -can validate only on update
     @order.update_attributes(order_params)
 
-    #need to decrease product quantity for all products
-    # loop through products and call product class method on each to decrease
+    #need to decrease product quantity for all products?
 
     if @order.valid?
       @order.status = "paid"
@@ -55,6 +51,19 @@ class OrdersController < ApplicationController
     # raise
   end
 
+  def update_quantity
+
+    update_info = params[:product_order]
+    product_id = update_info[:product_id]
+    quantity = update_info[:quantity]
+    product_order = ProductOrder.find_by(order_id: session[:order_id], product_id: product_id)
+
+    product_order.quantity = quantity
+    product_order.save
+
+    redirect_to checkout_path
+  end
+
 private
   def order_params
     return params.required(:order).permit(:customer_name,
@@ -64,5 +73,13 @@ private
                                           :customer_zipcode,
                                           :customer_state,
                                           :customer_cc_info)
+  end
+
+  def get_order
+    current_order
+  end
+
+  def get_products
+    ProductOrder.where(order_id: session[:order_id])
   end
 end

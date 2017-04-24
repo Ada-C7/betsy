@@ -1,14 +1,27 @@
 <h1>Cart</h1>
 
-<h2> Products: </h2>
 <% if !@products.nil? %>
   <% @products.each do |product_order| %>
     <% product = Product.find(product_order.product_id) %>
     <article>
-      <ul>
-        <li> <%= product.name %> </li>
-        <li> <%= product.price %> </li>
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><%= product.name %></th>
+            <th><%= product.price %></th>
+            <th><%= text_field_tag 'quantity' %></th>
+            <th><%= link_to 'Remove Item', '#' %></th>
+          </tr>
+        </tbody>
+      </table>
     </article>
   <% end %>
 <% end %>
