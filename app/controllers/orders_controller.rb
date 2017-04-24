@@ -46,6 +46,7 @@ class OrdersController < ApplicationController
     # (it is stored there when initial order is created)
     # updating the order also needs to change status from pending to paid and
     # delete the order_id from session
+    # and remove purchased products from the database
     if @order.update(order_params)
       flash[:success] = "Successfully updated order number #{ @order.id } "
       # this should redirect to an order summary view
