@@ -2,30 +2,26 @@
   <h3>Browse Products</h3>
   <table class="product-list">
     <tr>
+      <th>Image</th>
       <th>Name</th>
       <th>Quantity</th>
       <th>Price</th>
-      <th>Description</th>
-      <th>Merchant</th>
     </tr>
     <% @products.each do |product| %>
-    <tr>
-      <td>
-        <%= link_to product.name, product_path(product.id) %>
-      </td>
-      <td>
-        <%= product.quantity %>
-      </td>
-      <td>
-        <%= product.price %>
-      </td>
-      <td>
-        <%= product.description %>
-      </td>
-      <td>
-        <%= product.user.name %>
-      </td>
-    </tr>
+      <tr>
+        <td>
+          <%= link_to image_tag(product.image_url), product_path(product.id) %>
+        </td>
+        <td>
+          <%= link_to product.name, product_path(product.id) %>
+        </td>
+        <td>
+          <%= product.quantity %>
+        </td>
+        <td>
+          <%= product.price %>
+        </td>
+      </tr>
+    <% end %>
   </table>
-  <% end %>
 </section>
