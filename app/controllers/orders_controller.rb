@@ -2,16 +2,9 @@ class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :edit, :update]
 
   def index
-    # lists of all orders belonging to a specific user(merchant)
-    if params[:user_id]
-      # retrieve the orders specific for this user
-      # this will give us all orders belonging to the user specified in the nested route
-      # if we decide to usenested routes for the user accounts
-      @orders = Order.includes(:users).where(users: { id: params[:user_id]})
-    else
-  # normal scenario
+    if session[:order_id]
+      @order_items = OrderItem.includes(:order_id).where(order_id: session[:order_id])
     end
-      @orders = Order.all
   end
 
   def show
@@ -26,10 +19,12 @@ class OrdersController < ApplicationController
       cart = Order.find_by_id(session[:order_id])
     end
 
-    item = OrderItem.where(order_id: session[:order_id], product_id: params[:product_id])
-    item = OrderItem.new(order_id: session[:order_id], product_id: params[:product_id]) if !item
-    item.quantity += 1
-    item.save
+    if OrderItem.where(order_id: session[:order_id], product_id: params[:product_id])
+      item.quantity += 1
+    else
+      item = OrderItem.new(order_id: session[:order_id], product_id: params[:product_id], quantity: 1)
+      item.save
+    end
     redirect_to carts_path
   end
 
