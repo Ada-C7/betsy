@@ -37,8 +37,9 @@ class MerchantsController < ApplicationController
     auth_hash = request.env['omniauth.auth']
 
     # Attempt to find these credentials in out DB
-    merchant = Merchant.find_by(oauth_provider: params[:provider],
+    merchant = Merchant.find_by(oauth_provider: 'github',
                                 oauth_uid: auth_hash["uid"])
+
     if merchant.nil?
       # Don't know this uder - Build a new merchant
       merchant = Merchant.from_github(auth_hash)
