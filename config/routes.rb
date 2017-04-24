@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # post '/logout', to: 'merchants#logout', as: 'logout'
 
   resources :products
+  patch 'products/:id/status', to: 'products#status', as: 'status'
+
   resources :reviews
 
 end
