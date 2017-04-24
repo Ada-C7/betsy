@@ -30,13 +30,19 @@
           <% else %>
           <li><%= link_to "Log In", "/auth/github", class: "button small" %></li>
           <% end %>
-          <li><a href="#">Cart</a></li>
+          <li><%= link_to 'Cart', cart_path, class: "button small" %></li>
         </ul>
       </div>
     </div>
   </header>
 
   <main class="row">
+    <section class="flash row">
+      <% flash.each do |name, message| %>
+        <div class="<%= name %>"><%= message %></div>
+      <% end %>
+    </section>
+
     <%= yield %>
   </main>
 

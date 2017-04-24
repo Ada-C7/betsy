@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
     # raise
     @products = Productorder.where(order_id: session[:order_id])
   end
+
   # new
   def add_item
     order = current_order
@@ -31,8 +32,12 @@ class OrdersController < ApplicationController
   # buy method
   def update
     @order = current_order
+
+    # how do I validate all the income - need to write my own helper methods..
     # @order.validate_user_info(params)
     @order.update_attributes(order_params)
+
+    #need to decrease product quantityfor all products
 
     if @order.valid?
       @order.status = "paid"
@@ -42,6 +47,7 @@ class OrdersController < ApplicationController
       flash[:success] = "Thank you for placing your order"
       redirect_to root_path
     end
+    # raise
   end
 
 private
