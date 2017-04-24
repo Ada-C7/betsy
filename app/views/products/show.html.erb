@@ -1,37 +1,76 @@
-<div class = "row">
-  <%=image_tag(@product.image, alt: "Product image", class: "image")%>
-</div>
 
-<h3 class = "row"> <%= @product.name %> </h3>
-<h4 class = "row">
-  by <%= @product.merchant.username%>
-</h4>
-
-<p class = "row">
-  $ <%= @product.price.to_f%>
-</p>
-
-<div class = "row">
-  <%= link_to "Add to Cart", '#', class: "button"%>
-</div>
-
-<div class = "row">
-  <%= link_to "Edit", '#', class: "button"%>
-  <%= link_to "Change status", '#', class: "button"%>
-  <%= link_to "Remove", '#', class: "button delete"%>
-</div>
-
-<section class = "row description">
-  <%=@product.description%>
+<% if !@login_user.nil? && @login_user == @product.merchant%>
+<h3><%= @product.status_info[1]%></h3>
+<section class = "row large-12 columns ">
+    <%= link_to "Edit", edit_product_path(@product), class: "button"%>
+    <%= link_to @product.status_info[0], status_path(@product), method: :patch, class: "button"%>
 </section>
 
-<h4 class = "row"> Reviews </h4>
-<div class = "row">
-  <%= link_to "Add Reviews", '#', class: "button"%>
-</div>
+<% end %>
+
 
 <section class = "row">
-  <P>
-    Revivievs-holder
-  </P>
+  <div class = "large-3 columns product">
+    <%=image_tag(@product.image, alt: "Product image not available", class: "image")%>
+  </div>
+
+  <div class = "large-4 columns product">
+    <h3> <%= @product.name %> </h3>
+    <h4>by <%= @product.merchant.username%></h4>
+    <p>
+      $ <%= @product.price.to_f%>
+    </p>
+    <p>
+      In store: <%= @product.inventory%> item(s)
+    </p>
+    <div>
+      <%= link_to "Buy", '#', class: "button buy"%>
+    </div>
+  </div>
+
+  <div class = "large-5 columns product">
+    <%=@product.description%>
+  </div>
+
 </section>
+
+<h4 class = "row large-12 columns "> Reviews </h4>
+
+<% if @login_user.nil? || @login_user != @product.merchant%>
+<%if @product.reviews.count > 0%>
+<p>
+  <%= link_to "Review this product!", new_review_path%>
+</p>
+<% else %>
+<p>
+  No reviews! <%= link_to "Be the first to review!", new_review_path%>
+</p>
+<% end %>
+<% end %>
+
+<p>
+  Average rating : <%= @product.average_rating%>
+</p>
+
+
+
+
+<% @product.reviews.order(rating: :desc).each do |review|%>
+<section class = "row review_section">
+  <div class = "large-4 columns">
+    <% if true%>
+    <p>
+      Anonymous gives rating <%=review.rating %>
+    </p>
+    <% else %>
+    <p>
+      Enter login_user here gives rating <%=review.rating %>
+    </p>
+    <% end %>
+  </div>
+  <p class = "large-8 columns">
+    <%=review.review %>
+  </p>
+</section>
+
+<%end%>

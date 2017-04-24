@@ -11,7 +11,7 @@ product1:
   description: Very good
   image:
   inventory: 3
-  status:
+  status: active
   merchant: merchant1
 
 
@@ -22,7 +22,7 @@ product2:
   description: Cheap
   image:
   inventory: 5
-  status:
+  status: active
   merchant: merchant1
 
 product3:
@@ -30,9 +30,9 @@ product3:
   price: 8.50
   category: Cat2
   description: Smells good
-  image:
+  image: active
   inventory: 5
-  status:
+  status: active
   merchant: merchant2
 
 product4:
@@ -42,5 +42,5 @@ product4:
   description: Kind of expensive
   image:
   inventory: 1
-  status:
+  status: active
   merchant: merchant3

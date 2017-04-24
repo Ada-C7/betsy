@@ -7,27 +7,16 @@
 
 merchant1:
   username: UN1
-  first_name: FirstA
-  last_name: LastA
   email: email1@hotmail.com
-  oauth_uid: string1
-  oauth_provider: github
+
 
 merchant2:
   username: UN2
-  first_name: FirstA
-  last_name: LastB
   email: email2@gmail.com
-  oauth_uid: string2
-  oauth_provider: github
 
 merchant3:
   username: UN3
-  first_name: FirstB
-  last_name: LastC
   email: email3@hotmail.com
-  oauth_uid: "string3"
-  oauth_provider: github
 
 one:
   username: cynbin
