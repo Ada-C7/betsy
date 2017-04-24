@@ -1,5 +1,5 @@
 
-<% if !@login_user.nil? && @login_user == @product.merchant%>
+<% if !@login_merchant.nil? && @login_merchant == @product.merchant%>
 <h3><%= @product.status_info[1]%></h3>
 <section class = "row large-12 columns ">
     <%= link_to "Edit", edit_product_path(@product), class: "button"%>
@@ -36,7 +36,7 @@
 
 <h4 class = "row large-12 columns "> Reviews </h4>
 
-<% if @login_user.nil? || @login_user != @product.merchant%>
+<% if @login_merchant.nil? || @login_merchant != @product.merchant%>
 <%if @product.reviews.count > 0%>
 <p>
   <%= link_to "Review this product!", new_review_path%>

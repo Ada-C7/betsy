@@ -1,2 +1,41 @@
 <h1> Merchant: <%= "#{@merchant.username}" %> </h1>
-<%= link_to "Add Product", new_product_path, class: "button" %>
+
+<% if @login_merchant.nil? || @login_merchant.id != @merchant.id %>
+<!-- Logged out -->
+<div class="row small-up-1 medium-up-2 large-up-4">
+  <% if @merchant.products.empty? %>
+    <p><%= "#{@merchant.username}" %> doesn't have any products for sale at this time.</p>
+  <% else %>
+    <% @merchant.products.each do |product| %>
+    <div class="column">
+      <%=image_tag(product.image, alt: "Product Image", class: "thumbnail")%>
+      <h5><%= product.name %></h5>
+      <p><%= product.price %></p>
+      <a href="#" class="button expanded">Buy</a>
+    </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% elsif @login_merchant.present? && @login_merchant.id == @merchant.id %>
+<!-- Logged in -->
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Inventory</th>
+        <th>Status</th>
+      </tr>
+      <% @merchant.products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.category %></td>
+        <td><%= product.price %></td>
+        <td><%= product.inventory %></td>
+        <td><%= product.status %></td>
+      </tr>
+      <% end %>
+    </table>
+  <%= link_to "Add Product", new_product_path, class: "button" %>
+  <% end %>

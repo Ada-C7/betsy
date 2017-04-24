@@ -25,7 +25,7 @@
       </div>
       <div class="top-bar-right">
         <ul class="menu">
-          <% if @current_user %>
+          <% if @login_merchant %>
           <li><%= link_to "Log Out", "/logout", class: "button small" %></li>
           <% else %>
           <li><%= link_to "Log In", "/auth/github", class: "button small" %></li>

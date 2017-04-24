@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :destroy_session_product_id
 
   def root
-    @products = Product.all
+    @products = Product.where(status: "active")
   end
 
   def index
@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.status = "active"
-    @product.merchant_id = @login_user.id
+    @product.merchant_id = @login_merchant.id
     if @product.save
       # flash[:status] = :success
       # flash[:result_text] = "Successfully created #{@product.id}"
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by(id: params[:id])
     session[:product_id] ||= @product.id
-    # @login_user = Product.find_by(id: 1).merchant # Must be removed when right code for @login_user is added to the ApplicationController
+    # @login_merchant = Product.find_by(id: 1).merchant # Must be removed when right code for @login_merchant is added to the ApplicationController
   end
 
   def edit
@@ -63,10 +63,10 @@ class ProductsController < ApplicationController
   end
 
   def find_user
-    @login_user = Product.find_by(id: 1).merchant
-    # if session[:user_id]
-    #   @login_user = User.find_by(id: session[:user_id])
-    # end
+    # @login_merchant = Product.find_by(id: 1).merchant
+    if session[:merchant_id]
+        @login_merchant = Merchant.find_by(id: session[:merchant_id])
+    end
   end
 
   def destroy_session_product_id
