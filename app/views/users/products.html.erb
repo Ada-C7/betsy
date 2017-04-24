@@ -1,0 +1,33 @@
+<%= render partial: "sidebar" %>
+
+<h2>Products</h2>
+<% if @logged_in_user.products.empty? %>
+  <p>You have no active products in the marketplace.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <td>Image</td>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Quantity</td>
+        <td>Price</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @logged_in_user.products.each do |product| %>
+        <tr>
+          <td><%= image_tag(product.image_url, alt: product.name) %></td>
+          <td><%= product.name %></td>
+          <td><%= product.description %></td>
+          <td><%= product.quantity %></td>
+          <td><%= product.price %></td>
+          <td><%= link_to "edit", edit_product_path(product.id) %></td>
+          <td><%= link_to "delete", product_path(product.id), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "New Product", new_product_path %>
