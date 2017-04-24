@@ -13,5 +13,13 @@ Rails.application.routes.draw do
   resources :users
   resources :orders
 
-  get "/account", to: "users#account"
+  get "/merchants", to: "users#index", as: "accounts"
+  get "/account", to: "users#show"
+  patch "/account", to: "users#update"
+  post "/account", to: "users#create"
+  get "/account/new", to: "users#new", as: "new_account"
+  get "/account/edit", to: "users#edit", as: "edit_account"
+  get "/account/products", to: "users#products", as: "account_products"
+  get "/account/orders", to: "users#orders", as: "account_orders"
+
 end

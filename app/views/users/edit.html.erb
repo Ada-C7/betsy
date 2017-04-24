@@ -1,0 +1,15 @@
+<%= render partial: "sidebar" %>
+
+<%= form_for @logged_in_user, as: :user, url: account_path, method: :patch do |f| %>
+
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%= f.label :image_url %>
+  <%= f.text_field :image_url %>
+
+  <%= f.submit "Submit" %>
+<% end %>
