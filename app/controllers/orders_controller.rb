@@ -15,15 +15,15 @@ class OrdersController < ApplicationController
     # check products for availablity - decrease quanitity here?
     # product_order = Productorder.add_product(params[:product_id], session[:order_id] )
     product_order = ProductOrder.new
-    proudct_order.product_id = params[:product_id]
+    product_order.product_id = params[:product_id]
     product_order.order_id = session[:order_id]
 
     if product_order.valid?
       product_order.save
       redirect_to cart_path
     else
-      flash.now[:failure] = "Could not add item"
-      render :back, status: :bad_request
+      flash[:failure] = "Could not add item"
+      redirect_back(fallback_location: root_path)
     end
   end
 
