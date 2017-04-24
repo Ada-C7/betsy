@@ -1,21 +1,20 @@
-<section class = "row">
+<h3 class = "products">List of products</h3>
 
-  <% @products.each do |product|%>
-  <section>
-    <div>
-      <%=image_tag(product.image, alt: "Product image", class: "image")%>
-    </div>
+
+<div class="row small-up-1 medium-up-3 large-up-6">
+  <% @products.each do |product| %>
+
+  <div class="column product_b">
+    <%=link_to image_tag(product.image, alt: "Product Image", class: "thumbnail image_index"),product_path(product)%>
+    <h5><%= product.name %></h5>
     <p>
-      <%= product.name %>
+      $<%= product.price %>
     </p>
     <div>
-      <%=product.description%>
+      <%= link_to "Buy", '#', class: "button buy"%>
     </div>
-  </section>
+    <p><%=product.description%></p>
+  </div>
+
   <% end %>
-
-</section>
-
-<div class = "row">
-  <%= link_to "Add New", new_product_path, class: "button"%>
 </div>

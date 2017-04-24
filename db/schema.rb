@@ -52,8 +52,12 @@ ActiveRecord::Schema.define(version: 20170421163758) do
   end
 
   create_table "reviews", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "rating"
+    t.string   "review"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_reviews_on_product_id", using: :btree
   end
 
 end

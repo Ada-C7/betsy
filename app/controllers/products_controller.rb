@@ -1,11 +1,13 @@
 class ProductsController < ApplicationController
+  before_action :find_user
+  before_action :destroy_session_product_id
 
   def root
     @products = Product.all
   end
 
   def index
-    @products = Product.all
+    @products = Product.where(status: "active")
   end
 
   def new
@@ -13,24 +15,63 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Work.new(media_params)
-    # @product.merchant_id = session[:merchant_id]
-    @product.merchant_id = 1 #Just for tests
+    @product = Product.new(product_params)
+    @product.status = "active"
+    @product.merchant_id = @login_user.id
     if @product.save
       # flash[:status] = :success
       # flash[:result_text] = "Successfully created #{@product.id}"
-      redirect_to
+      redirect_to products_path
     else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not create #{@product.id}"
-      flash[:messages] = @product.errors.messages
-      render :new, status: :bad_request
+      # flash[:status] = :failure
+      # flash[:result_text] = "Could not create #{@product.id}"
+      # flash[:messages] = @product.errors.messages
+      render :new #, status: :bad_request
     end
 
   end
 
   def show
     @product = Product.find_by(id: params[:id])
+    session[:product_id] ||= @product.id
+    # @login_user = Product.find_by(id: 1).merchant # Must be removed when right code for @login_user is added to the ApplicationController
   end
 
-end
+  def edit
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      head :not_found
+    end
+  end
+
+  def update
+    product = Product.find_by(id: params[:id])
+    product.update_attributes(product_params)
+    product.save
+    redirect_to product_path(product)
+  end
+
+  def status
+    product = Product.find_by(id: params[:id])
+    product.status_change
+    redirect_to product_path(product)
+  end
+
+  private
+  def product_params
+    params.require(:product).permit(:name, :price, :inventory, :image, :category, :status, :description)
+  end
+
+  def find_user
+    @login_user = Product.find_by(id: 1).merchant
+    # if session[:user_id]
+    #   @login_user = User.find_by(id: session[:user_id])
+    # end
+  end
+
+  def destroy_session_product_id
+    session.delete(:product_id)
+  end
+
+
+end # END of class ProductsController
