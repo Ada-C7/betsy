@@ -11,7 +11,10 @@ Rails.application.routes.draw do
 
   resources :products, except: :index
   resources :users
-  resources :orders
+  resources :orders, except: [:index, :create, :new, :destroy]
+  post "/orders/:id/add", to: "orders#add", as: "add_item"
+  post "/orders/:id/remove", to: "orders#remove", as: "remove_item"
+  get "/carts", to: "orders#index"
 
   get "/account", to: "users#account"
 end
