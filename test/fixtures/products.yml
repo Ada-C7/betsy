@@ -4,7 +4,7 @@ kidjams:
   price: 15.50
   description: will make your goat 1000x cuter
   image_url: http://cutegoats.com/cutegoatinjams.jpg
-  user: testuser
+  user: one
 
 famjams:
   name: family pajama set
@@ -12,7 +12,7 @@ famjams:
   price: 200.00
   description: jams for the whole fam
   image_url: http://famjams.com/famjam.jpg
-  user: testuser
+  user: one
 
 jamjams:
   name: jam-themed pajama set
@@ -20,7 +20,7 @@ jamjams:
   price: 40.00
   description: jams with pics of jams on them
   image_url: http://jamjams.com/jamjam.jpg
-  user: testuser
+  user: one
 
 hotdamnjams:
   name: hawt pajama set
@@ -28,14 +28,14 @@ hotdamnjams:
   price: 25.30
   description: jams that you go "HOT DAMN! NICE JAMS!"
   image_url: http://hotdamnjams.com/hotdamnjam.jpg
-  user: testuser
+  user: one
 
 noname:
   quantity: 10
   price: 10.0
   description: test
   image_url: test
-  user: testuser
+  user: one
 
 samename1:
   name: copycat
@@ -43,7 +43,7 @@ samename1:
   price: 10.0
   description: test
   image_url: test
-  user: testuser
+  user: one
 
 samename2:
   name: copycat
@@ -51,38 +51,38 @@ samename2:
   price: 10.0
   description: test
   image_url: test
-  user: testuser
+  user: one
 
 noquantity:
   name: test1
   price: 10.0
   description: test
   image_url: test
-  user: testuser
+  user: one
 
 noprice:
   name: test4
   quantity: 10
   description: test
   image_url: test
-  user: testuser
+  user: one
 
 nodesc:
   name: test7
   quantity: 10
   price: 10.0
   image_url: test
-  user: testuser
+  user: one
 
 noimg:
   name: test8
   quantity: 10
   price: 10.0
   description: test
-  user: testuser
+  user: one
 
 nouser:
-  name: test9
+  name: test
   quantity: 10
   price: 10.0
   description: test
