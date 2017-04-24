@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
     # updating the order also needs to change status from pending to paid and
     # delete the order_id from session
     if @order.update(order_params)
-      flash[:success] = "Successfully updated order number #{ @order.id} "
+      flash[:success] = "Successfully updated order number #{ @order.id } "
       # this should redirect to an order summary view
       redirect_to orders_path
     else
