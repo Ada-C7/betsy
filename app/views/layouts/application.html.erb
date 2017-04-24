@@ -11,7 +11,7 @@
   <body>
     <header>
       <% if @logged_in_user %>
-        <p>Logged in as <%= @logged_in_user.username %></p>
+        <p>Logged in as <%= link_to @logged_in_user.username, account_path %></p>
         <%= link_to "Log Out", logout_path, method: :delete %>
       <% else %>
         <%= link_to "Log In", "/auth/github" %>
