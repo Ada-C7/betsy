@@ -43,3 +43,11 @@ orders.each do |order|
 end
 
 puts "#{success_count} out of #{orders.length} successfully added"
+
+Category.create(name: 'Adult')
+Category.create(name: 'Kids')
+
+Product.all.each do |product|
+  product.categories << Category.find_by_id(rand(1..2))
+  product.save
+end

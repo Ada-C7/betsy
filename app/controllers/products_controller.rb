@@ -5,15 +5,11 @@ class ProductsController < ApplicationController
   def homepage
     if params[:category_id]
       @products = Product.includes(:categories).where(categories: {id: params[:category_id]})
-      # do it this way?
-      # elsif products belong to users
-      # @products = Product.where(user_id: params[:user_id])
+    elsif params[:user_id]
+      @products = Product.where(user_id: params[:user_id])
     else
       @products = Product.all
     end
-    # products_by_categories =
-    # products_by_users =
-    # spotlight products
   end
 
   def show; end
@@ -52,7 +48,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit( :user_id, :name, :quantity, :price, :description, :image_url )
+    params.require(:product).permit( :user_id, :name, :quantity, :price, :description, :image_url, :category_id )
   end
 
   def find_product
