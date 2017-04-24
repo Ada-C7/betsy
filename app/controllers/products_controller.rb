@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :destroy_session_product_id
 
   def root
-    @products = Product.all
+    @products = Product.where(status: "active")
   end
 
   def index

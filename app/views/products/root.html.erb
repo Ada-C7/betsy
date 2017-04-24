@@ -8,7 +8,7 @@
   <div class="column">
     <%=image_tag(product.image, alt: "Product Image", class: "thumbnail")%>
     <h5><%= product.name %></h5>
-    <p><%= product.price %></p>
+    <p>$<%= product.price %></p>
     <a href="#" class="button expanded">Buy</a>
   </div>
   <% end %>
