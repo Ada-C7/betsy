@@ -41,7 +41,7 @@ no_user:
 
 # invalid data
 missing_email:
-  status:
+  status: paid
   email:
   billing_name: Test Tester
   address: 12345 Testing Ave 09876
@@ -52,7 +52,7 @@ missing_email:
   user_id:
 
 missing_billing_name:
-  status:
+  status: paid
   email: test@test.com
   billing_name:
   address: 12345 Testing Ave 09876
@@ -63,7 +63,7 @@ missing_billing_name:
   user_id:
 
 missing_address:
-  status:
+  status: paid
   email: test@test.com
   billing_name: Test Tester
   address:
@@ -74,7 +74,7 @@ missing_address:
   user_id:
 
 missing_card_num:
-  status:
+  status: paid
   email: test@test.com
   billing_name: Test Tester
   address: 12345 Testing Ave 09876
@@ -85,7 +85,7 @@ missing_card_num:
   user_id:
 
 missing_card_exp:
-  status:
+  status: paid
   email: test@test.com
   billing_name: Test Tester
   address: 12345 Testing Ave 09876
@@ -96,7 +96,7 @@ missing_card_exp:
   user_id:
 
 missing_cvv:
-  status:
+  status: paid
   email: test@test.com
   billing_name: Test Tester
   address: 12345 Testing Ave 09876
@@ -107,7 +107,7 @@ missing_cvv:
   user_id:
 
 missing_zip:
-  status:
+  status: paid
   email: test@test.com
   billing_name: Test Tester
   address: 12345 Testing Ave 09876
