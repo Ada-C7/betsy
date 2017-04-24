@@ -1,6 +1,6 @@
 <h1> Merchant: <%= "#{@merchant.username}" %> </h1>
 
-<% if @login_merchant.nil? %>
+<% if @login_merchant.nil? || @login_merchant.id != @merchant.id %>
 <!-- Logged out -->
   <% @merchant.products.each do |product| %>
   <div class="column">
@@ -11,7 +11,7 @@
   </div>
   <% end %>
 
-<% elsif @login_merchant.present? %>
+<% elsif @login_merchant.present? && @login_merchant.id == @merchant.id %>
 <!-- Logged in -->
   <table>
     <tr>
@@ -32,4 +32,4 @@
     <% end %>
   </table>
   <%= link_to "Add Product", new_product_path, class: "button" %>
-  <% end %> 
+  <% end %>
