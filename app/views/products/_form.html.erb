@@ -1,0 +1,43 @@
+<section class="form">
+  <% if @product.errors.any? %>
+  <ul class="error">
+    <% @product.errors.each do |field, msg| %>
+    <li>
+      Oops! <strong><%= field.capitalize %></strong> <%= msg %>
+    </li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <%= form_for @product do |f| %>
+  <ul>
+    <% if find_user != nil %>
+    <%= f.hidden_field :user_id, value: find_user.id %>
+    <% end %>
+    <li>
+      <%= f.label :name, "Name: " %>
+      <%= f.text_field :name %>
+    </li>
+    <li>
+      <%= f.label :quantity, "Quantity: " %>
+      <%= f.text_field :quantity %>
+    </li>
+    <li>
+      <%= f.label :price, "Price: " %>
+      <%= f.text_field :price %>
+    </li>
+    <li>
+      <%= f.label :description %>
+      <%= f.text_area :description, size: "30x12" %>
+    </li>
+    <li>
+      <%= f.label :image_url, "Image URL: " %>
+      <%= f.text_field :image_url %>
+    </li>
+    <li>
+      <%= f.submit %>
+    </li>
+  </ul>
+  <% end %>
+  <%= button_to "Cancel", :root, method: :get %>
+</section>
