@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 
   def cart
     # raise
-    @products = Productorder.where(order_id: session[:order_id])
+    @products = ProductOrder.where(order_id: session[:order_id])
   end
 
   # new
@@ -13,7 +13,10 @@ class OrdersController < ApplicationController
       raise
     end
     # check products for availablity - decrease quanitity here?
-    product_order = Productorder.add_product(params[:product_id], session[:order_id] )
+    # product_order = Productorder.add_product(params[:product_id], session[:order_id] )
+    product_order = ProductOrder.new
+    proudct_order.product_id = params[:product_id]
+    product_order.order_id = session[:order_id]
 
     if product_order.valid?
       product_order.save
@@ -27,7 +30,7 @@ class OrdersController < ApplicationController
   # edit
   def checkout
     @order = current_order
-    @products = Productorder.where(order_id: session[:order_id])
+    @products = ProductOrder.where(order_id: session[:order_id])
   end
 
   # buy method

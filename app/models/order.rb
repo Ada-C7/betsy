@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
-  has_many :productorders
-  has_many :products, through: :productorders
-  has_and_belongs_to_many :products
+  has_many :product_orders
+  # has_many :products, through: :product_orders
+  # has_and_belongs_to_many :products
 
   validates :customer_name, presence: true, on: :update
   validates :customer_address, presence: true, on: :update
