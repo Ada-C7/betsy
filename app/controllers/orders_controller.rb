@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
 
   # buy method
   def update
+    validate_user_info(params)
   end
 
 private
