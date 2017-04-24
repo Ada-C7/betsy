@@ -14,22 +14,24 @@ class OrdersController < ApplicationController
       @orders = Order.all
   end
 
-  # def new
-  # end
-
   def show
     render_404 if !@order
   end
 
-  # def create
-  #   # we don't create, because the order already exists, but we update
-  #   @order = Order.create order_params
-  #   if @order.id != nil
-  #     redirect_to orders_path
-  #   else
-  #     render "new"
-  #   end
-  # end
+  def add
+    if !session[:order_id]
+      cart = Order.new
+      session[:order_id] = cart.id
+    else
+      cart = Order.find_by_id(session[:order_id])
+    end
+
+    item = OrderItem.where(order_id: session[:order_id], product_id: params[:product_id])
+    item = OrderItem.new(order_id: session[:order_id], product_id: params[:product_id]) if !item
+    item.quantity += 1
+    item.save
+    redirect_to carts_path
+  end
 
   def edit
     # instead of creating new order I will look up the existing order
