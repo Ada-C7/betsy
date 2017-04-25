@@ -23,12 +23,9 @@ class ProductsController < ApplicationController
     @product = Product.create(product_params)
     if @product.save
       flash[:status] = :success
-      flash[:result_text] = "Successfully added product"
       redirect_to :root
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not add product"
-      flash.now[:messages] = @product.errors.messages
       render :new, status: :bad_request
     end
   end
@@ -39,12 +36,9 @@ class ProductsController < ApplicationController
     @product.update(product_params)
     if @product.save
       flash[:status] = :success
-      flash[:result_text] = "Successfully updated product"
       redirect_to :root
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not update product"
-      flash.now[:messages] = @product.errors.messages
       render :new, status: :bad_request
     end
   end

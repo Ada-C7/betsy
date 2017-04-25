@@ -12,12 +12,9 @@ class CategoriesController < ApplicationController
     @category = Category.create(name: params[:category][:name])
     if @category.save
       flash[:status] = :success
-      flash[:result_text] = "Successfully added category"
       redirect_to :root
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not uadd category"
-      flash.now[:messages] = @category.errors.messages
       render :new, status: :bad_request
     end
   end

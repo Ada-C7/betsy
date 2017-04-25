@@ -26,7 +26,7 @@ describe ProductsController do
     end
 
     it "successful when routed through a merchant" do
-      get homepage_path(User.first)
+      get user_products_path(User.first)
       must_respond_with :success
     end
   end
