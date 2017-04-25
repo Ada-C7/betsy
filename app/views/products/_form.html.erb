@@ -10,34 +10,31 @@
   <% end %>
 
   <%= form_for @product do |f| %>
-  <ul>
-    <% if find_user != nil %>
-    <%= f.hidden_field :user_id, value: find_user.id %>
-    <% end %>
-    <li>
-      <%= f.label :name, "Name: " %>
-      <%= f.text_field :name %>
-    </li>
-    <li>
-      <%= f.label :quantity, "Quantity: " %>
-      <%= f.text_field :quantity %>
-    </li>
-    <li>
-      <%= f.label :price, "Price: " %>
-      <%= f.text_field :price %>
-    </li>
-    <li>
-      <%= f.label :description %>
-      <%= f.text_area :description, size: "30x12" %>
-    </li>
-    <li>
-      <%= f.label :image_url, "Image URL: " %>
-      <%= f.text_field :image_url %>
-    </li>
-    <li>
-      <%= f.submit %>
-    </li>
-  </ul>
+  <% if find_user %>
+  <%= f.hidden_field :user_id, value: find_user.id %>
+  <% end %>
+
+  <%= f.label :name, "Name: " %>
+  <%= f.text_field :name %>
+
+  <%= f.label :quantity, "Quantity: " %>
+  <%= f.text_field :quantity %>
+
+  <%= f.label :price, "Price: " %>
+  <%= f.text_field :price %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "30x12" %>
+  
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |m| %>
+  <%= m.check_box %> <%= m.label %>
+  <% end %>
+
+  <%= f.label :image_url, "Image URL: " %>
+  <%= f.text_field :image_url %>
+
+  <%= f.submit %>
+
   <% end %>
   <%= button_to "Cancel", :root, method: :get %>
 </section>

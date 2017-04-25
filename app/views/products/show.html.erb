@@ -1,7 +1,8 @@
 <section class="all-products">
-  <h3>All Products</h3>
+  <h3>Product Page</h3>
   <table class="product-list">
     <tr>
+      <th>Image</th>
       <th>Name</th>
       <th>Quantity</th>
       <th>Price</th>
@@ -10,13 +11,16 @@
     </tr>
     <tr>
       <td>
-        <%= link_to @product.name, product_path(@product.id) %>
+        <%= link_to image_tag(@product.image_url), product_path(@product.id) %>
+      </td>
+      <td>
+        <%= @product.name %>
       </td>
       <td>
         <%= @product.quantity %>
       </td>
       <td>
-        <%= @product.price %>
+        <%= sprintf('%.2f', @product.price) %>
       </td>
       <td>
         <%= @product.description %>

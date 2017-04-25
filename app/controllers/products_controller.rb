@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
     @product = Product.create(product_params)
     if @product.save
       flash[:success] = "New product added"
-      redirect_to products_path
+      redirect_to :root
     else
       flash.now[:error] = "Failed to add product"
       render "new"
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
   def update
     @product.update(product_params)
     if @product.save
-      redirect_to products_path
+      redirect_to :root
     else
       render :edit
     end
@@ -42,13 +42,13 @@ class ProductsController < ApplicationController
 
   def destroy
     Product.destroy(params[:id])
-    redirect_to products_path
+    redirect_to :root
   end
 
   private
 
   def product_params
-    params.require(:product).permit( :user_id, :name, :quantity, :price, :description, :image_url, :category_id )
+    params.require(:product).permit( :user_id, :name, :quantity, :price, :description, :image_url, :category_id, category_ids:[])
   end
 
   def find_product
