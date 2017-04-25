@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @order_items = OrderItem.where(product: @logged_in_user.products)
+    @order_items = @logged_in_user.order_items
     @orders = @order_items.map { |order_item| order_item.order }.uniq
     @orders_by_status = @orders.group_by { |order| order.status }
   end
