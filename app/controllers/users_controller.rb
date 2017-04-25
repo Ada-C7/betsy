@@ -34,7 +34,6 @@ class UsersController < ApplicationController
 
   def orders
     @order_items = @logged_in_user.order_items
-    @orders = @order_items.map { |order_item| order_item.order }.uniq
   end
 
   private

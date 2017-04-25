@@ -1,5 +1,5 @@
 <h2>Orders</h2>
-<% if @orders.empty? %>
+<% if @order_items.empty? %>
   <p>You have no orders.</p>
 <% else %>
   <table>
@@ -12,33 +12,29 @@
         <th>Quantity</th>
         <th>Subtotal</th>
         <th>Item Status</th>
-        <th>Order Total</th>
         <th>Status</th>
       </tr>
     </thead>
     <tbody>
-      <% @orders.each do |order| %>
-        <% order.order_items.each_with_index do |order_item, index| %>
-          <tr>
-            <td><%= link_to(order.id, order_path(order.id)) if index == 0 %></td>
-            <td><%= order.created_at if index == 0 %></td>
-              <% next unless @order_items.include? order_item %>
-              <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
-              <td><%= order_item.product.price %></td>
-              <td><%= order_item.quantity %></td>
-              <td><%= order_item.subtotal %></td>
-              <td>
-                <% if ['shipped', 'cancelled'].include? order_item.status %>
-                  <%= order_item.status.capitalize %>
-                <% else %>
-                  <%= link_to("Mark Shipped") %>&nbsp;&nbsp;
-                  <%= link_to("Cancel") %>
-                <% end %>
-              </td>
-            <td><%= @logged_in_user.order_revenue(order) if index == 0 %></td>
-            <td><%= order.status.capitalize if index == 0 %></td>
-          </tr>
-        <% end %>
+      <% @order_items.each do |order_item| %>
+        <tr>
+          <td><%= link_to(order_item.order.id, order_path(order_item.order.id)) %></td>
+          <td><%= order_item.created_at %></td>
+          <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
+          <td><%= order_item.product.price %></td>
+          <td><%= order_item.quantity %></td>
+          <td><%= order_item.subtotal %></td>
+          <td>
+            <% if ['shipped', 'cancelled'].include? order_item.status %>
+              <%= order_item.status.capitalize %>
+            <% else %>
+              <%= link_to("Mark Shipped") %>&nbsp;&nbsp;
+              <%= link_to("Cancel") %>
+            <% end %>
+          </td>
+          <td><%= order_item.order.status.capitalize %></td>
+        </tr>
+
       <% end %>
     </tbody>
   </table>
