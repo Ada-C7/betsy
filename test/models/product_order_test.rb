@@ -44,16 +44,14 @@ describe ProductOrder do
     before do
       @good_order = orders(:order2)
       @good_product = products(:product1)
-
       # @product_order1 = product_orders(:product_order1)
       # @product_order2 = product_orders(:product_order2)
     end
 
-    it 'instiates a new ProductOrder instance' do
+    it 'instantiates a new ProductOrder instance' do
       output = ProductOrder.add_product( @good_product.id, @good_order.id)
       output.must_be_instance_of ProductOrder
       output.valid?.must_equal true
     end
   end
-
 end
