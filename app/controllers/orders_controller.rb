@@ -26,11 +26,10 @@ class OrdersController < ApplicationController
     # raise
   end
 
-  # buy method
   def update
-    order = current_order
+    # raise
+    order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
-
     #need to decrease product quantity for all products?
     if order.valid?
       order.status = "paid"
@@ -38,8 +37,10 @@ class OrdersController < ApplicationController
       session[:order_id] = nil
       flash[:success] = "Thank you for placing your order"
       redirect_to root_path
+    elsif !order.valid?
+      redirect_back(fallback_location: checkout_path)
     end
-    # raise
+
   end
 
   def update_quantity

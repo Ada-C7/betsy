@@ -5,7 +5,7 @@ describe OrdersController do
   describe 'cart' do
 
     before do
-      ProductOrder.destroy_all
+      # ProductOrder.destroy_all
       order = Order.create
       product = products(:product1)
       order_product = ProductOrder.new
@@ -28,7 +28,6 @@ describe OrdersController do
   end
 
   describe 'add_item' do
-
     setup do
       @product = Product.last
     end
@@ -52,21 +51,47 @@ describe OrdersController do
 
   describe 'checkout' do
 
-    it 'sets current_order status to paid if given payment' do
-
+    it 'returns the checkout page' do
+      get checkout_path
+      must_respond_with :success
     end
 
-    it 'saves the order in the db if given good payment' do
-      # or should the order be saved and this will update the order...
+    it 'return s the checkout page even if there are no products in cart' do
+      ProductOrder.destroy_all
+      get checkout_path
+      must_respond_with :success
+    end
+  end
+
+  describe 'update' do
+
+    before do
+      @order = Order.create
+      @order_data = { order: {
+                            customer_name: "cynthia cobb",
+                            customer_address: "123 st",
+                            customer_email: "cyn@gmail.com",
+                            customer_city: "seattle",
+                            customer_zipcode: "12345",
+                            customer_state: "WA",
+                            customer_cc_info: "1234567890123456",
+                             }
+                    }
     end
 
-    it 'returns error messages if given bad payment info' do
+    it 'updates order if given good data' do
+      patch order_path(@order.id), params: @order_data
 
+      must_respond_with :redirect
+      must_redirect_to root_path
     end
 
-    it 'resets the order session if payment is good' do
-
-    end
-
+    # it 'sets the session order_id to nil' do
+    #
+    # end
+    #
+    # it 'returns error messages if given bad payment info' do
+    #
+    # end
   end
 end
