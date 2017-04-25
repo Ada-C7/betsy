@@ -12,6 +12,7 @@ describe Review do
 
   describe "validations" do
     let (:product) { products(:product1) }
+
     it "requires a rating" do
       review = Review.new(review: "something", product: product)
       review.valid?.must_equal false
