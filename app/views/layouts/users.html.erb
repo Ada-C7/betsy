@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
+    <%= render partial: "header" %>
+
+    <aside class="large-3 medium-4 columns">
+      <h2>Account</h2>
+      <%= image_tag @logged_in_user.image_url, class: "thumbnail" %>
+      <ul class="menu vertical">
+        <li class="menu-text"><%= @logged_in_user.username %></li>
+        <li class="menu-text"><%= @logged_in_user.email %></li>
+        <li><%= link_to "Dashboard", account_path %></li>
+        <li><%= link_to "Edit Profile", edit_account_path %></li>
+        <li><%= link_to "Manage Products", account_products_path %></li>
+        <li><%= link_to "Manage Orders", account_orders_path %></li>
+      </ul>
+    </aside>
+
+    <main class="large-9 medium-8 columns">
+      <%= yield %>
+    </main>
+
+  </body>
