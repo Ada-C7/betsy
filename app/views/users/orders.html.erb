@@ -7,30 +7,36 @@
   <table>
     <thead>
       <tr>
-        <td>Order #</td>
-        <td>Order Item #</td>
-        <td>Customer Name</td>
+        <td>Order</td>
         <td>Product</td>
-        <td>Quantity</td>
         <td>Price</td>
+        <td>Quantity</td>
         <td>Subtotal</td>
-        <td colspan="2">Manage</td>
+        <td>Item Status</td>
+        <td>Status</td>
       </tr>
     </thead>
     <tbody>
       <% @orders.each do |order| %>
-        <% order.order_items.each do |order_item| %>
-          <% next unless @order_items.include? order_item %>
+        <% order.order_items.each_with_index do |order_item, index| %>
           <tr>
-            <td><%= order.id %></td>
-            <td><%= order_item.id %></td>
-            <td><%= order.billing_name %></td>
-            <td><%= order_item.product.name %></td>
-            <td><%= order_item.quantity %></td>
-            <td><%= order_item.product.price %></td>
-            <td><%= order_item.quantity * order_item.product.price %></td>
-            <td><%= link_to "mark shipped" %></td>
-            <td><%= link_to "cancel" %></td>
+            <td><%= link_to(order.id, order_path(order.id)) if index == 0 %></td>
+              <% next unless @order_items.include? order_item %>
+              <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
+              <td><%= order_item.product.price %></td>
+              <td><%= order_item.quantity %></td>
+              <td><%= order_item.quantity * order_item.product.price %></td>
+              <td>
+                <% if order_item.status == "shipped" %>
+                  "Shipped"
+                <% elsif order_item.status == "cancelled" %>
+                  "Cancelled"
+                <% else %>
+                  <%= link_to("Mark Shipped") %>&nbsp;&nbsp;
+                  <%= link_to("Cancel") %>
+                <% end %>
+              </td>
+            <td><%= order.status.capitalize if index == 0 %></td>
           </tr>
         <% end %>
       <% end %>
