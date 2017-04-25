@@ -28,9 +28,9 @@
               <td><%= order_item.quantity %></td>
               <td><%= order_item.quantity * order_item.product.price %></td>
               <td>
-                <% if order_item.shipped == "shipped" %>
+                <% if order_item.status == "shipped" %>
                   "Shipped"
-                <% elsif order_item.shipped == "cancelled" %>
+                <% elsif order_item.status == "cancelled" %>
                   "Cancelled"
                 <% else %>
                   <%= link_to("Mark Shipped") %>&nbsp;&nbsp;
