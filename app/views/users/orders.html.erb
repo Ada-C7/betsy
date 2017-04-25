@@ -1,0 +1,39 @@
+<%= render partial: "sidebar" %>
+
+<h2>Orders</h2>
+<% if @orders.empty? %>
+  <p>You have no orders.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <td>Order #</td>
+        <td>Order Item #</td>
+        <td>Customer Name</td>
+        <td>Product</td>
+        <td>Quantity</td>
+        <td>Price</td>
+        <td>Subtotal</td>
+        <td colspan="2">Manage</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <% order.order_items.each do |order_item| %>
+          <% next unless @order_items.include? order_item %>
+          <tr>
+            <td><%= order.id %></td>
+            <td><%= order_item.id %></td>
+            <td><%= order.billing_name %></td>
+            <td><%= order_item.product.name %></td>
+            <td><%= order_item.quantity %></td>
+            <td><%= order_item.product.price %></td>
+            <td><%= order_item.quantity * order_item.product.price %></td>
+            <td><%= link_to "mark shipped" %></td>
+            <td><%= link_to "cancel" %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
