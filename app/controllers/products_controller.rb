@@ -4,7 +4,6 @@ class ProductsController < ApplicationController
 
   def homepage
     # hide all retired products
-    
     if params[:category_id]
       @products = Product.includes(:categories).where(categories: {id: params[:category_id]})
     elsif params[:user_id]
@@ -58,7 +57,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit( :user_id, :name, :quantity, :price, :description, :image_url, :category_id, category_ids:[])
+    params.require(:product).permit( :user_id, :name, :quantity, :price, :description, :image_url, category_ids:[])
   end
 
   def find_product

@@ -34,34 +34,4 @@ describe CategoriesController do
     end
   end
 
-  describe "destroy" do
-    it "deletes a category that exists" do
-      delete category_path(category)
-      must_redirect_to root_path
-    end
-
-    it "removes category from database" do
-      skip
-      proc {
-        delete category_path(category)
-        must_redirect_to root_path
-      }.must_change 'Category.count', -1
-    end
-
-    it "returns 404 for a category that does not exist" do
-      skip
-      category_id = Category.last.id + 1
-      delete category_path(Category.find_by_id(category_id))
-      must_respond_with :missing
-    end
-
-    it "does not remove a category from the database" do
-      skip
-      proc {
-        category_id = Category.last.id + 1
-        delete category_path(Category.find_by_id(category_id))
-      }.must_change 'Category.count', 0
-    end
-  end
-
 end

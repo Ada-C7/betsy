@@ -3,7 +3,7 @@ require "test_helper"
 describe ProductsController do
   let(:product) { products(:kidjams, :famjams, :jamjams, :hotdamnjams).sample }
 
-  describe "index" do
+  describe "homepage" do
     it "is successful when there are many products" do
       # destroys invalid fixtures
       Product.all[5..12].each { |prod| prod.destroy }
@@ -17,6 +17,16 @@ describe ProductsController do
       OrderItem.destroy_all
       Product.destroy_all
       get root_path
+      must_respond_with :success
+    end
+
+    it "successful when routed through a category" do
+      get category_products_path(Category.first)
+      must_respond_with :success
+    end
+
+    it "successful when routed through a merchant" do
+      get homepage_path(User.first)
       must_respond_with :success
     end
   end

@@ -26,9 +26,6 @@ class CategoriesController < ApplicationController
 
   def update; end
 
-  def destroy
-    Category.destroy(params[:id])
-    redirect_to :root
-  end
+  def destroy; end
 
 end
