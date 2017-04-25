@@ -28,3 +28,20 @@
     </tr>
   </table>
 </section>
+
+<ul>
+  <% @product.errors.each do |column, msg| %>
+    <li>
+      <%= column.capitalize %> <%= msg %>
+    </li>
+  <% end %>
+</ul>
+
+<section>
+  <%= form_tag add_item_path,  method: :post do %>
+      <%= hidden_field_tag :id, @product.id %>
+      <%= label_tag :quantity, 'quantity' %>
+      <%= number_field_tag :quantity, 1, min: 1 %>
+      <%= submit_tag "Add to cart" %>
+  <% end %>
+</section>

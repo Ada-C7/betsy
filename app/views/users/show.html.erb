@@ -1,1 +1,24 @@
-<%= render partial: "sidebar" %>
+<h2>Revenue Summary</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders_by_status.each do |status, orders| %>
+      <tr>
+        <td><%= status.capitalize %></td>
+        <% subtotals = orders.map do |order| %>
+          <% @logged_in_user.order_revenue(order) %>
+        <% end %>
+        <td><%= subtotals.inject(:+) %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>Total</td>
+      <td><%= @logged_in_user.total_revenue %></td>
+    </tr>
+  </tbody>
+</table>

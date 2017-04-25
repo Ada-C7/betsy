@@ -1,73 +1,99 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:show, :edit, :update]
+  before_action :find_order, only: [:edit, :update]
+  before_action :find_orderitem, only: [:add, :set, :destroy]
 
+  # cart
   def index
-    # lists of all orders belonging to a specific user(merchant)
-    if params[:user_id]
-      # retrieve the orders specific for this user
-      # this will give us all orders belonging to the user specified in the nested route
-      # if we decide to usenested routes for the user accounts
-      @orders = Order.includes(:users).where(users: { id: params[:user_id]})
-    else
-  # normal scenario
+    if session[:order_id]
+      @order_items = OrderItem.where(order_id: session[:order_id])
     end
-      @orders = Order.all
   end
 
-  # def new
-  # end
-
   def show
+    @order = Order.find_by_id(params[:id])
     render_404 if !@order
   end
 
-  # def create
-  #   # we don't create, because the order already exists, but we update
-  #   @order = Order.create order_params
-  #   if @order.id != nil
-  #     redirect_to orders_path
-  #   else
-  #     render "new"
-  #   end
-  # end
+  def confirmation
+    @order = Order.find_by_id(params[:id])
+    render_404 if !@order
+  end
+
+  def set
+    if !session[:order_id]
+      cart = Order.create
+      session[:order_id] = cart.id
+    end
+
+    if @item
+      @item[:quantity] = params[:quantity]
+      @item.save
+    else
+      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+    end
+
+    redirect_to carts_path
+  end
+
+  def add
+    if !session[:order_id]
+      cart = Order.create
+      session[:order_id] = cart.id
+    end
+
+    if @item
+      @item[:quantity] += params[:quantity].to_i
+      @item.save
+    else
+      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+    end
+
+    redirect_to carts_path
+  end
 
   def edit
-    # instead of creating new order I will look up the existing order
-    # using order_id that is stored in session
-    # if there is no order_id in session, there is nothing in the cart and they can't check out
-    # if there is an order, but there are no order items, there is nothing in the cart
-    # and they can't check out
     render_404 if !@order
   end
 
   def update
-    # is updating the order with billing information from the work
-    # find the order using order_id stored in session
-    # (it is stored there when initial order is created)
-    # updating the order also needs to change status from pending to paid and
-    # delete the order_id from session
-    # and remove purchased products from the database
+    # if there is no order_id in session, there is nothing in the cart and they can't check out
+    render_404 if !@order
+    # if there is an order, but there are no order items, there is nothing in the cart
+    # they can't check out
+    render_404 if @order.order_items.length == 0
+
+    # TODO remove purchased products from the database!!!!!!
+    @order.status = "paid"
     if @order.update(order_params)
-      flash[:success] = "Successfully updated order number #{ @order.id } "
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated order number #{ @order.id } "
+      session[:order_id] = nil
       # this should redirect to an order summary view
-      redirect_to orders_path
+      redirect_to confirmation_path(@order.id)
     else
-      flash.now[:error] = "A problem occurred: Could not update order number #{ @order.id }"
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "A problem occurred: Could not update order number #{ @order.id }"
       render "edit"
     end
   end
 
   def destroy
-    # user stories do not mention deleting orders
-    # maybe we should jsut mark them cancelled instead of deleting them,
-    # because that would be confusing for the user(merchant), if the
-    # orders just disappeared
+    @item.destroy if @item
+    session[:order_id] = nil
+    # not working as of yet
+    flash[:status] = :success
+    flash[:result_text] = "Successfully removed #{@item} from cart"
+    redirect_to carts_path
   end
 
   private
 
   def find_order
     @order = Order.find_by_id(session[:order_id])
+  end
+
+  def find_orderitem
+    @item = OrderItem.find_by(order_id: session[:order_id], product_id: params[:id])
   end
 
   def order_params

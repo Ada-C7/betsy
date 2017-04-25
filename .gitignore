@@ -16,5 +16,6 @@
 !/tmp/.keep
 coverage
 
+.env
 # Ignore Byebug command history file.
 .byebug_history

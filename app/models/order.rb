@@ -14,4 +14,8 @@ class Order < ApplicationRecord
   def in_cart?
     status == "pending"
   end
+
+  def total_cost
+    order_items.map { |order_item| order_item.subtotal }.inject(:+).round(2)
+  end
 end
