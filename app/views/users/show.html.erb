@@ -1,24 +1,28 @@
 <h2>Revenue Summary</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders_by_status.each do |status, orders| %>
+<% if @logged_in_user.order_items.empty? %>
+  <p>You haven't had any sales yet!</p>
+<% else %>
+  <table>
+    <thead>
       <tr>
-        <td><%= status.capitalize %></td>
-        <% subtotals = orders.map do |order| %>
-          <% @logged_in_user.order_revenue(order) %>
-        <% end %>
-        <td><%= subtotals.inject(:+) %></td>
+        <th>Type</th>
+        <th>Amount</th>
       </tr>
-    <% end %>
-    <tr>
-      <td>Total</td>
-      <td><%= @logged_in_user.total_revenue %></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @orders_by_status.each do |status, orders| %>
+        <tr>
+          <td><%= status.capitalize %></td>
+          <% subtotals = orders.map do |order| %>
+            <% @logged_in_user.order_revenue(order) %>
+          <% end %>
+          <td><%= subtotals.inject(:+) %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td>Total</td>
+        <td><%= @logged_in_user.total_revenue %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
