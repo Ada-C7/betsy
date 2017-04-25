@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
 
   root 'products#root'
-  resources :merchants, only: [:index, :show]
+
   get "/auth/github/callback", to: "merchants#auth_callback"
   get '/logout', to: "merchants#logout"
 
-  # resources :products
-  resources :reviews
+  resources :merchants, only: [:index, :show]
 
+  # resources :products
+  patch 'products/:id/status', to: 'application#status', as: 'status'
+  resources :reviews
 
   resources :products do
     post '/add_item', to: 'orders#add_item'
