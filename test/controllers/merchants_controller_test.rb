@@ -2,8 +2,6 @@ require "test_helper"
 
 describe MerchantsController do
 
-
-
   describe 'show' do
     setup do
       @merchant_id = Merchant.first.id
@@ -21,6 +19,5 @@ describe MerchantsController do
       get merchant_path(merchant2.id)
       must_respond_with :not_found
     end
-
   end
 end
