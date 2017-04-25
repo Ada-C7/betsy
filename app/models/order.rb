@@ -10,6 +10,5 @@ class Order < ApplicationRecord
                                numericality: { only_integer: true },
                                length: { is: 16 }, on: :update
   # validates :status, inclusion: { in: %w(pending, paid, shipped) }
-
-
+  
 end

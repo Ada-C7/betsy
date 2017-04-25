@@ -6,6 +6,7 @@ class ProductOrder < ApplicationRecord
     product_order = ProductOrder.new
     product_order.product_id = product_id
     product_order.order_id = order_id
+    product_order.quantity = 1
     return product_order
   end
 end
