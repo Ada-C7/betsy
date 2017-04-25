@@ -26,9 +26,9 @@
       <div class="top-bar-right">
         <ul class="menu">
           <% if @login_merchant %>
-          <li><%= link_to "Log Out", "/logout", class: "button small" %></li>
+          <li><%= link_to "Merchant Log Out", "/logout", class: "button small" %></li>
           <% else %>
-          <li><%= link_to "Log In", "/auth/github", class: "button small" %></li>
+          <li><%= link_to "Merchant Log In", "/auth/github", class: "button small" %></li>
           <% end %>
           <li><a href="#">Cart</a></li>
         </ul>
