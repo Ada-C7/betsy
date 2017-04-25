@@ -45,9 +45,9 @@ class MerchantsController < ApplicationController
       merchant = Merchant.from_github(auth_hash)
       if merchant.save
         session[:merchant_id] = merchant.id
-        flash[:success] = "Successfully logged in as new Merchant #{merchant.username}"
+        flash[:result_text] = "Successfully logged in as new Merchant #{merchant.username}"
       else
-        flash[:message] = "Could not log in"
+        flash[:result_text] = "Could not log in"
         merchant.errors.messages.each do |field, problem|
           flash[:field] = problem.join(', ')
         end
@@ -56,7 +56,7 @@ class MerchantsController < ApplicationController
     else
       # Welcome back!
       session[:merchant_id] = merchant.id
-      flash[:success] = "Welcome back, #{merchant.username}"
+      flash[:result_text] = "Welcome back, #{merchant.username}"
     end
 
     redirect_to root_path
@@ -64,7 +64,7 @@ class MerchantsController < ApplicationController
 
   def logout
     session[:merchant_id] = nil
-    flash[:success] = "Successfully logged out."
+    flash[:result_text] = "Successfully logged out."
     redirect_to root_path
   end
 end

@@ -1,10 +1,16 @@
 
+<div class = "row">
+
+</div>
+
+
 <% if !@login_merchant.nil? && @login_merchant == @product.merchant%>
 <h3><%= @product.status_info[1]%></h3>
 <section class = "row large-12 columns ">
   <%= link_to "Edit", edit_product_path(@product), class: "button"%>
   <%= link_to @product.status_info[0], status_path(@product), method: :patch, class: "button"%>
 </section>
+
 <% end %>
 
 <% if (!@login_merchant.nil? && @login_merchant == @product.merchant )|| @product.status == "active" %>
@@ -50,8 +56,6 @@
 <p>
   Average rating : <%= @product.average_rating%>
 </p>
-
-
 
 
 <% @product.reviews.order(rating: :desc).each do |review|%>

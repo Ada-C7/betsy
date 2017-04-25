@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425171105) do
+
+ActiveRecord::Schema.define(version: 20170424181908) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,17 +49,21 @@ ActiveRecord::Schema.define(version: 20170425171105) do
     t.string   "status"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "customer_city"
+    t.string   "customer_zipcode"
+    t.string   "customer_state"
   end
 
-  create_table "productorders", force: :cascade do |t|
-    t.integer  "products_id"
-    t.integer  "orders_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "product_orders", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "order_id"
     t.integer  "quantity"
-    t.index ["orders_id"], name: "index_productorders_on_orders_id", using: :btree
-    t.index ["products_id"], name: "index_productorders_on_products_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_product_orders_on_order_id", using: :btree
+    t.index ["product_id"], name: "index_product_orders_on_product_id", using: :btree
   end
+
 
   create_table "products", force: :cascade do |t|
     t.integer  "merchant_id"
