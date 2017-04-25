@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
   end
 
   # confirmation
-  def show
+  def confirmation
     @order = Order.find_by_id(params[:id])
     render_404 if !@order
   end
@@ -61,20 +61,24 @@ class OrdersController < ApplicationController
     # TODO remove purchased products from the database!!!!!!
     @order.status = "paid"
     if @order.update(order_params)
-      flash[:success] = "Successfully updated order number #{ @order.id } "
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated order number #{ @order.id } "
       session[:order_id] = nil
       # this should redirect to an order summary view
       redirect_to confirmation_path(@order.id)
     else
-      flash.now[:error] = "A problem occurred: Could not update order number #{ @order.id }"
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "A problem occurred: Could not update order number #{ @order.id }"
       render "edit"
     end
   end
 
   def destroy
     @item.destroy if @item
+    session[:order_id] = nil
     # not working as of yet
-    flash[:success] = "Successfully removed #{@item} from cart"
+    flash[:status] = :success
+    flash[:result_text] = "Successfully removed #{@item} from cart"
     redirect_to carts_path
   end
 
