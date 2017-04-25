@@ -10,5 +10,5 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :description, presence: true
   validates :image_url, presence: true
-  validates :category_ids, presence: true
+  # validates :category_ids, presence: true
 end

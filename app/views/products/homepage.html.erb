@@ -7,21 +7,23 @@
       <th>Quantity</th>
       <th>Price</th>
     </tr>
+    <% if !@products.nil? %>
     <% @products.each do |product| %>
-      <tr>
-        <td>
-          <%= link_to image_tag(product.image_url), product_path(product.id) %>
-        </td>
-        <td>
-          <%= link_to product.name, product_path(product.id) %>
-        </td>
-        <td>
-          <%= product.quantity %>
-        </td>
-        <td>
-          <%= sprintf('%.2f', product.price) %>
-        </td>
-      </tr>
+    <tr>
+      <td>
+        <%= link_to image_tag(product.image_url), product_path(product.id) %>
+      </td>
+      <td>
+        <%= link_to product.name, product_path(product.id) %>
+      </td>
+      <td>
+        <%= product.quantity %>
+      </td>
+      <td>
+        <%= product.price %>
+      </td>
+    </tr>
+    <% end %>
     <% end %>
   </table>
 </section>

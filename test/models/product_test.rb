@@ -5,6 +5,12 @@ describe Product do
 
   # 2+ tests for each validation on a model
   describe "validations" do
+    it "starts w retired set to false" do
+      product.valid?
+      product.errors.messages[:name].must_equal []
+      product.retired.must_equal false
+    end
+
     it "is valid with a unique name" do
       product.valid?
       product.errors.messages[:name].must_equal []
@@ -97,12 +103,20 @@ describe Product do
       products(:nouser).errors.messages.must_include :user
     end
 
+    # it "is valid with a user" do
+    #   product.valid?
+    #   product.errors.messages[:category_ids].must_equal []
+    # end
+    #
+    # it "is invalid without at least one category_id" do
+    #   products(:nocat).valid?.must_equal false
+    #   products(:nocat).errors.messages.must_include :category_ids
+    # end
   end
 
 
 
   describe "relationships" do
-
     # has many order_items
     it "returns an array of order_items" do
       product.order_items.each do |order_item|
@@ -139,6 +153,10 @@ describe Product do
       deleted_product_reviews = deleted_product.reviews
       deleted_product.destroy
       deleted_product_reviews.must_be_empty
+    end
+
+    describe "methods" do
+
     end
 
   end

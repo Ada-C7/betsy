@@ -5,14 +5,18 @@ describe ProductsController do
 
   describe "index" do
     it "is successful when there are many products" do
+      # destroys invalid fixtures
+      Product.all[5..12].each { |prod| prod.destroy }
+
       Product.count.must_be :>, 0
-      get products_path
+      get root_path
       must_respond_with :success
     end
 
-    it "successful when there are zero classrooms" do
+    it "successful when there are zero products" do
+      OrderItem.destroy_all
       Product.destroy_all
-      get products_path
+      get root_path
       must_respond_with :success
     end
   end
@@ -26,19 +30,19 @@ describe ProductsController do
 
   describe "create" do
     it "creates a new product" do
-      post products_path, params: { product: { user_id: users(:testuser).id, name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
-      must_redirect_to products_path
+      post products_path, params: { product: { user_id: users(:one).id, name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
+      must_redirect_to root_path
     end
 
     it "adds a new product to the database" do
       proc {
-        post products_path, params: { product: { user_id: users(:testuser).id, name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
+        post products_path, params: { product: { user_id: users(:one).id, name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
       }.must_change 'Product.count', 1
     end
 
     it "returns 404 and fails to create a new product w invalid data" do
       post products_path, params: { product: { name: "", quantity: 0, price: 0, description: "", image_url: "" } }
-      must_respond_with :ok
+      must_respond_with :bad_request
     end
 
     it "does not add a new product to the database" do
@@ -77,26 +81,26 @@ describe ProductsController do
   describe "update" do
     it "updates the product" do
       patch product_path(product), params: { product: { name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
-      must_redirect_to products_path
+      must_redirect_to root_path
     end
 
     it "returns bad_request and fails to update product w invalid data" do
       patch product_path(product), params: { product: { name: "", quantity: 0, price: 0, description: "", image_url: "" } }
-      must_respond_with :ok
+      must_respond_with :bad_request
     end
   end
 
   describe "destroy" do
-    it "destroys a product that exists" do
+    it "retires a product that exists" do
       delete product_path(product)
-      must_redirect_to products_path
+      must_redirect_to root_path
     end
 
-    it "removes a product from the database" do
+    it "does not remove product from the database, only retires it" do
       proc {
         delete product_path(product)
-        must_redirect_to products_path
-      }.must_change 'Product.count', -1
+        must_redirect_to root_path
+      }.must_change 'Product.count', 0
     end
 
     it "returns 404 for a product that does not exist" do

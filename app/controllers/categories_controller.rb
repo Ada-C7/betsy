@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
       redirect_to :root
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not update profile"
+      flash.now[:result_text] = "Could not uadd category"
       flash.now[:messages] = @category.errors.messages
       render :new, status: :bad_request
     end
