@@ -21,19 +21,21 @@
 <!-- Logged in -->
     <table>
       <tr>
-        <th>Name</th>
+        <th>View Listing</th>
         <th>Category</th>
         <th>Price</th>
         <th>Inventory</th>
         <th>Status</th>
+        <th>Edit</th>
       </tr>
       <% @merchant.products.each do |product| %>
       <tr>
-        <td><%= product.name %></td>
+        <td><%= link_to product.name, product_path(product) %></td>
         <td><%= product.category %></td>
         <td><%= product.price %></td>
         <td><%= product.inventory %></td>
         <td><%= link_to product.status_info[0],status_path(@merchant), method: :patch, class: "button"%></td>
+        <td><%= link_to "Edit", edit_product_path(product), class: "button" %></td>
       </tr>
       <% end %>
     </table>
