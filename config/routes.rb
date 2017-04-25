@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get "/products", to: "products#homepage"
   end
 
+  get "/users/:id/products", to: "products#homepage", as: "user_product"
+
   resources :products, except: :index
   resources :users
   resources :orders, except: [:index, :create, :new]
