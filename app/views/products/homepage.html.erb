@@ -19,7 +19,7 @@
           <%= product.quantity %>
         </td>
         <td>
-          <%= product.price %>
+          <%= sprintf('%.2f', product.price) %>
         </td>
       </tr>
     <% end %>

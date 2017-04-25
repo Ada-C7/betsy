@@ -34,13 +34,13 @@ describe Product do
     end
 
     it "is invalid without a numeric quantity" do
-      product = Product.create(name: "test", quantity: "a few", price: 10.0, description: "test", image_url: "test", user: users(:testuser))
+      product = Product.create(name: "test", quantity: "a few", price: 10.0, description: "test", image_url: "test", user: users(:one))
       product.valid?.must_equal false
       product.errors.messages.must_include :quantity
     end
 
     it "is invalid without an integer quantity" do
-      product = Product.create(name: "test", quantity: 1.5, price: 10.0, description: "test", image_url: "test", user: users(:testuser))
+      product = Product.create(name: "test", quantity: 1.5, price: 10.0, description: "test", image_url: "test", user: users(:one))
       product.valid?.must_equal false
       product.errors.messages.must_include :quantity
     end
@@ -56,13 +56,13 @@ describe Product do
     end
 
     it "is invalid without a numerical price" do
-      product = Product.create(name: "test", quantity: 1, price: "many bucks", description: "test", image_url: "test", user: users(:testuser))
+      product = Product.create(name: "test", quantity: 1, price: "many bucks", description: "test", image_url: "test", user: users(:one))
       product.valid?.must_equal false
       product.errors.messages.must_include :price
     end
 
     it "is invalid without a numerical price greater than 0" do
-      product = Product.create(name: "test", quantity: 2, price: -2.0, description: "test", image_url: "test", user: users(:testuser))
+      product = Product.create(name: "test", quantity: 2, price: -2.0, description: "test", image_url: "test", user: users(:one))
       product.valid?.must_equal false
       product.errors.messages.must_include :price
     end
@@ -114,7 +114,7 @@ describe Product do
     # belongs to user
     it "returns a user" do
       product.user.must_be_instance_of User
-      users(:testuser).products.must_include product
+      users(:one).products.must_include product
     end
 
     # has and belongs to many categories
@@ -134,7 +134,7 @@ describe Product do
     end
 
     it "returns an empty array of reviews when product deleted" do
-      deleted_product = Product.create(name: "test", quantity: 11, price: 20.0, description: "test", image_url: "test", user: users(:testuser))
+      deleted_product = Product.create(name: "test", quantity: 11, price: 20.0, description: "test", image_url: "test", user: users(:one))
       Review.create(rating: 5, comment: "most perfect", product: deleted_product)
       deleted_product_reviews = deleted_product.reviews
       deleted_product.destroy
