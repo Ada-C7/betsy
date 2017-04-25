@@ -2,12 +2,14 @@ class OrdersController < ApplicationController
   before_action :find_order, only: [:edit, :update]
   before_action :find_orderitem, only: [:add, :set, :destroy]
 
+  # cart
   def index
     if session[:order_id]
       @order_items = OrderItem.where(order_id: session[:order_id])
     end
   end
 
+  # confirmation
   def show
     @order = Order.find_by_id(params[:id])
     render_404 if !@order
@@ -46,21 +48,17 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    # instead of creating new order I will look up the existing order
-    # using order_id that is stored in session
-    # if there is no order_id in session, there is nothing in the cart and they can't check out
-    # if there is an order, but there are no order items, there is nothing in the cart
-    # and they can't check out
     render_404 if !@order
   end
 
   def update
-    # is updating the order with billing information from the work
-    # find the order using order_id stored in session
-    # (it is stored there when initial order is created)
-    # updating the order also needs to change status from pending to paid and
-    # delete the order_id from session
-    # and remove purchased products from the database
+    # if there is no order_id in session, there is nothing in the cart and they can't check out
+    render_404 if !@order
+    # if there is an order, but there are no order items, there is nothing in the cart
+    # they can't check out
+    render_404 if @order.order_items.length == 0
+
+    # TODO remove purchased products from the database!!!!!!
     @order.status = "paid"
     if @order.update(order_params)
       flash[:success] = "Successfully updated order number #{ @order.id } "
