@@ -83,7 +83,4 @@ private
                                           :customer_state,
                                           :customer_cc_info)
   end
-
-
-
 end

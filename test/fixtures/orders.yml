@@ -1,0 +1,15 @@
+order1:
+  # customer_name:
+  # customer_address:
+  # customer_email:
+  # customer_cc_info:
+  # customer_city:
+  # customer_zipcode:
+  # customer_state:
+  status: pending
+
+order2:
+  status: pending
+
+order3:
+  status: pending
