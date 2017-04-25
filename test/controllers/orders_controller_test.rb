@@ -100,4 +100,24 @@ describe OrdersController do
       must_redirect_to checkout_path
     end
   end
+
+  describe 'update_quantity' do
+
+    before do
+      order = orders(:order2)
+
+      product = products(:product1)
+      @product_order = product_orders(:product_order1)
+      @params_info = { product_id: product.id, quantity: 3}
+
+    end
+
+    it 'update the ProductOrder quantity' do
+      patch qty_update_path(@product_order.id), params: {product_order: @params_info }
+      pro_ord = ProductOrder.find_by(id: @product_order.id)
+      pro_ord.quantity.must_equal 3
+      must_respond_with :redirect
+    end
+
+  end
 end

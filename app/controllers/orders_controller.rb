@@ -47,11 +47,13 @@ class OrdersController < ApplicationController
   end
 
   def update_quantity
+    # raise
+    # params[:id] == product_order
     update_info = params[:product_order]
     product_id = update_info[:product_id]
     quantity = update_info[:quantity]
-    product_order = ProductOrder.find_by(order_id: session[:order_id], product_id: product_id)
 
+    product_order = ProductOrder.find_by(id: params[:id])
     product_order.quantity = quantity
     product_order.save
 
