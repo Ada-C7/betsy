@@ -6,7 +6,6 @@
   <% end %>
 </ul>
 
-
 <section>
   <%= form_for @order do |f| %>
     <%= f.hidden_field :status, value: "paid" %>
@@ -21,17 +20,17 @@
     <%= f.text_field :address %>
 
     <%= f.label :card_number %>
-    <%= f.text_area :card_number %>
+    <%= f.text_field :card_number %>
 
     <%= f.label :card_expiration %>
-    <%= f.text_area :card_expiration %>
+    <%= f.text_field :card_expiration %>
 
     <%= f.label :cvv %>
-    <%= f.text_area :cvv %>
+    <%= f.text_field :cvv %>
 
     <%= f.label :zipcode %>
-    <%= f.text_area :zipcode %>
+    <%= f.text_field :zipcode %>
 
-    <%= f.submit "checkout", class: "button" %>
+    <%= f.submit "submit order", class: "button" %>
   <% end %>
 </section>

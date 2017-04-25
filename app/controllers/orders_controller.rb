@@ -60,10 +60,12 @@ class OrdersController < ApplicationController
     # updating the order also needs to change status from pending to paid and
     # delete the order_id from session
     # and remove purchased products from the database
+    @order.status = "paid"
     if @order.update(order_params)
       flash[:success] = "Successfully updated order number #{ @order.id } "
+      session[:order_id] = nil
       # this should redirect to an order summary view
-      redirect_to root_path
+      redirect_to confirmation_path
     else
       flash.now[:error] = "A problem occurred: Could not update order number #{ @order.id }"
       render "edit"
