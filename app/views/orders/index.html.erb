@@ -6,6 +6,7 @@
       <th>Product</th>
       <th>Quantity</th>
       <th>Price</th>
+      <th>Remove From Cart</th>
     </tr>
   </thead>
   <tbody>
@@ -13,8 +14,13 @@
     <% @order_items.each do |order_item| %>
       <tr>
         <td><%= link_to order_item.product.name, product_path(order_item.product_id) %></td>
-        <td><%= order_item.quantity %></td>
+        <td><%= form_tag set_item_path, method: :post do %>
+            <%= hidden_field_tag :id, order_item.product_id %>
+            <%= number_field_tag :quantity, order_item.quantity, min: 1 %>
+            <%= submit_tag "Update" %>
+            <% end %></td>
         <td></td>
+        <td><%= link_to "Remove", order_path(order_item.product_id), method: "delete", class: "button" %></td>
       </tr>
     <% end %>
   <% end %>

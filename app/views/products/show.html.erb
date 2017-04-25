@@ -27,11 +27,9 @@
 
 <%= link_to "Add to cart", add_item_path, method: :post, class: :button %>
 
-<%= form_for @item, url: set_item_path , method: :post do |f| %>
-  <%= f.hidden_field :id, value: @product.id %>
-
-  <%= f.label :quantity %>
-  <%= f.text_field :quantity %>
-
-  <%= f.submit "Add to cart", class: "button" %>
+<%= form_tag add_item_path,  method: :post do %>
+    <%= hidden_field_tag :id, @product.id %>
+    <%= label_tag :quantity, 'quantity' %>
+    <%= number_field_tag :quantity, 1, min: 1 %>
+    <%= submit_tag "Add to cart" %>
 <% end %>

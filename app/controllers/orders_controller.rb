@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :edit, :update]
-  before_action :find_orderitem, only: [:add, :remove, :set]
+  before_action :find_orderitem, only: [:add, :remove, :set, :add_q, :destroy]
 
   def index
     if session[:order_id]
@@ -10,32 +10,6 @@ class OrdersController < ApplicationController
 
   def show
     render_404 if !@order
-  end
-
-  def add
-    if !session[:order_id]
-      cart = Order.create
-      session[:order_id] = cart.id
-    end
-
-    if @item
-      @item[:quantity] += 1
-      @item.save
-    else
-      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: 1)
-    end
-    redirect_to carts_path
-  end
-
-  def remove
-    if @item
-      @item[:quantity] -= 1
-      @item.save
-    end
-
-    @item.destroy if @item[:quantity] == 0
-
-    redirect_to carts_path
   end
 
   def set
@@ -51,7 +25,22 @@ class OrdersController < ApplicationController
       OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
     end
 
-    @item.destroy if @item[:quantity] == 0
+    redirect_to carts_path
+  end
+
+  def add
+    if !session[:order_id]
+      cart = Order.create
+      session[:order_id] = cart.id
+    end
+
+    if @item
+      @item[:quantity] += params[:quantity].to_i
+      @item.save
+    else
+      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+    end
+
     redirect_to carts_path
   end
 
@@ -82,10 +71,10 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    if session[:order_id]
-      @order_items = OrderItem.where(order_id: session[:order_id])
-      @order_items.destroy
+    if @item
+      @item.destroy
     end
+    redirect_to carts_path
   end
 
   private
