@@ -51,6 +51,13 @@ class ProductsController < ApplicationController
     redirect_to product_path(product)
   end
 
+  def status
+    product = Product.find_by(id: params[:id])
+    # merchant = Merchant.find_by(id: params[:id])
+    product.status_change
+    redirect_back(fallback_location: root_path)
+  end
+
   private
   def product_params
     params.require(:product).permit(:name, :price, :inventory, :image, :category, :status, :description)

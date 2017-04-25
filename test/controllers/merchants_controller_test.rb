@@ -2,7 +2,22 @@ require "test_helper"
 
 describe MerchantsController do
 
+  describe "index" do
+    it "succeeds with many merchants" do
+      # Assumption: there are many users in the DB
+      Merchant.count.must_be :>, 0
 
+      get merchants_path
+      must_respond_with :success
+    end
+
+    it "succeeds with no users" do
+      Merchant.destroy_all
+
+      get merchants_path
+      must_respond_with :success
+    end
+  end
 
   describe 'show' do
     setup do
