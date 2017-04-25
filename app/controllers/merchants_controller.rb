@@ -35,7 +35,7 @@ class MerchantsController < ApplicationController
 
   def auth_callback
     auth_hash = request.env['omniauth.auth']
-
+    # raise
     # Attempt to find these credentials in out DB
     merchant = Merchant.find_by(oauth_provider: 'github',
                                 oauth_uid: auth_hash["uid"])
@@ -47,10 +47,12 @@ class MerchantsController < ApplicationController
         session[:merchant_id] = merchant.id
         flash[:result_text] = "Successfully logged in as new Merchant #{merchant.username}"
       else
+        flash[:status] = :failure
         flash[:result_text] = "Could not log in"
-        merchant.errors.messages.each do |field, problem|
-          flash[:field] = problem.join(', ')
-        end
+        flash[:messages] = merchant.errors.messages
+        # merchant.errors.messages.each do |field, problem|
+        #   flash[:field] = problem.join(', ')
+        # end
       end
 
     else

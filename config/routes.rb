@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index, :show]
 
   # resources :products
-  patch 'products/:id/status', to: 'application#status', as: 'status'
+  patch 'products/:id/status', to: 'products#status', as: 'status'
   resources :reviews
 
   resources :products do
