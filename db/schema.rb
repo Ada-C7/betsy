@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421163758) do
+ActiveRecord::Schema.define(version: 20170424181908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,21 +34,33 @@ ActiveRecord::Schema.define(version: 20170421163758) do
     t.string   "status"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "customer_city"
+    t.string   "customer_zipcode"
+    t.string   "customer_state"
   end
 
-  create_table "productorders", force: :cascade do |t|
+  create_table "product_orders", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "order_id"
+    t.integer  "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "quantity"
-    t.index ["order_id"], name: "index_productorders_on_order_id", using: :btree
-    t.index ["product_id"], name: "index_productorders_on_product_id", using: :btree
+    t.index ["order_id"], name: "index_product_orders_on_order_id", using: :btree
+    t.index ["product_id"], name: "index_product_orders_on_product_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "merchant_id"
+    t.string   "category"
+    t.string   "name"
+    t.decimal  "price"
+    t.string   "description"
+    t.string   "image"
+    t.integer  "inventory"
+    t.string   "status"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
 
   create_table "reviews", force: :cascade do |t|

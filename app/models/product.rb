@@ -1,10 +1,11 @@
 class Product < ApplicationRecord
-  validates :name, presence: true, uniqueness: true
-  validates :price, presence: true, numericality: { greater_than: 0 }
   belongs_to :merchant
   has_many :reviews
   has_many :productorders
   has_many :orders, through: :productorders
+
+  validates :name, presence: true, uniqueness: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
 
   def average_rating
     array_of_ratings = reviews.all.collect {|t| t.rating}.select(&:present?)

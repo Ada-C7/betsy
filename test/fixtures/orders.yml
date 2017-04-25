@@ -1,11 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+order1:
+  customer_name: Cynthia Cobb
+  customer_address: 123 St.
+  customer_email: cobb@gmail.com
+  customer_cc_info: 1234567890123456
+  customer_city: Bothell
+  customer_zipcode: 98011
+  customer_state: WA
+  status: paid
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+order2:
+  status: pending
+
+order3:
+  status: pending

@@ -7,14 +7,13 @@
   <div class="column product_b">
     <%=link_to image_tag(product.image, alt: "Product Image", class: "thumbnail image_index"),product_path(product)%>
     <h5><%= product.name %></h5>
-    <p>
-      $<%= product.price %>
+    <p> $<%= product.price %>
+        <%=link_to product.name, product_path(product.id), class: "button" %>
     </p>
     <div>
       <%= link_to "Buy", '#', class: "button buy"%>
     </div>
     <p><%=product.description%></p>
   </div>
-
   <% end %>
 </div>
