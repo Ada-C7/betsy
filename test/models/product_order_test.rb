@@ -4,15 +4,16 @@ describe ProductOrder do
 
   describe 'validations' do
     before do
-      @good_order = orders(:order2)
-      @good_product = products(:product1)
+      @good_order = orders(:order3)
+      @good_product = products(:product4)
 
       @bad_order_id = (Order.last.id) + 1
       @bad_product_id = (Order.last.id) + 1
     end
 
+    let (:product_order) { ProductOrder.new(product_id: @good_product.id, order_id: @good_order.id )}
+
     it 'passes validations if product and order exist' do
-      product_order = product_orders(:product_order1)
       product_order.valid?.must_equal true
     end
 

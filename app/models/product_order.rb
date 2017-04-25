@@ -1,8 +1,8 @@
 class ProductOrder < ApplicationRecord
   belongs_to :order, optional: false
   belongs_to :product, optional: false
-  validates :order_id, :uniqueness => {:scope => :product_id},
-                       :uniqueness => {message: "This item is already in the cart"}
+  # validates :order_id, :uniqueness => {:scope => :product_id},
+                      #  :uniqueness => {message: "This item is already in the cart"}
 
   # you should be sending argument as hash
   def self.add_product(product_id, order_id)

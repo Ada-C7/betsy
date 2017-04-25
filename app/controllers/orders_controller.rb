@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
       flash[:result_text] = "Thank you for placing your order"
       redirect_to root_path
     elsif !order.valid?
-      flash.now[:status] = :failure
+      flash[:status] = :failure
       flash[:result_text] = "There was a problem processing your order"
       flash[:messages] = order.errors.messages
       redirect_to checkout_path

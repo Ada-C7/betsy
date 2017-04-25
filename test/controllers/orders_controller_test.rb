@@ -47,6 +47,18 @@ describe OrdersController do
       after_count.must_equal before_count
       must_respond_with :redirect
     end
+
+
+    # need to figure out how to set order session to test this
+    # it 'will not add product if it is already in cart' do
+    #   # this first should work
+    #   post product_add_item_path(@product.id)
+    #   before = ProductOrder.count
+    #   # this second should not
+    #   post product_add_item_path(@product.id)
+    #   after = ProductOrder.count
+    #   after.must_equal before
+    # end
   end
 
   describe 'checkout' do
@@ -107,7 +119,7 @@ describe OrdersController do
       order = orders(:order2)
 
       product = products(:product1)
-      @product_order = product_orders(:product_order1)
+      @product_order = product_orders(:product_order2)
       @params_info = { product_id: product.id, quantity: 3}
 
     end
