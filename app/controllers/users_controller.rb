@@ -5,7 +5,11 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show; end
+  def show
+    @order_items = OrderItem.where(product: @logged_in_user.products)
+    @orders = @order_items.map { |order_item| order_item.order }.uniq
+    @orders_by_status = @orders.group_by { |order| order.status }
+  end
 
   def update
     if @logged_in_user.update(user_params)

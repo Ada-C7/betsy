@@ -14,4 +14,16 @@ class User < ApplicationRecord
     )
   end
 
+  def order_revenue(order)
+    order_items = OrderItem.where(product: products, order: order)
+    # TODO: Update to subtotal method on order_item
+    order_items.map { |order_item| order_item.quantity * order_item.product.price }.inject(:+)
+  end
+
+  def total_revenue
+    order_items = OrderItem.where(product: products)
+    # TODO: Update to subtotal method on order_item
+    order_items.map { |order_item| order_item.quantity * order_item.product.price }.inject(:+)
+  end
+
 end
