@@ -18,9 +18,10 @@ class Order < ApplicationRecord
   def total_cost(order)
   total_cost = 0
   ordered_items = order.order_items
-  ordered_items.each do |ordered_item|
+    ordered_items.each do |ordered_item|
       total_cost += (ordered_item.quantity) * (ordered_item.product.price)
     end
+
   return "$ #{total_cost.round(2)}"
   end
 end

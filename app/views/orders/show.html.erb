@@ -1,1 +1,8 @@
 <h1>Order Details Page</h1>
+<section>
+  <p>Name: <%= @order.billing_name %></p>
+  <p>Email: <%= @order.email %></p>
+  <p>Mailing Address: <%= @order.address %></p>
+  <p>Credit Card Number: <%= @order.card_number %> </p>
+  <p>Credit Card Expiration Date: <% @order.card_expiration %></p>
+</section>
