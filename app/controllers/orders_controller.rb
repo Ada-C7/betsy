@@ -6,9 +6,8 @@ class OrdersController < ApplicationController
 
   # new
   def add_item
-    order = get_order
+    order = current_order
     # check products for availablity - decrease quantity here?
-
     product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
 
     if product_order.valid?
@@ -23,7 +22,7 @@ class OrdersController < ApplicationController
   # edit
   def checkout
     @order = current_order
-    @products = ProductOrder.where(order_id: session[:order_id])
+    @products = get_products
     # raise
   end
 
@@ -61,15 +60,11 @@ class OrdersController < ApplicationController
     product_order = ProductOrder.find_by(order_id: session[:order_id], product_id: params[:id])
     # need to add quant back to product?
     product_order.destroy
-    redirect_back(fallback_location: root_path) 
+    redirect_back(fallback_location: root_path)
     # raise
   end
 
 private
-
-  def get_order
-    current_order
-  end
 
   def get_products
     ProductOrder.where(order_id: session[:order_id])
