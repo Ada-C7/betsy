@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def cart
-    @products = get_products
+    @products = get_product_order
   end
 
   # new
@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   # edit
   def checkout
     @order = current_order
-    @products = get_products
+    @products = get_product_order
     # raise
   end
 
@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
 
 private
 
-  def get_products
+  def get_product_order
     ProductOrder.where(order_id: session[:order_id])
   end
 
