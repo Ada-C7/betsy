@@ -2,13 +2,12 @@
 <% if !@login_merchant.nil? && @login_merchant == @product.merchant%>
 <h3><%= @product.status_info[1]%></h3>
 <section class = "row large-12 columns ">
-    <%= link_to "Edit", edit_product_path(@product), class: "button"%>
-    <%= link_to @product.status_info[0], status_path(@product), method: :patch, class: "button"%>
+  <%= link_to "Edit", edit_product_path(@product), class: "button"%>
+  <%= link_to @product.status_info[0], status_path(@product), method: :patch, class: "button"%>
 </section>
-
 <% end %>
 
-
+<% if (!@login_merchant.nil? && @login_merchant == @product.merchant )|| @product.status == "active" %>
 <section class = "row">
   <div class = "large-3 columns product">
     <%=image_tag(@product.image, alt: "Product image not available", class: "image")%>
@@ -24,7 +23,7 @@
       In store: <%= @product.inventory%> item(s)
     </p>
     <div>
-      <%= link_to "Buy", '#', class: "button buy"%>
+      <%= link_to "Add to cart", "#", class: "button buy"%>
     </div>
   </div>
 
@@ -72,5 +71,9 @@
     <%=review.review %>
   </p>
 </section>
-
+<%end%>
+<%else%>
+  <p>
+    This product is currently not available.
+  </p>
 <%end%>

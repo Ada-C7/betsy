@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :reviews
   has_many :productorders
   has_many :orders, through: :productorders
+  has_and_belongs_to_many :categories
 
   def average_rating
     array_of_ratings = reviews.all.collect {|t| t.rating}.select(&:present?)

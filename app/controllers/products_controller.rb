@@ -7,7 +7,14 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.where(status: "active")
+    if params[:category_id]
+      # @products = Product.include(:categories).where(categories: {id: params[:category_id]})
+      @products = Category.find(params[:category_id]).products.where(status: "active")
+      @category = Category.find(params[:category_id])
+
+    else
+      @products = Product.where(status: "active")
+    end
   end
 
   def new
@@ -28,7 +35,6 @@ class ProductsController < ApplicationController
       # flash[:messages] = @product.errors.messages
       render :new #, status: :bad_request
     end
-
   end
 
   def show
