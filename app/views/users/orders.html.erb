@@ -26,12 +26,10 @@
               <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
               <td><%= order_item.product.price %></td>
               <td><%= order_item.quantity %></td>
-              <td><%= order_item.quantity * order_item.product.price %></td>
+              <td><%= order_item.subtotal %></td>
               <td>
-                <% if order_item.status == "shipped" %>
-                  "Shipped"
-                <% elsif order_item.status == "cancelled" %>
-                  "Cancelled"
+                <% if ['shipped', 'cancelled'].include? order_item.status %>
+                  <%= order_item.status.capitalize %>
                 <% else %>
                   <%= link_to("Mark Shipped") %>&nbsp;&nbsp;
                   <%= link_to("Cancel") %>
