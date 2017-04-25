@@ -57,23 +57,25 @@ class OrdersController < ApplicationController
 
   def update
     # if there is no order_id in session, there is nothing in the cart and they can't check out
-    render_404 if !@order
     # if there is an order, but there are no order items, there is nothing in the cart
     # they can't check out
-    render_404 if @order.order_items.length == 0
-
-    # TODO remove purchased products from the database!!!!!!
-    @order.status = "paid"
-    if @order.update(order_params)
-      flash[:status] = :success
-      flash[:result_text] = "Successfully updated order number #{ @order.id } "
-      session[:order_id] = nil
-      # this should redirect to an order summary view
-      redirect_to confirmation_path(@order.id)
+    if !@order || @order.order_items.length == 0
+      # TODO turn these into helpful flash messages
+      render_404
     else
-      flash.now[:status] = :failure
-      flash.now[:result_text] = "A problem occurred: Could not update order number #{ @order.id }"
-      render "edit"
+      # TODO remove purchased products from the database!!!!!!
+      @order.status = "paid"
+      if @order.update(order_params)
+        flash[:status] = :success
+        flash[:result_text] = "Successfully updated order number #{ @order.id } "
+        session[:order_id] = nil
+        # this should redirect to an order summary view
+        redirect_to confirmation_path(@order.id)
+      else
+        flash.now[:status] = :failure
+        flash.now[:result_text] = "A problem occurred: Could not update order number #{ @order.id }"
+        render "edit"
+      end
     end
   end
 
