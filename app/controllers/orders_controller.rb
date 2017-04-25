@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :edit, :update]
-  before_action :find_orderitem, only: [:add, :remove, :set, :add_q, :destroy]
+  before_action :find_orderitem, only: [:add, :set, :destroy]
 
   def index
     if session[:order_id]
@@ -63,7 +63,7 @@ class OrdersController < ApplicationController
     if @order.update(order_params)
       flash[:success] = "Successfully updated order number #{ @order.id } "
       # this should redirect to an order summary view
-      redirect_to orders_path
+      redirect_to root_path
     else
       flash.now[:error] = "A problem occurred: Could not update order number #{ @order.id }"
       render "edit"
@@ -71,9 +71,9 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    if @item
-      @item.destroy
-    end
+    @item.destroy if @item
+    # not working as of yet
+    flash[:success] = "Successfully removed #{@item} from cart"
     redirect_to carts_path
   end
 
