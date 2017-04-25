@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :edit, :update]
+  before_action :find_orderitem, only: [:add, :remove]
 
   def index
     if session[:order_id]
-      @order_items = OrderItem.includes(:order_id).where(order_id: session[:order_id])
+      @order_items = OrderItem.where(order_id: session[:order_id])
     end
   end
 
@@ -13,18 +14,29 @@ class OrdersController < ApplicationController
 
   def add
     if !session[:order_id]
-      cart = Order.new
+      cart = Order.create
       session[:order_id] = cart.id
     else
-      cart = Order.find_by_id(session[:order_id])
+      Order.find_by_id(session[:order_id])
     end
 
-    if OrderItem.where(order_id: session[:order_id], product_id: params[:product_id])
-      item.quantity += 1
+    if @item
+      @item[:quantity] += 1
+      @item.save
     else
-      item = OrderItem.new(order_id: session[:order_id], product_id: params[:product_id], quantity: 1)
-      item.save
+      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: 1)
     end
+    redirect_to carts_path
+  end
+
+  def remove
+    if @item
+      @item[:quantity] -= 1
+      @item.save
+    end
+
+    @item.destroy if @item[:quantity] == 0
+
     redirect_to carts_path
   end
 
@@ -55,16 +67,20 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    # user stories do not mention deleting orders
-    # maybe we should jsut mark them cancelled instead of deleting them,
-    # because that would be confusing for the user(merchant), if the
-    # orders just disappeared
+    if session[:order_id]
+      @order_items = OrderItem.where(order_id: session[:order_id])
+      @order_items.destroy
+    end
   end
 
   private
 
   def find_order
     @order = Order.find_by_id(session[:order_id])
+  end
+
+  def find_orderitem
+    @item = OrderItem.find_by( order_id: session[:order_id], product_id: params[:id])
   end
 
   def order_params
