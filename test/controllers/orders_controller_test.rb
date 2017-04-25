@@ -28,8 +28,14 @@ describe OrdersController do
   end
 
   describe 'add_item' do
-    setup do
-      @product = Product.last
+    before do
+      merchant = merchants(:two)
+      # ProductOrder.destroy_all
+      @product = Product.new
+      @product.name = "pizza"
+      @product.price = 5.00
+      @product.merchant_id = merchant.id
+      @product.save
     end
 
     it 'generates a new product_order' do

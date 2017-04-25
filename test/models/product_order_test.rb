@@ -43,6 +43,7 @@ describe ProductOrder do
   describe 'add_product' do
 
     before do
+      ProductOrder.destroy_all
       @good_order = orders(:order2)
       @good_product = products(:product1)
       # @product_order1 = product_orders(:product_order1)
