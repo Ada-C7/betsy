@@ -26,3 +26,12 @@
 </section>
 
 <%= link_to "Add to cart", add_item_path, method: :post, class: :button %>
+
+<%= form_for @item, url: set_item_path , method: :post do |f| %>
+  <%= f.hidden_field :id, value: @product.id %>
+
+  <%= f.label :quantity %>
+  <%= f.text_field :quantity %>
+
+  <%= f.submit "Add to cart", class: "button" %>
+<% end %>

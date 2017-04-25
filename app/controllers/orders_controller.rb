@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :edit, :update]
-  before_action :find_orderitem, only: [:add, :remove]
+  before_action :find_orderitem, only: [:add, :remove, :set]
 
   def index
     if session[:order_id]
@@ -16,8 +16,6 @@ class OrdersController < ApplicationController
     if !session[:order_id]
       cart = Order.create
       session[:order_id] = cart.id
-    else
-      Order.find_by_id(session[:order_id])
     end
 
     if @item
@@ -37,6 +35,23 @@ class OrdersController < ApplicationController
 
     @item.destroy if @item[:quantity] == 0
 
+    redirect_to carts_path
+  end
+
+  def set
+    if !session[:order_id]
+      cart = Order.create
+      session[:order_id] = cart.id
+    end
+
+    if @item
+      @item[:quantity] = params[:quantity]
+      @item.save
+    else
+      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+    end
+
+    @item.destroy if @item[:quantity] == 0
     redirect_to carts_path
   end
 

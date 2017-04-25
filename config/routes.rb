@@ -16,5 +16,7 @@ Rails.application.routes.draw do
   post "/carts/:id/remove", to: "orders#remove", as: "remove_item"
   get "/carts", to: "orders#index"
 
+  post "/carts/set", to: "orders#set", as: "set_item"
+
   get "/account", to: "users#account"
 end
