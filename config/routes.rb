@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   get "/auth/github/callback", to: "merchants#auth_callback"
   get '/logout', to: "merchants#logout"
 
+  resources :categories do
+    get '/products', to: 'products#index'
+    #resourses :products, only: [:index]    ----is another way to write this
+  end
+
+
   resources :merchants, only: [:index, :show]
 
   # resources :products

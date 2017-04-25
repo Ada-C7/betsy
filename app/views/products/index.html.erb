@@ -1,5 +1,9 @@
-<h3 class = "products">List of products</h3>
 
+<% if !@category.nil?%>
+  <h3>Category: <%= @category.name%></h3>
+<% else %>
+  <h3 class = "products">List of all available products</h3>
+<% end %>
 
 <div class="row small-up-1 medium-up-3 large-up-6">
   <% @products.each do |product| %>
@@ -7,11 +11,13 @@
   <div class="column product_b">
     <%=link_to image_tag(product.image, alt: "Product Image", class: "thumbnail image_index"),product_path(product)%>
     <h5><%= product.name %></h5>
-    <p> $<%= product.price %>
+
+    <p>
+      $ <%=product.price %>
         <%=link_to product.name, product_path(product.id), class: "button" %>
     </p>
     <div>
-      <%= link_to "Buy", '#', class: "button buy"%>
+      <%= link_to "Add to cart", '#', class: "button buy"%>
     </div>
     <p><%=product.description%></p>
   </div>
