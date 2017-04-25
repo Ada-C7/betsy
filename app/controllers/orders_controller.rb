@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # confirmation
   def confirmation
     @order = Order.find_by_id(params[:id])
     render_404 if !@order

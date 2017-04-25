@@ -1,11 +1,28 @@
 <h1>Order Confirmation Page</h1>
-<section>
+<p>Congratulations on submitting your order!</p>
+
+<article>
+  <p>Total Cost: </p>
   <p>Order Placed: <%= @order.updated_at.to_date.to_formatted_s(:long) %></p>
   <p>Status: <%= @order.status %></p>
-</section>
-<!--
-Each item in the order with a quantity and line-item subtotal
-A link to the item description page
-Order total price
-DateTime the order was placed
-The current status of the order -->
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.order_items.each do |order_item| %>
+          <tr>
+            <td><%= link_to order_item.product.name, product_path(order_item.product_id) %></td>
+            <td><%= order_item.quantity %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</article>
