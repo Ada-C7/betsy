@@ -37,6 +37,21 @@
   </header>
 
   <main class="row">
+    <% if flash[:result_text] or flash[:messages] %>
+      <section class="row status <%= flash[:status] %>">
+        <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:result_text] %></h3>
+        <% if flash[:messages] %>
+          <ul>
+            <% flash[:messages].each do |name, problems| %>
+              <% problems.each do |problem| %>
+                <li><%= name %>: <%= problem %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </section>
+    <% end %>
+
     <%= yield %>
   </main>
 

@@ -33,7 +33,7 @@
         <td><%= product.category %></td>
         <td><%= product.price %></td>
         <td><%= product.inventory %></td>
-        <td><%= product.status %></td>
+        <td><%= link_to product.status_info[0],status_path(@merchant), method: :patch, class: "button"%></td>
       </tr>
       <% end %>
     </table>

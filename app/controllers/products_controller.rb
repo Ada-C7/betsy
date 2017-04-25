@@ -53,8 +53,13 @@ class ProductsController < ApplicationController
 
   def status
     product = Product.find_by(id: params[:id])
+    merchant = Merchant.find_by(id: params[:id])
     product.status_change
-    redirect_to product_path(product)
+    if request.referer == product_path(product)
+      redirect_to product_path(product)
+    elsif
+      redirect_to merchant_path(merchant)
+    end
   end
 
   private
