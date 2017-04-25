@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post "/carts/set", to: "orders#set", as: "set_item"
   post "/carts/add", to: "orders#add", as: "add_item"
   get "/carts/checkout", to: "orders#edit", as: "checkout"
-  get "/confirmation", to: "orders#show", as: "confirmation"
+  get "/carts/:id/confirmation", to: "orders#show", as: "confirmation"
 
   get "/account", to: "users#account"
 end

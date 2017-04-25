@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:show, :edit, :update]
+  before_action :find_order, only: [:edit, :update]
   before_action :find_orderitem, only: [:add, :set, :destroy]
 
   def index
@@ -9,6 +9,7 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find_by_id(params[:id])
     render_404 if !@order
   end
 
@@ -65,7 +66,7 @@ class OrdersController < ApplicationController
       flash[:success] = "Successfully updated order number #{ @order.id } "
       session[:order_id] = nil
       # this should redirect to an order summary view
-      redirect_to confirmation_path
+      redirect_to confirmation_path(@order.id)
     else
       flash.now[:error] = "A problem occurred: Could not update order number #{ @order.id }"
       render "edit"
@@ -86,7 +87,7 @@ class OrdersController < ApplicationController
   end
 
   def find_orderitem
-    @item = OrderItem.find_by( order_id: session[:order_id], product_id: params[:id])
+    @item = OrderItem.find_by(order_id: session[:order_id], product_id: params[:id])
   end
 
   def order_params

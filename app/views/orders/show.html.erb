@@ -1,1 +1,11 @@
 <h1>Order Confirmation</h1>
+<section>
+  <p>Order Placed: <%= @order.updated_at.to_date.to_formatted_s(:long) %></p>
+  <p>Status: <%= @order.status %></p>
+</section>
+<!-- 
+Each item in the order with a quantity and line-item subtotal
+A link to the item description page
+Order total price
+DateTime the order was placed
+The current status of the order -->
