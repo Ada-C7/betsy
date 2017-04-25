@@ -9,12 +9,12 @@ class OrdersController < ApplicationController
     order = current_order
     # check products for availablity - decrease quantity here?
     product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
-
     if product_order.valid?
       product_order.save
       redirect_to cart_path
     else
-      flash[:failure] = "Could not add item"
+      flash.now[:status] = :failure
+      flash[:result_text] = "There was an error - We could not add that item to your cart"
       redirect_back(fallback_location: root_path)
     end
   end
@@ -35,12 +35,15 @@ class OrdersController < ApplicationController
       order.status = "paid"
       order.save
       session[:order_id] = nil
-      flash[:success] = "Thank you for placing your order"
+      flash[:status] = :success
+      flash[:result_text] = "Thank you for placing your order"
       redirect_to root_path
     elsif !order.valid?
-      redirect_back(fallback_location: checkout_path)
+      flash.now[:status] = :failure
+      flash[:result_text] = "There was a problem processing your order"
+      flash[:messages] = order.errors.messages
+      redirect_to checkout_path
     end
-
   end
 
   def update_quantity
@@ -56,13 +59,9 @@ class OrdersController < ApplicationController
   end
 
   def remove_product
-    # order = current_order
-    # product = Product.find_by(id: params[:id])
     product_order = ProductOrder.find_by(order_id: session[:order_id], product_id: params[:id])
-    # need to add quant back to product?
     product_order.destroy
     redirect_back(fallback_location: root_path)
-    # raise
   end
 
 private
