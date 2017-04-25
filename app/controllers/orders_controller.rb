@@ -15,15 +15,14 @@ class OrdersController < ApplicationController
     else
       flash.now[:status] = :failure
       flash[:result_text] = "There was an error - We could not add that item to your cart"
+      flash[:messages] = product_order.errors.messages
       redirect_back(fallback_location: root_path)
     end
   end
 
-  # edit
   def checkout
     @order = current_order
     @products = get_product_order
-    # raise
   end
 
   def update
