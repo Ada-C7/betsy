@@ -1,8 +1,6 @@
 class CategoriesController < ApplicationController
 
-  def index
-    @categories = Category.all
-  end
+  def index; end
 
   def show; end
 
@@ -27,5 +25,10 @@ class CategoriesController < ApplicationController
   def edit; end
 
   def update; end
+
+  def destroy
+    Category.destroy(params[:id])
+    redirect_to :root
+  end
 
 end
