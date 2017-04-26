@@ -13,6 +13,7 @@ class User < ApplicationRecord
       uid: auth_hash["uid"],
       email: auth_hash["info"]["email"]
     )
+    user.username = user.email if user.username.blank?
 
     user.save ? user : nil
   end

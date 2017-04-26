@@ -4,13 +4,6 @@ class SessionsController < ApplicationController
     auth_hash = request.env['omniauth.auth']
     user = User.find_by(provider: 'github', uid: auth_hash[:uid])
 
-    # Check to see if we received the auth_hash from Github.
-    if auth_hash.nil?
-      flash[:status] = "failure"
-      flash[:result_text] = "Login Failed"
-      return redirect_to root_path
-    end
-
     if user.nil?
       new_user = true
       user = User.create_from_github(auth_hash)
