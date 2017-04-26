@@ -1,17 +1,16 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_product, only: [:show, :edit, :update, :retire]
   # skip_before_action :require_login,  only: [:new, :edit, :destroy] # require specific user? or validate edits in model?
 
   def homepage
-    # hide all retired products
-      @products = Product.all
+    @products = Product.where(retired: false)
   end
 
   def browse_products
     if params[:search_term] == 'category'
-      @products = Product.includes(:categories).where(categories: { id: params[:id] })
+      @products = Product.includes(:categories).where(categories: { id: params[:id] }, retired: false)
     elsif params[:search_term] == 'user'
-      @products = Product.where(user: @merchant)
+      @products = Product.where(user: @merchant, retired: false)
     end
   end
 
@@ -53,6 +52,7 @@ class ProductsController < ApplicationController
 
   def retire
     @product.retired = true
+    @product.save
     redirect_to :root
   end
 
@@ -67,9 +67,9 @@ class ProductsController < ApplicationController
     if !@product || @product.retired
       render_404
     end
+  end
 
-    def user_from_url
-      @merchant = User.find_by_id(params[:id])
-    end
+  def user_from_url
+    @merchant = User.find_by_id(params[:id])
   end
 end
