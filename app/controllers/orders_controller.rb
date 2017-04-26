@@ -29,10 +29,13 @@ class OrdersController < ApplicationController
 
   def update
     # raise
+    # p params[:order]
+    # p order_params
     order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
     if order.valid?
+      # p "you made it here"
       order.status = "paid"
       order.save
       session[:order_id] = nil
@@ -88,6 +91,7 @@ private
                                           :customer_city,
                                           :customer_zipcode,
                                           :customer_state,
-                                          :customer_cc_info)
+                                          :customer_cc_info,
+                                          :status)
   end
 end

@@ -17,11 +17,10 @@ class ProductOrder < ApplicationRecord
 
   def check_quantity
     product = Product.find_by(id: self.product_id)
-
     if product.nil? || product.inventory.nil?
-      errors.add(:product_order, "this item is not available")
+      errors.add(:product_order, "This item is not available")
     elsif self.quantity > product.inventory
-      errors.add(:product_order, "not enough in stock")
+      errors.add(:product_order, "There is not enough stock to accommodate your order")
     end
   end
 end
