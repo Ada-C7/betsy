@@ -4,7 +4,16 @@ class OrdersController < ApplicationController
   def cart
     @order = current_order
     @products = get_product_order
-    @order.calculate_totals_total
+    @order.calculate_totals
+    @subtotal = @order.subtotal
+    @tax = @order.tax
+    @total = @order.total
+  end
+
+  def checkout
+    @order = current_order
+    @products = get_product_order
+    @order.calculate_totals
     @subtotal = @order.subtotal
     @tax = @order.tax
     @total = @order.total
@@ -28,10 +37,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def checkout
-    @order = current_order
-    @products = get_product_order
-  end
+
 
   def update
     # raise
@@ -39,11 +45,11 @@ class OrdersController < ApplicationController
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
 
-    total = order.calculate_totals_total
+    # total = order.calculate_totals
 
     if order.valid?
       order.status = "paid"
-      order.total = total
+      # order.total = total
       order.save
       session[:order_id] = nil
       flash[:status] = :success
@@ -70,7 +76,7 @@ class OrdersController < ApplicationController
     else
       flash[:status] = :failure
       flash[:result_text] = "There was a problem updating the quantity"
-      flash[:messages] = order.errors.messages
+      flash[:messages] = product_order.errors.messages
     end
     redirect_back(fallback_location: root_path)
   end

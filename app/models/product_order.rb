@@ -16,7 +16,7 @@ class ProductOrder < ApplicationRecord
   end
 
   def check_quantity
-    product = Product.find_by(id: self.product_id
+    product = Product.find_by(id: self.product_id)
     if product.nil? || product.inventory.nil?
       errors.add(:product_order, "This item is not available")
     elsif self.quantity > product.inventory
