@@ -5,19 +5,22 @@ class Order < ApplicationRecord
   validates :customer_name, presence: true, on: :update
   validates :customer_address, presence: true, on: :update
   validates :customer_email, presence: true, on: :update
-  validates :customer_cc_info, presence: true,
+  validates :credit_card_number, presence: true,
                                numericality: { only_integer: true },
                                length: { is: 16 }, on: :update
   # validates :status, inclusion: { in: %w(pending, paid, shipped) }
   # before_save :update_total
 
-  def update_total
+  def calculate_totals
     product_orders = self.product_orders
-    total = 0
+    subtotal = 0
     product_orders.each do |item|
       product = item.product
-      total += (product.price * item.quantity)
+      subtotal += (product.price * item.quantity)
     end
-    return total
+    self.subtotal = subtotal
+    self.tax = subtotal * 0.098
+    self.total = subtotal + self.tax
+    # self.save
   end
 end

@@ -4,7 +4,11 @@ class OrdersController < ApplicationController
   def cart
     @order = current_order
     @products = get_product_order
-    @total = @order.update_total
+    @order.calculate_totals_total
+    @subtotal = @order.subtotal
+    @tax = @order.tax
+    @total = @order.total
+
   end
 
   # when you hit add to cart ...
@@ -36,7 +40,7 @@ class OrdersController < ApplicationController
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
 
-    total = order.update_total
+    total = order.calculate_totals_total
 
     if order.valid?
       order.status = "paid"
@@ -95,6 +99,6 @@ private
                                           :customer_city,
                                           :customer_zipcode,
                                           :customer_state,
-                                          :customer_cc_info)
+                                          :credit_card_number)
   end
 end
