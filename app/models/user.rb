@@ -5,7 +5,6 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
-  validates :image_url, presence: true
 
   def self.create_from_github(auth_hash)
     User.create(
@@ -14,6 +13,10 @@ class User < ApplicationRecord
       uid: auth_hash["uid"],
       email: auth_hash["info"]["email"]
     )
+  end
+
+  def image_url
+    @image_url ||= 'default-user-image.png'
   end
 
   def order_revenue(order)
