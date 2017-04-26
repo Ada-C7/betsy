@@ -25,4 +25,15 @@ describe User do
     duplicate = User.new(username: "Sandwich", email: one.email)
     duplicate.valid?.must_equal false
   end
+
+  it "sets the username as email when the username is not given" do
+    auth_hash = {
+      "provider" => "github",
+      "uid" => 666,
+      "info" => { "email" => "bob@bob.com", "name" => "" }
+    }
+    user = User.create_from_github(auth_hash)
+
+    user.username.must_equal user.email
+  end
 end

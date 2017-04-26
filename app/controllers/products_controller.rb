@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  def destroy
+  def retire
     @product.retired = true
     redirect_to :root
   end

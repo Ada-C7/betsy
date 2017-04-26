@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   get "/merchants/:id/products", to: "products#browse_products", search_term: 'user', as: "user_products"
 
-  resources :products, except: :index
-  resources :users
+  resources :products, except: [:index, :destroy]
+  delete "products/:id", to: "products#retire", as: 'retire_product'
   resources :categories, only: [:new, :create]
 
   resources :orders, only: [:show, :update, :destroy]
