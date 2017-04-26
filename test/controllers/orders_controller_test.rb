@@ -6,11 +6,12 @@ describe OrdersController do
 
     before do
       # ProductOrder.destroy_all
-      order = Order.create
-      product = products(:product1)
+      order = orders(:order1)
+      product = products(:product4)
       order_product = ProductOrder.new
       order_product.product_id = product.id
       order_product.order_id = order.id
+      order_product.quantity = 1
       order_product.save
     end
 
@@ -35,6 +36,7 @@ describe OrdersController do
       @product.name = "pizza"
       @product.price = 5.00
       @product.merchant_id = merchant.id
+      @product.inventory = 6
 
       @product.save
     end
