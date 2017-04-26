@@ -35,6 +35,7 @@ describe OrdersController do
       @product.name = "pizza"
       @product.price = 5.00
       @product.merchant_id = merchant.id
+
       @product.save
     end
 
@@ -122,8 +123,7 @@ describe OrdersController do
   describe 'update_quantity' do
 
     before do
-      order = orders(:order2)
-
+      # order = orders(:order2)
       product = products(:product1)
       @product_order = product_orders(:product_order2)
       @params_info = { product_id: product.id, quantity: 3}

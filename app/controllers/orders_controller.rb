@@ -9,8 +9,8 @@ class OrdersController < ApplicationController
     order = current_order
     # check products for availablity - decrease quantity here?
     product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
-    p product_order.valid?
-    p product_order.errors.messages
+    # p product_order.valid?
+    # p product_order.errors.messages
     if product_order.valid?
       product_order.save
       redirect_to cart_path
