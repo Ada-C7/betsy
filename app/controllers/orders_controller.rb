@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
     else
       flash[:status] = :failure
       flash[:result_text] = "There was a problem updating the quantity"
-      flash[:messages] = order.errors.messages
+      flash[:messages] = product_order.errors.messages
     end
     redirect_back(fallback_location: root_path)
   end

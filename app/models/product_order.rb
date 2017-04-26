@@ -1,8 +1,9 @@
 class ProductOrder < ApplicationRecord
   belongs_to :order, optional: false
   belongs_to :product, optional: false
-  validates :product_id, :uniqueness => {:scope => :order_id},
-                         :uniqueness => {message: "This item is already in the cart"}
+  validates_uniqueness_of :order_id,
+                          scope: [:product_id],
+                          message: "This item is already in the cart"
   validate :quantity, :check_quantity
 
   # you should be sending argument as hash
