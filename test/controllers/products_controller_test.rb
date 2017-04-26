@@ -19,7 +19,9 @@ describe ProductsController do
       get root_path
       must_respond_with :success
     end
+  end
 
+  describe "browse_products" do
     it "successful when routed through a category" do
       get category_products_path(Category.first)
       must_respond_with :success
