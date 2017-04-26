@@ -3,7 +3,14 @@ require "test_helper"
 describe UsersController do
 
   describe "index" do
+    it "allows an unauthenticated visitor to view all merchants" do
+      # make sure nobody is logged in
+      delete logout_path
+      session[:user_id].must_be_nil
 
+      get accounts_path
+      must_respond_with :success
+    end
   end
 
   describe "auth_callback" do
@@ -50,19 +57,39 @@ describe UsersController do
     end
 
     describe "update" do
+      it "redirects to the root path if a user is not logged in" do
+        delete logout_path
 
+        patch account_path
+        must_respond_with :bad_request
+      end
     end
 
     describe "edit" do
+      it "redirects to the root path if a user is not logged in" do
+        delete logout_path
 
+        get edit_account_path
+        must_respond_with :bad_request
+      end
     end
 
     describe "products" do
+      it "redirects to the root path if a user is not logged in" do
+        delete logout_path
 
+        get account_products_path
+        must_respond_with :bad_request
+      end
     end
 
     describe "orders" do
+      it "redirects to the root path if a user is not logged in" do
+        delete logout_path
 
+        get account_orders_path
+        must_respond_with :bad_request
+      end
     end
 
     describe "user_params" do
