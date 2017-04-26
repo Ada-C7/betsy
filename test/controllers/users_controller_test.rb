@@ -32,40 +32,35 @@ describe UsersController do
 
       session[:user_id].must_equal User.last.id
     end
-
-
   end
 
-  describe "update" do
+  describe "logged in users" do
+    before do
+      login(users(:one))
+    end
 
-    # it "updates the user" do
-    #   patch account_path, params: { user: { username: "Bob", email: "bob@bob.com", image_url: "bob.jpg" } }
-    #   must_redirect_to root_path
-    # end
-    #
-    # it "returns bad_request and fails to update user when given a blank form" do
-    #   patch account_path, params: { user: { username: "", email: "", image_url: "" } }
-    #   must_respond_with :bad_request
-    # end
-  end
+    describe "update" do
 
-  describe "edit" do
+    end
 
-  end
+    describe "edit" do
 
-  describe "products" do
+    end
 
-  end
+    describe "products" do
 
-  describe "orders" do
+    end
 
-  end
+    describe "orders" do
 
-  describe "user_params" do
+    end
 
-  end
+    describe "user_params" do
 
-  describe "require_login" do
+    end
 
+    describe "require_login" do
+
+    end
   end
 end
