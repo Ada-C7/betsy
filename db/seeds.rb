@@ -19,7 +19,7 @@ Product.create(merchant_id: 2, name: "Salmon & greens", price: 12.50, inventory:
 Product.create(merchant_id: 5, name: "Soup of potatoes", price: 4.30, inventory: 10, image: "NomNom.png", category: "soup", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
 Product.create(merchant_id: 1, name: "A delicious bite", price: 5.30, inventory: 4, image: "NomNom.png", category: "protein_from_the_see", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
 Product.create(merchant_id: 2, name: "Figs on a plate", price: 6.70, inventory: 10, image: "NomNom.png", category: "dessert", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
-Product.create(merchant_id: 3, name: "Cupcake a la rose", price: 10.40, inventory: 5, image: "NomNom.pngb", category: "soup", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
+Product.create(merchant_id: 3, name: "Cupcake a la rose", price: 10.40, inventory: 5, image: "NomNom.png", category: "soup", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
 Product.create(merchant_id: 4, name: "Caprese tower", price: 9.80, inventory: 3, image: "NomNom.png", category: "soup", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
 Product.create(merchant_id: 5, name: "Gravad lax on crackers", price: 8.30, inventory: 4, image: "NomNom.png", category: "soup", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
 Product.create(merchant_id: 3, name: "Pappardelle mushroom speciale", price: 12.50, inventory: 6, image: "NomNom.png", category: "soup", status: "active",  description: "Pellentesque congue odio semper pellentesque viverra. ")
@@ -48,6 +48,16 @@ Category.create(name: "fruit") # 15
 Category.create(name: "soup") # 16
 
 
+Review.create(product_id: 1, rating: 4, review: "Very good :)")
+Review.create(product_id: 1, rating: 3, review: "Very good :)")
+Review.create(product_id: 1, rating: 5, review: "Very good :)")
+Review.create(product_id: 1, rating: 5, review: "Very good :)")
+
+
+
+
+
+
 
 Product.find(1).categories << Category.find(1)
 Product.find(1).categories << Category.find(12)
@@ -58,3 +68,5 @@ Product.find(2).categories << Category.find(14)
 
 Product.find(4).categories << Category.find(16)
 Product.find(4).categories << Category.find(6)
+
+Product.find(7).categories << Category.find(14)
