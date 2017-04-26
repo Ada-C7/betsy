@@ -3,6 +3,11 @@
   <h1>Cart</h1>
     <%= render partial: "cartTable" %>
   </div>
+  <div>
+    <h2>Total</h2>
+    <%= @total %>
+  </div>
+
   <article class="large-2 columns">
     <nav>
       <%= link_to "Continue Shopping", products_path, class: "button" %>

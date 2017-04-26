@@ -1,16 +1,19 @@
 class OrdersController < ApplicationController
 
+  # the instance variable lets you call in the view
   def cart
+    @order = current_order
     @products = get_product_order
+    @total = @order.update_total
   end
 
-  # new
+  # when you hit add to cart ...
   def add_item
-    order = current_order
+    current_order
     # check products for availablity - decrease quantity here?
     product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
-    p product_order.valid?
-    p product_order.errors.messages
+    # p product_order.valid?
+    # p product_order.errors.messages
     if product_order.valid?
       product_order.save
       redirect_to cart_path
@@ -32,8 +35,12 @@ class OrdersController < ApplicationController
     order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
+
+    total = order.update_total
+
     if order.valid?
       order.status = "paid"
+      order.total = total
       order.save
       session[:order_id] = nil
       flash[:status] = :success
