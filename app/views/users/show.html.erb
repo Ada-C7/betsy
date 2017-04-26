@@ -6,6 +6,7 @@
     <thead>
       <tr>
         <th>Type</th>
+        <th>Order Count</th>
         <th>Amount</th>
       </tr>
     </thead>
@@ -13,6 +14,7 @@
       <% @orders_by_status.each do |status, orders| %>
         <tr>
           <td><%= status.capitalize %></td>
+          <td><%= orders.count %></td>
           <% subtotals = orders.map do |order| %>
             <% @logged_in_user.order_revenue(order) %>
           <% end %>
@@ -21,6 +23,7 @@
       <% end %>
       <tr>
         <td>Total</td>
+        <td><%= @orders.count %></td>
         <td><%= @logged_in_user.total_revenue %></td>
       </tr>
     </tbody>
