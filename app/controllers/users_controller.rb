@@ -6,9 +6,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @order_items = @logged_in_user.order_items
-    @orders = @order_items.map { |order_item| order_item.order }.uniq
-    @orders_by_status = @orders.group_by { |order| order.status }
+    # creates a unique list of the logged in user's order statuses
+    @order_statuses = @logged_in_user.order_items.map { |order_item|
+      order_item.order.status
+    }.uniq
   end
 
   def update

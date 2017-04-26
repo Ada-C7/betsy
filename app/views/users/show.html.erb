@@ -11,19 +11,16 @@
       </tr>
     </thead>
     <tbody>
-      <% @orders_by_status.each do |status, orders| %>
+      <% @order_statuses.each do |status| %>
         <tr>
           <td><%= status.capitalize %></td>
-          <td><%= orders.count %></td>
-          <% subtotals = orders.map do |order| %>
-            <% @logged_in_user.order_revenue(order) %>
-          <% end %>
-          <td><%= subtotals.inject(:+) %></td>
+          <td><%= @logged_in_user.order_count_by_status(status) %></td>
+          <td><%= @logged_in_user.revenue_by_order_status(status) %></td>
         </tr>
       <% end %>
       <tr>
         <td>Total</td>
-        <td><%= @orders.count %></td>
+        <td><%= @logged_in_user.order_count %></td>
         <td><%= @logged_in_user.total_revenue %></td>
       </tr>
     </tbody>
