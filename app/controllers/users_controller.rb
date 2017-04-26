@@ -6,9 +6,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @order_items = @logged_in_user.order_items
-    @orders = @order_items.map { |order_item| order_item.order }.uniq
-    @orders_by_status = @orders.group_by { |order| order.status }
+    # creates a unique list of the logged in user's order statuses
+    @order_statuses = @logged_in_user.order_items.map { |order_item|
+      order_item.order.status
+    }.uniq
   end
 
   def update
@@ -24,17 +25,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def create; end
-
-  def new; end
-
   def edit; end
 
   def products; end
 
   def orders
-    @order_items = OrderItem.where(product: @logged_in_user.products)
-    @orders = @order_items.map { |order_item| order_item.order }.uniq
+    @order_items = @logged_in_user.order_items
   end
 
   private
@@ -42,4 +38,13 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :email, :image_url, :provider, :uid)
   end
+
+  def require_login
+    if !session[:user_id]
+      flash[:status] = "warning"
+      flash[:result_text] = "You must be logged in to view this page."
+      redirect_to :root, status: :bad_request
+    end
+  end
+
 end

@@ -7,24 +7,43 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def self.create_from_github(auth_hash)
-    User.create(
+    user = User.new(
       username: auth_hash["info"]["name"],
       provider: auth_hash["provider"],
       uid: auth_hash["uid"],
       email: auth_hash["info"]["email"]
     )
+    user.username = user.email if user.username.blank?
+
+    user.save ? user : nil
   end
 
-  def order_revenue(order)
-    order_items.select { |order_item|
-      order_item.order == order
-    }.map { |order_item|
-      order_item.subtotal
-    }.inject(:+)
+  def image_url
+    @image_url ||= 'default-user-image.png'
+  end
+
+  def order_count
+    order_items.map { |order_item| order_item.order }.uniq.count
   end
 
   def total_revenue
     order_items.map { |order_item| order_item.subtotal }.inject(:+)
+  end
+
+  def order_count_by_status(status)
+    order_items.map { |order_item|
+      # pulls the order if the order status matches the target
+      order_item.order if order_item.order.status == status
+    # counts the number of unique orders, excluding nil values (created by conditional above)
+    }.compact.uniq.count
+  end
+
+  def revenue_by_order_status(status)
+    order_items.map { |order_item|
+      # pulls the order_item subtotal if the order status matches the target
+      order_item.subtotal if order_item.order.status == status
+    # removes nil values from the array and sums the subtotals together
+    }.compact.inject(:+)
   end
 
 end
