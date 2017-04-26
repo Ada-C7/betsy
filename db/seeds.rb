@@ -23,6 +23,7 @@ products.each do |product|
   new_product = Product.create(product)
   if !new_product.id
     puts "Could not create product #{new_product.name}"
+    puts new_product.errors.messages
   end
 end
 
@@ -32,17 +33,20 @@ orders = CSV.read(
   header_converters: :symbol
 ).map { |line| line.to_h }
 
-success_count = 0
-
 orders.each do |order|
-  temp_order = Order.create(order)
-  if temp_order.id
-    success_count += 1
-    puts "#{temp_order.email} successfully added"
+  new_order = Order.create(order)
+  if !new_order.id
+    puts "Could not create order by #{new_order.email}"
   end
 end
 
-puts "#{success_count} out of #{orders.length} successfully added"
+10.times do
+  OrderItem.create(
+    quantity: rand(1..5),
+    product_id: rand(1..10),
+    order_id: rand(1..10)
+  )
+end
 
 Category.create(name: 'Adult')
 Category.create(name: 'Kids')
@@ -51,3 +55,10 @@ Product.all.each do |product|
   product.categories << Category.find_by_id(rand(1..2))
   product.save
 end
+
+puts "\n\n----Summary----"
+puts "#{Product.count} Products"
+puts "#{Category.count} Categories"
+puts "#{Order.count} Orders"
+puts "#{OrderItem.count} OrderItems"
+puts "#{User.count} Users"
