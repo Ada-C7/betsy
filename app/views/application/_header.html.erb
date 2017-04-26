@@ -7,7 +7,7 @@
         <a href="#">Categories</a>
         <ul class="menu">
           <% Category.all.each do |category| %>
-            <li><%= link_to category.name, category_products_path(category_id: category.id) %></li>
+            <li><%= link_to category.name, category_products_path(id: category.id) %></li>
           <% end %>
         </ul>
       </li>

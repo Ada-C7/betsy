@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
     if params[:search_term] == 'category'
       @products = Product.includes(:categories).where(categories: { id: params[:id] })
     elsif params[:search_term] == 'user'
-      @products = Product.where(user_id: params[:id])
+      @products = Product.where(user: @merchant)
     end
   end
 
@@ -66,6 +66,10 @@ class ProductsController < ApplicationController
     @product = Product.find_by_id(params[:id])
     if !@product || @product.retired
       render_404
+    end
+
+    def user_from_url
+      @merchant = User.find_by_id(params[:id])
     end
   end
 end

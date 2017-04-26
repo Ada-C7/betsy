@@ -26,7 +26,7 @@ describe ProductsController do
     end
 
     it "successful when routed through a merchant" do
-      get merchant_products_path(User.first)
+      get user_products_path(users(:one))
       must_respond_with :success
     end
   end
