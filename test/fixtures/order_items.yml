@@ -10,16 +10,19 @@ one:
   product: kidjams
   order: one
   quantity: 7
+  status: "paid"
 
 two:
   product: famjams
   order: one
   quantity: 2
+  status: "paid"
 
 three:
   product: jamjams
   order: two
   quantity: 4
+  status: "paid"
 
 # invalid data
 

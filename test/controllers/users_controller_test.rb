@@ -20,7 +20,7 @@ describe UsersController do
 
     it "creates a new user and renders the account edit page" do
       proc {
-        user = User.new(provider: "github", uid: 666, username: "Bob", email: "bob@bob.com", image_url: "bob.jpg")
+        user = User.new(provider: "github", uid: 789, username: "Bob", email: "bob@bob.com", image_url: "bob.jpg")
         login(user)
 
         must_redirect_to edit_account_path
@@ -45,7 +45,7 @@ describe UsersController do
         delete logout_path
 
         get account_path
-        must_respond_with :failure
+        must_respond_with :bad_request
       end
     end
 
