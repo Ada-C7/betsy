@@ -8,7 +8,6 @@ class OrdersController < ApplicationController
     @subtotal = @order.subtotal
     @tax = @order.tax
     @total = @order.total
-
   end
 
   # when you hit add to cart ...
