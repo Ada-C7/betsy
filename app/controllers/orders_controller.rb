@@ -114,6 +114,7 @@ class OrdersController < ApplicationController
       session[:order_id] = nil
 
       @order.order_items.each do |order_item|
+        order_item.status = "paid"
         order_item.product.quantity -= order_item.quantity
         order_item.product.save
       end
