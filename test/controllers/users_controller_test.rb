@@ -6,10 +6,6 @@ describe UsersController do
 
   end
 
-  describe "show" do
-
-  end
-
   describe "auth_callback" do
     it "logs in an existing user and redirects to the root" do
       proc {
@@ -37,6 +33,20 @@ describe UsersController do
   describe "logged in users" do
     before do
       login(users(:one))
+    end
+
+    describe "show" do
+      it "succeeds for a user that exists" do
+        get account_path
+        must_respond_with :success
+      end
+
+      it "redirects to the root path if a user is not logged in" do
+        delete logout_path
+
+        get account_path
+        must_respond_with :failure
+      end
     end
 
     describe "update" do
