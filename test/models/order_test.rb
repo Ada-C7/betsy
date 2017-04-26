@@ -8,12 +8,6 @@ describe Order do
       order.valid?.must_equal true
     end
 
-    it "You can create an order without user" do
-      order = orders(:no_user)
-      order.valid?.must_equal true
-      order.errors.messages[:user].must_equal []
-    end
-
     it "Creates an order with default status pending" do
       order.valid?.must_equal true
       order.status.must_equal "pending"
@@ -125,23 +119,6 @@ describe Order do
   end
 
   describe "relations" do
-    it "has a user" do
-      order = orders(:one)
-      order.user.must_equal users(:one)
-    end
 
-    it 'Can set the user through "user"' do
-      order = orders(:one)
-      order.user = users(:one)
-
-      order.user_id.must_equal users(:one).id
-    end
-
-    it 'Can set the user through "user_id"' do
-      order = orders(:two)
-      order.user_id = users(:one).id
-
-      order.user.must_equal users(:one)
-    end
   end
 end
