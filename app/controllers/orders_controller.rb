@@ -105,13 +105,17 @@ class OrdersController < ApplicationController
     # they can't check out
     render_404 if @order.order_items.length == 0
 
-    # TODO remove purchased products from the database!!!!!!
     @order.status = "paid"
     if @order.update(order_params)
       flash[:status] = :success
       flash[:result_text] = "Successfully updated order number #{ @order.id } "
       session[:order_id] = nil
-      # this should redirect to an order summary view
+
+      @order.order_items.each do |order_item|
+        order_item.product.quantity -= order_item.quantity
+        order_item.product.save
+      end
+      
       redirect_to confirmation_path(@order.id)
     else
       flash.now[:status] = :failure
