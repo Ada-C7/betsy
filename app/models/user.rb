@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
+  validates :image_url, presence: true
 
   def self.create_from_github(auth_hash)
     User.create(
