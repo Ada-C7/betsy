@@ -129,8 +129,8 @@ describe OrdersController do
   end
 
   describe 'update_quantity' do
-
     # product 1 has 3 available in stock
+    # product 2 has 5 available in stock 
     before do
       # order = orders(:order2)
       product = products(:product1)
