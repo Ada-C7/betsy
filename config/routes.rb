@@ -14,12 +14,15 @@ Rails.application.routes.draw do
   resources :products, except: :index
   resources :users
   resources :orders, except: [:index, :create, :new]
-
+  
+  post "/orders/:id/shipped", to: "orders#shipped", as: "shipped"
+  post "orders/:id/cancelled", to: "orders#cancelled", as: "cancelled"
   get "/carts", to: "orders#index"
   post "/carts/set", to: "orders#set", as: "set_item"
   post "/carts/add", to: "orders#add", as: "add_item"
   get "/carts/checkout", to: "orders#edit", as: "checkout"
   get "/carts/:id/confirmation", to: "orders#confirmation", as: "confirmation"
+
 
   get "/merchants", to: "users#index", as: "accounts"
   get "/account", to: "users#show"
