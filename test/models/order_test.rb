@@ -17,16 +17,13 @@ describe Order do
     #   order.valid?.must_equal true
     # end
 
+    it "will create a new instance when given good info" do
+      complete_order.valid?.must_equal true
+    end
     #
       # will this get tested in the update OrdersController test?
     # it "will not update a new instance if needed data is missing" do
     #   order.valid?.must_equal false
     # end
-  end
-
-  describe 'subtotal' do
-
-    it "returns subtotal sum of products' prices" do
-    end
   end
 end

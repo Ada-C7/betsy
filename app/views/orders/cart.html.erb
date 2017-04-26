@@ -1,17 +1,9 @@
 <section class="row">
-  <div class="large-8 columns">
+  <div class="large-10 columns">
   <h1>Cart</h1>
     <%= render partial: "cartTable" %>
   </div>
-
-
-  <article class="large-4 columns">
-    <div>
-      <h2>Total</h2>
-      <p>Subtotal: <%= @subtotal %></p>
-      <p>Tax: <%= @tax %></p>
-      <p>Total: <%= @total %></p>
-    </div>
+  <article class="large-2 columns">
     <nav>
       <%= link_to "Continue Shopping", products_path, class: "button" %>
       <%= link_to "Proceed to checkout", checkout_path, method: :get, class: 'button' %>
