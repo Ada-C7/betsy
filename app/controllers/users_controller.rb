@@ -25,8 +25,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def create; end
-
   def edit; end
 
   def products; end
