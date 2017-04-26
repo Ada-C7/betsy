@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
     if params[:search_term] == 'category'
       @products = Product.includes(:categories).where(categories: { id: params[:id] }, retired: false)
     elsif params[:search_term] == 'user'
-      @products = Product.where(user: @merchant, retired: false)
+      @products = Product.where(user: user_from_url, retired: false)
     end
   end
 
