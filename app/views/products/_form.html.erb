@@ -1,13 +1,4 @@
 <section class="form">
-  <% if @product.errors.any? %>
-  <ul class="error">
-    <% @product.errors.each do |field, msg| %>
-    <li>
-      Oops! <strong><%= field.capitalize %></strong> <%= msg %>
-    </li>
-    <% end %>
-  </ul>
-  <% end %>
 
   <%= form_for @product do |f| %>
   <% if find_user %>
@@ -25,7 +16,7 @@
 
   <%= f.label :description %>
   <%= f.text_area :description, size: "30x12" %>
-  
+
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |m| %>
   <%= m.check_box %> <%= m.label %>
   <% end %>

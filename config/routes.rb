@@ -5,15 +5,14 @@ Rails.application.routes.draw do
   get "/auth/github/callback", to: "sessions#create"
   delete "/logout", to: "sessions#logout"
 
-  resources :categories do
-    get "/products", to: "products#homepage"
-  end
+  get "/categories/:id/products", to: "products#browse_products", search_term: 'category', as: "category_products"
 
-  get "/users/:id/products", to: "products#homepage", as: "user_products"
+  get "/merchants/:id/products", to: "products#browse_products", search_term: 'user', as: "user_products"
 
   resources :products, except: :index
   resources :users
   resources :orders, except: [:index, :create, :new]
+  resources :categories, only: [:new, :create]
 
   get "/carts", to: "orders#index"
   post "/carts/set", to: "orders#set", as: "set_item"

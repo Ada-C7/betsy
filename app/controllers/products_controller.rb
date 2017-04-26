@@ -4,12 +4,14 @@ class ProductsController < ApplicationController
 
   def homepage
     # hide all retired products
-    if params[:category_id]
-      @products = Product.includes(:categories).where(categories: {id: params[:category_id]})
-    elsif params[:user_id]
-      @products = Product.where(user_id: params[:user_id])
-    else
       @products = Product.all
+  end
+
+  def browse_products
+    if params[:search_term] == 'category'
+      @products = Product.includes(:categories).where(categories: { id: params[:id] })
+    elsif params[:search_term] == 'user'
+      @products = Product.where(user_id: params[:id])
     end
   end
 
@@ -23,9 +25,12 @@ class ProductsController < ApplicationController
     @product = Product.create(product_params)
     if @product.save
       flash[:status] = :success
+      flash[:result_text] = "Successfully added product"
       redirect_to :root
     else
       flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not add product"
+      flash.now[:messages] = @product.errors.messages
       render :new, status: :bad_request
     end
   end
@@ -36,10 +41,13 @@ class ProductsController < ApplicationController
     @product.update(product_params)
     if @product.save
       flash[:status] = :success
+      flash[:result_text] = "Successfully updated product"
       redirect_to :root
     else
       flash.now[:status] = :failure
-      render :new, status: :bad_request
+      flash.now[:result_text] = "Could not update product"
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :bad_request
     end
   end
 

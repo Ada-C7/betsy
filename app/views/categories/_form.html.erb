@@ -1,14 +1,4 @@
 <section class="form">
-  <% if @category.errors.any? %>
-  <ul class="error">
-    <% @category.errors.each do |field, msg| %>
-    <li>
-      Oops! <strong><%= field.capitalize %></strong> <%= msg %>
-    </li>
-    <% end %>
-  </ul>
-  <% end %>
-
   <%= form_for @category do |f| %>
   <ul>
     <li>
