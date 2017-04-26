@@ -1,6 +1,5 @@
 class Order < ApplicationRecord
   has_many :order_items
-  belongs_to :user, optional: true
 
   validates :status, presence: true
   validates :email, presence: true, format: {with: /@/}, unless: :in_cart?
