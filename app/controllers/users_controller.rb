@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     if !session[:user_id]
       flash[:status] = "warning"
       flash[:result_text] = "You must be logged in to view this page."
-      redirect_to :root
+      redirect_to :root, status: :bad_request
     end
   end
 
