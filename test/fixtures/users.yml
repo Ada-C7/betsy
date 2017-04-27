@@ -3,14 +3,12 @@ one:
   uid: 1234
   provider: github
   email: florny@gmail.com
-  image_url: sandwiches.com/blt
 
 two:
   username: I have invalid users
   uid: 666
   provider: github
   email: ham@gmail.com
-  image_url: sandwiches.com/blt
 
 one_sale_fred:
   username: I have one sale

@@ -34,8 +34,8 @@ noname:
   quantity: 10
   price: 10.0
   description: test
-  image_url: test
-  user: one
+  image_url: two
+  user: two
 
 samename1:
   name: copycat
@@ -43,7 +43,7 @@ samename1:
   price: 10.0
   description: test
   image_url: test
-  user: one
+  user: two
 
 samename2:
   name: copycat
@@ -51,35 +51,35 @@ samename2:
   price: 10.0
   description: test
   image_url: test
-  user: one
+  user: two
 
 noquantity:
   name: test1
   price: 10.0
   description: test
   image_url: test
-  user: one
+  user: two
 
 noprice:
   name: test4
   quantity: 10
   description: test
   image_url: test
-  user: one
+  user: two
 
 nodesc:
   name: test7
   quantity: 10
   price: 10.0
   image_url: test
-  user: one
+  user: two
 
 noimg:
   name: test8
   quantity: 10
   price: 10.0
   description: test
-  user: one
+  user: two
 
 nouser:
   name: test
