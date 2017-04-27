@@ -27,7 +27,7 @@ class User < ApplicationRecord
   end
 
   def total_revenue
-    order_items.map { |order_item| order_item.subtotal }.inject(:+)
+    order_items.map { |order_item| order_item.subtotal }.inject(0, :+)
   end
 
   def order_count_by_status(status)
@@ -43,7 +43,7 @@ class User < ApplicationRecord
       # pulls the order_item subtotal if the order status matches the target
       order_item.subtotal if order_item.order.status == status
     # removes nil values from the array and sums the subtotals together
-    }.compact.inject(:+)
+  }.compact.inject(0, :+)
   end
 
 end

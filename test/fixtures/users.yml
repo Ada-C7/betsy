@@ -11,3 +11,9 @@ two:
   provider: github
   email: ham@gmail.com
   image_url: sandwiches.com/blt
+
+one_sale_fred:
+  username: I have one sale
+  uid: 100
+  provider: github
+  email: fred@onesale.com

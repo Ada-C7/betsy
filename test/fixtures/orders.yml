@@ -15,7 +15,6 @@ one:
   card_expiration: 08/17
   cvv: "098"
   zipcode: "76549"
-  status: "pending"
 
 two:
   status: complete
@@ -26,7 +25,6 @@ two:
   card_expiration: 12/20
   cvv: "382"
   zipcode: "20932"
-  status: "paid"
 
 no_user:
   status: cancelled
@@ -37,7 +35,6 @@ no_user:
   card_expiration: 10/19
   cvv: "435"
   zipcode: "23489"
-  status: "complete"
 
 # invalid data
 missing_email:
