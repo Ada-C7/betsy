@@ -5,6 +5,7 @@ describe CategoriesController do
 
   describe "new" do
     it "runs successfully" do
+      skip
       get new_category_path
       must_respond_with :success
     end
