@@ -1,4 +1,10 @@
 <h2>Orders</h2>
+
+<% @order_statuses.each do |order_status| %>
+  <%= link_to "#{order_status.capitalize}", account_orders_path(status: order_status) %>
+<% end %>
+<%= link_to "All", account_orders_path(status: 'all') %>
+
 <% if @order_items.empty? %>
   <p>You have no orders.</p>
 <% else %>
@@ -12,7 +18,7 @@
         <th>Quantity</th>
         <th>Subtotal</th>
         <th>Item Status</th>
-        <th>Status</th>
+        <th>Order Status</th>
       </tr>
     </thead>
     <tbody>
@@ -28,8 +34,8 @@
             <% if ['shipped', 'cancelled'].include? order_item.status %>
               <%= order_item.status.capitalize %>
             <% else %>
-              <%= link_to("Mark Shipped") %>&nbsp;&nbsp;
-              <%= link_to("Cancel") %>
+              <%= link_to "Mark Shipped", shipped_path(order_item.id), method: :patch %>&nbsp;&nbsp;
+              <%= link_to "Cancel", cancelled_path(order_item.id), method: :patch %>
             <% end %>
           </td>
           <td><%= order_item.order.status.capitalize %></td>
