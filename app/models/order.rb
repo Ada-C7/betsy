@@ -53,7 +53,7 @@ class Order < ApplicationRecord
     self.total = subtotal + self.tax
     # self.save
   end
-
+  
   # you are changing a product...
   def decrease_product_inventory
     product_orders.each do |product_order|
