@@ -30,13 +30,15 @@ class Order < ApplicationRecord
             length: { is: 16, message: "Credit card must be a 16 digit number" },
             on: :update
 
-   validates_presence_of :customer_city,
-                         message: "Please enter a city",
-                         on: :update
 
-   validates_presence_of :customer_state,
-                         on: :update,
-                         message: "Please enter a state"
+
+  validates_presence_of :customer_city,
+                       message: "Please enter a city",
+                       on: :update
+
+  validates_presence_of :customer_state,
+                       on: :update,
+                       message: "Please enter a state"
   # validates :status, inclusion: { in: %w(pending, paid, shipped) }
   # before_save :update_total
 

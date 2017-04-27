@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    if !session[:order_id].nil?
+    if session[:order_id]
       return Order.find_by(id: session[:order_id])
     else
       order = Order.new

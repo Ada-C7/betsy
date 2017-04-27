@@ -7,8 +7,7 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
-  # NEED TO TALK AND HAVE THIS ADDED
-  validates :inventory, presence: true, numericality: { greater_than: -1 }
+
 
   def average_rating
     array_of_ratings = reviews.all.collect {|t| t.rating}.select(&:present?)

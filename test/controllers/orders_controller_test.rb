@@ -93,7 +93,7 @@ describe OrdersController do
                             customer_city: "seattle",
                             customer_zipcode: "12345",
                             customer_state: "WA",
-                            credit_card_number: "1234567890123456",
+                            credit_card_number: "1234567890123456"
                             }
                           }
       # test all validations?
@@ -104,7 +104,6 @@ describe OrdersController do
                         customer_city: "seattle",
                         customer_zipcode: "12345",
                         customer_state: "WA"
-
                         }
                       }
     end
