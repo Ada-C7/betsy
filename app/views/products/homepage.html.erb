@@ -1,29 +1,26 @@
-<section class="all-products">
-  <h3>Browse Products</h3>
-  <table class="product-list">
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Price</th>
-    </tr>
-    <% if !@products.nil? %>
-    <% @products.each do |product| %>
-    <tr>
-      <td>
-        <%= link_to image_tag(product.image_url), product_path(product.id) %>
-      </td>
-      <td>
-        <%= link_to product.name, product_path(product.id) %>
-      </td>
-      <td>
-        <%= product.quantity %>
-      </td>
-      <td>
-        <%= product.price %>
-      </td>
-    </tr>
+<section class="list">
+  <h3>All Products</h3>
+    <% if @products.empty? %>
+      <p>
+        No products match that search term.
+      </p>
+    <% else %>
+      <section class="products-list">
+        <% @products.each do |product| %>
+          <article>
+            <p>
+              <%= link_to image_tag(product.image_url), product_path(product.id) %>
+            </p>
+            <p>
+              <%= link_to product.name, product_path(product.id) %>
+            </p>
+            <p>
+              <%= product.quantity %>
+            </p>
+            <p>
+              <%= product.price %>
+            </p>
+          </article>
+        <% end %>
     <% end %>
-    <% end %>
-  </table>
 </section>
