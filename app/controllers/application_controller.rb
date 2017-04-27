@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
     else
       order = Order.new
       order.status = "pending"
+      order.subtotal = 0
+      order.tax = 0
+      order.total = 0
       order.save
       session[:order_id] = order.id
       return order

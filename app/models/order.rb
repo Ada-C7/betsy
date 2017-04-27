@@ -43,6 +43,7 @@ class Order < ApplicationRecord
   # before_save :update_total
 
   def calculate_totals
+
     product_orders = self.product_orders
     subtotal = 0
     product_orders.each do |item|
@@ -50,7 +51,7 @@ class Order < ApplicationRecord
       subtotal += (product.price * item.quantity)
     end
     self.subtotal = subtotal
-    self.tax = subtotal * 0.098
+    self.tax = (subtotal * 0.098).round(2)
     self.total = subtotal + self.tax
     # self.save
   end
