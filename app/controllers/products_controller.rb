@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :retire]
-  # skip_before_action :require_login,  only: [:new, :edit, :destroy] # require specific user? or validate edits in model?
+  skip_before_action :require_login,  only: [:new, :edit, :retire]
 
   def homepage
     @products = Product.where(retired: false)
@@ -52,6 +52,7 @@ class ProductsController < ApplicationController
 
   def retire
     @product.retired = true
+    @product.quantity = 0
     @product.save
     redirect_to :root
   end
@@ -65,6 +66,7 @@ class ProductsController < ApplicationController
   def find_product
     @product = Product.find_by_id(params[:id])
     if !@product || @product.retired
+      # change to error message stating product no longer exists
       render_404
     end
   end
