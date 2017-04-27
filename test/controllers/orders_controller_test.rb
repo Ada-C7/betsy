@@ -96,7 +96,7 @@ describe OrdersController do
                             credit_card_number: "1234567890123456",
                             }
                           }
-      # test all validations?
+      # test all validations? this one is NO credit card
       @order_no_cc = { order: {
                         customer_name: "cynthia cobb",
                         customer_address: "123 st",
@@ -107,6 +107,13 @@ describe OrdersController do
 
                         }
                       }
+      # credit card under 16
+      # credit card too long/more than 16
+      # zip code too short
+      # zip code too long
+      # zip code not present
+      # no credit card name
+      # credit card name less than two
     end
 
     it 'updates order if given good data' do
@@ -118,13 +125,21 @@ describe OrdersController do
       must_redirect_to root_path
     end
 
-    it 'returns error messages if given bad payment info' do
+    it 'returns error messages if no credit card info given' do
       patch order_path(@order.id), params: @order_no_cc
       flash[:status].must_equal :failure
       flash[:messages].must_include :credit_card_number
       must_respond_with :redirect
       must_redirect_to checkout_path
     end
+
+    # IT credit card under 16
+    # IT credit card too long/more than 16
+    # IT zip code too short
+    # IT zip code too long
+    # IT zip code not present
+    # IT no credit card name
+    # IT credit card name less than two
   end
 
   describe 'update_quantity' do
