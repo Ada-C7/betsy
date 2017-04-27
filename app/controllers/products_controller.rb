@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :retire, :review]
-  skip_before_action :require_login,  only: [:new, :edit, :retire]
+  skip_before_action :require_login,  except: [:new, :edit, :retire]
 
   def homepage
     @products = Product.where(retired: false)
