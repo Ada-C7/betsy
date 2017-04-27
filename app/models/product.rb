@@ -8,7 +8,6 @@ class Product < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
 
-
   def average_rating
     array_of_ratings = reviews.all.collect {|t| t.rating}.select(&:present?)
     if array_of_ratings != []
@@ -39,5 +38,4 @@ class Product < ApplicationRecord
     self.inventory -= quantity
     self.save
   end
-
 end # END of class Product
