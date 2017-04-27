@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
     if order.valid?
-      order.decrease_product_inventory
+      # order.decrease_product_inventory
       order.calculate_totals
       order.status = "paid"
       order.save
@@ -75,10 +75,6 @@ private
   def get_product_order
     ProductOrder.where(order_id: session[:order_id])
   end
-
-  # def get_product_order(product_id)
-  #   ProductOrder.find_by(order_id: session[:order_id], product_id: product_id)
-  # end
 
   def order_params
     return params.required(:order).permit(:customer_name,
