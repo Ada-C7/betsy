@@ -7,7 +7,7 @@
   <% if @merchant.products.where(status: "active").empty? %>
     <p><%= "#{@merchant.username}" %> doesn't have any products for sale at this time.</p>
   <% else %>
-    <% @merchant.products.each do |product| %>
+    <% @merchant.products.where(status: "active").each do |product| %>
     <div class="column">
       <%=image_tag(product.image, alt: "Product Image", class: "thumbnail")%>
       <h5><%= product.name %></h5>

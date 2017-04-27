@@ -4,7 +4,7 @@
   <section class = "row large-12 columns ">
     <%= link_to "Edit", edit_product_path(@product), class: "button"%>
     <%= link_to @product.status_info[0], status_path(@product), method: :patch, class: "button"%>
-    <%= link_to "Add this product to a category", '#', class: "button"%>
+    <%= link_to "Add this product to a category", product_new_category_path(@product), class: "button"%>
     <%= link_to "Create new category", new_category_path, class: "button"%>
   </section>
 <% end %>

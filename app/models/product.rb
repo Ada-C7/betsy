@@ -43,12 +43,12 @@ class Product < ApplicationRecord
     end
   end
 
-  def sold_items
-
-  end
-
-  def earnings
-
-  end
+  # def sold_items
+  #
+  # end
+  #
+  # def earnings
+  #
+  # end
 
 end # END of class Product
