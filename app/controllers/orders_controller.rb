@@ -1,16 +1,13 @@
 class OrdersController < ApplicationController
+  before_action :get_order, only: [:cart, :checkout]
 
-  def cart
-    @products = get_product_order
-  end
+  def cart; end
+  def checkout; end
 
-  # new
-  def add_item
-    order = current_order
-    # check products for availablity - decrease quantity here?
+  def add_product
+    current_order
     product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
-    p product_order.valid?
-    p product_order.errors.messages
+
     if product_order.valid?
       product_order.save
       redirect_to cart_path
@@ -22,17 +19,14 @@ class OrdersController < ApplicationController
     end
   end
 
-  def checkout
-    @order = current_order
-    @products = get_product_order
-  end
-
   def update
     # raise
     order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
     if order.valid?
+      # order.decrease_product_inventory
+      order.calculate_totals
       order.status = "paid"
       order.save
       session[:order_id] = nil
@@ -60,26 +54,27 @@ class OrdersController < ApplicationController
     else
       flash[:status] = :failure
       flash[:result_text] = "There was a problem updating the quantity"
-      flash[:messages] = order.errors.messages
+      flash[:messages] = product_order.errors.messages
     end
     redirect_back(fallback_location: root_path)
   end
 
   def remove_product
     product_order = ProductOrder.find_by(order_id: session[:order_id], product_id: params[:id])
-    product_order.destroy
+    product_order.destroy if product_order
     redirect_back(fallback_location: root_path)
   end
 
 private
 
+  def get_order
+    @order = current_order
+    @order.calculate_totals
+  end
+
   def get_product_order
     ProductOrder.where(order_id: session[:order_id])
   end
-
-  # def get_product_order(product_id)
-  #   ProductOrder.find_by(order_id: session[:order_id], product_id: product_id)
-  # end
 
   def order_params
     return params.required(:order).permit(:customer_name,

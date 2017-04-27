@@ -14,7 +14,6 @@ product1:
   status: active
   merchant: merchant1
 
-
 product2:
   name: Food2
   price: 4.30
