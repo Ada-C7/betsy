@@ -130,6 +130,15 @@ class OrdersController < ApplicationController
       flash[:result_text] = "Cannot check out if your cart is empty"
       render "index"
     end
+
+    @order.order_items.each do |order_item|
+      if order_item.quantity > order_item.product.quantity
+        flash[:status] = :failure
+        flash[:result_text] = "Oops, someone must have purchased this item."
+        redirect_to product_path(@item.product.id)
+        return
+      end
+    end
   end
 
   def update
