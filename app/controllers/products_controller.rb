@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :retire]
+  before_action :find_product, only: [:show, :edit, :update, :retire, :review]
   skip_before_action :require_login,  only: [:new, :edit, :retire]
 
   def homepage
@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @reviews = @product.reviews
+    @reviews ||= @product.reviews
   end
 
   def new
@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
   end
 
   def review
-    if find_user.id != params[:id]
+    if find_user != Product.find_by_id(params[:id]).user
       review = Review.new(product_id: params[:id], rating: params[:rating],
       comment: params[:comment])
       if review.save
@@ -71,6 +71,7 @@ class ProductsController < ApplicationController
         flash[:status] = :failure
         flash[:result_text] = "Could not review"
         flash[:messages] = review.errors.messages
+        render :show, status: :bad_request
       end
     else
       flash.now[:status] = :failure

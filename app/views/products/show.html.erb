@@ -30,17 +30,19 @@
 </section>
 
 <section class="reviews">
-  <% @reviews.each do |review| %>
-  <article>
-    <ul>
-      <li>
-        Rating: <%= review.rating %>
-      </li>
-      <li>
-        Comment: <%= review.comment %>
-      </li>
-    </ul>
-  </article>
+  <% if @reviews %>
+    <% @reviews.each do |review| %>
+    <article>
+      <ul>
+        <li>
+          Rating: <%= "★ " * review.rating %>
+        </li>
+        <li>
+          Comment: <%= review.comment %>
+        </li>
+      </ul>
+    </article>
+    <% end %>
   <% end %>
 </section>
 

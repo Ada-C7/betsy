@@ -102,18 +102,7 @@ describe Product do
       products(:nouser).valid?.must_equal false
       products(:nouser).errors.messages.must_include :user
     end
-
-    # it "is valid with a user" do
-    #   product.valid?
-    #   product.errors.messages[:category_ids].must_equal []
-    # end
-    #
-    # it "is invalid without at least one category_id" do
-    #   products(:nocat).valid?.must_equal false
-    #   products(:nocat).errors.messages.must_include :category_ids
-    # end
   end
-
 
 
   describe "relationships" do
