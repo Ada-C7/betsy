@@ -192,6 +192,7 @@ describe OrdersController do
       patch order_path(@order.id), params: @order_good_data
       order_after = Order.find_by(id: @order.id)
       order_after.status.must_equal "paid"
+      session[:order_id].must_be_nil
       flash[:status].must_equal :success
       must_respond_with :redirect
       must_redirect_to root_path

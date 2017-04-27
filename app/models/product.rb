@@ -43,12 +43,8 @@ class Product < ApplicationRecord
     end
   end
 
-  # def sold_items
-  #
-  # end
-  #
-  # def earnings
-  #
-  # end
-
+  def remove_inventory(quantity)
+    self.inventory -= quantity
+    self.save
+  end
 end # END of class Product

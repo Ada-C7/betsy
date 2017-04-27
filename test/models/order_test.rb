@@ -48,4 +48,20 @@ describe Order do
       order_no_products.total.must_equal 0
     end
   end
+
+  describe 'handle_inventory' do
+    let(:good_order) { orders(:order2) }
+
+    it 'decreases the product inventory' do
+      total_inventory_before = good_order.products.map {|product| product.inventory}.sum
+      good_order.handle_inventory
+      order_after = Order.find(good_order.id)
+      total_inventory_after = order_after.products.map {|product| product.inventory}.sum
+      total_inventory_after.must_be :<, total_inventory_before
+    end
+
+    it 'does nothing if order has not product_orders' do
+      
+    end
+  end
 end
