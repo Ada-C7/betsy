@@ -118,7 +118,7 @@ class OrdersController < ApplicationController
     # otherwise if there are no paid items, then all items are shipped or
     # there is combination of shipped and cancelled items only
     elsif found_paid == 0
-      order.status = "shipped"
+      order.status = "complete"
     end
 
     order.save
