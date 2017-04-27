@@ -26,9 +26,9 @@ class ProductsController < ApplicationController
     @product.check_image
     @product.merchant_id = @login_merchant.id
     if @product.save
-      # flash[:status] = :success
-      # flash[:result_text] = "Successfully created #{@product.id}"
-      redirect_to products_path
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created the product #{@product.name}"
+      redirect_to merchant_path(@login_merchant)
     else
       # flash[:status] = :failure
       # flash[:result_text] = "Could not create #{@product.id}"
