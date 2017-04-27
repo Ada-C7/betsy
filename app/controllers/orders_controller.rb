@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:edit, :update]
+  before_action :find_order, only: [:edit, :update, :confirmation]
   before_action :find_orderitem, only: [:add, :set, :destroy]
-  before_action :require_login, only: [:shipped, :cancelled]
+  # skip_before_action :require_login, except: [:shipped, :cancelled]
 
   # cart
   def index
@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
-    @order = Order.find_by_id(params[:id])
+    session[:order_id] = nil
     render_404 if !@order
   end
 
@@ -27,13 +27,28 @@ class OrdersController < ApplicationController
     end
 
     if @item
-      @item[:quantity] = params[:quantity]
-      @item.save
+      if params[:quantity].to_i > @item.product.quantity
+        flash[:status] = :failure
+        flash[:result_text] = "Could not add due to insufficient stock."
+        redirect_to carts_path
+        return
+      else
+        @item[:quantity] = params[:quantity]
+        @item.save
+        redirect_to carts_path
+        return
+      end
     else
-      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+      if (params[:quantity].to_i) > (Product.find_by_id(params[:id]).quantity)
+        flash[:status] = :failure
+        flash[:result_text] = "Could not add due to insufficient stock."
+        redirect_to product_path(params[:id])
+        return
+      else
+        OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+        redirect_to carts_path
+      end
     end
-
-    redirect_to carts_path
   end
 
   def add
@@ -43,13 +58,28 @@ class OrdersController < ApplicationController
     end
 
     if @item
-      @item[:quantity] += params[:quantity].to_i
-      @item.save
+      if (@item[:quantity] + params[:quantity].to_i) > (@item.product.quantity)
+        flash[:status] = :failure
+        flash[:result_text] = "Could not add due to insufficient stock."
+        redirect_to product_path(@item.product.id)
+        return
+      else
+        @item[:quantity] += params[:quantity].to_i
+        @item.save
+        redirect_to carts_path
+        return
+      end
     else
-      OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+      if (params[:quantity].to_i) > (Product.find_by_id(params[:id]).quantity)
+        flash[:status] = :failure
+        flash[:result_text] = "Could not add due to insufficient stock."
+        redirect_to product_path(params[:id])
+        return
+      else
+        OrderItem.create(order_id: session[:order_id], product_id: params[:id], quantity: params[:quantity])
+        redirect_to carts_path
+      end
     end
-
-    redirect_to carts_path
   end
 
   def shipped
@@ -95,7 +125,11 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    render_404 if !@order
+    if @order.order_items == [] || !@order
+      flash[:status] = :failure
+      flash[:result_text] = "Cannot check out if your cart is empty"
+      render "index"
+    end
   end
 
   def update
@@ -103,20 +137,21 @@ class OrdersController < ApplicationController
     # if there is an order, but there are no order items, there is nothing in the cart
     # they can't check out
     if !@order || @order.order_items.length == 0
-      # TODO turn these into helpful flash messages
-      render_404
+      flash[:status] = :failure
+      flash[:result_text] = "Cannot check out if your cart is empty"
+      redirect_to "index"
     end
 
     @order.status = "paid"
     if @order.update(order_params)
       flash[:status] = :success
-      flash[:result_text] = "Successfully updated order number #{ @order.id } "
-      session[:order_id] = nil
+      flash[:result_text] = "Successfully updated order number #{ @order.id }"
 
       @order.order_items.each do |order_item|
         order_item.status = "paid"
         order_item.product.quantity -= order_item.quantity
         order_item.product.save
+        order_item.save
       end
 
       redirect_to confirmation_path(@order.id)
