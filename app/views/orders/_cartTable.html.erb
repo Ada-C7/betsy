@@ -24,7 +24,12 @@
                 <%= f.submit value: "Update Quantity", class: "button" %>
             </th>
               <% end %>
-            <th><%= link_to 'Remove', remove_product_path(product), class: 'alert button', method: 'delete', data: { confirm: "Are you sure?" }  %></th>
+            <th><%= link_to 'Remove',
+                    remove_product_path(product),
+                    class: 'alert button',
+                      method: 'delete',
+                      data: { confirm: "Are you sure?" }  %>
+            </th>
           </tr>
         </tbody>
       </table>
