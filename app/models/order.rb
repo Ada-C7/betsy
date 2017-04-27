@@ -30,8 +30,6 @@ class Order < ApplicationRecord
             length: { is: 16, message: "Credit card must be a 16 digit number" },
             on: :update
 
-
-
   validates_presence_of :customer_city,
                        message: "Please enter a city",
                        on: :update
@@ -43,7 +41,6 @@ class Order < ApplicationRecord
   # before_save :update_total
 
   def calculate_totals
-
     product_orders = self.product_orders
     subtotal = 0
     product_orders.each do |item|

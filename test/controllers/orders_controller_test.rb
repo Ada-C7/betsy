@@ -56,16 +56,14 @@ describe OrdersController do
       must_respond_with :redirect
     end
 
-    # need to figure out how to set order session to test this
-    # it 'will not add product if it is already in cart' do
-    #   # this first should work
-    #   post product_add_item_path(@product.id)
-    #   before = ProductOrder.count
-    #   # this second should not
-    #   post product_add_item_path(@product.id)
-    #   after = ProductOrder.count
-    #   after.must_equal before
-    # end
+    it 'will not add product if it is already in cart' do
+      set_up_order(@product)
+      before = ProductOrder.count
+      session[:order_id].wont_be_nil
+      post product_add_item_path(@product.id)
+      after = ProductOrder.count
+      after.must_equal before
+    end
   end
 
   describe 'checkout' do
@@ -148,6 +146,28 @@ describe OrdersController do
       patch qty_update_path(@product_order.id), params: { product_order: @params_high_quant }
       flash[:status].must_equal :failure
       flash[:messages].must_include :product_order
+      must_respond_with :redirect
+    end
+  end
+
+  describe 'remove_product' do
+
+    before do
+      @product = products(:product2)
+      set_up_order(@product)
+    end
+
+    it 'removes a product from cart' do
+      # use to test that session is set
+      session[:order_id].wont_be_nil
+      delete remove_product_path(@product.id)
+      ProductOrder.find_by(order_id: session[:order_id]).must_be_nil
+      must_respond_with :redirect
+    end
+
+    it 'wont do anything if there are no items in cart' do
+      ProductOrder.destroy_all
+      delete remove_product_path(@product.id)
       must_respond_with :redirect
     end
   end

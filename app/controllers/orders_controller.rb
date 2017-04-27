@@ -82,7 +82,7 @@ class OrdersController < ApplicationController
 
   def remove_product
     product_order = ProductOrder.find_by(order_id: session[:order_id], product_id: params[:id])
-    product_order.destroy
+    product_order.destroy if product_order
     redirect_back(fallback_location: root_path)
   end
 
