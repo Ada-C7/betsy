@@ -26,7 +26,7 @@ class Order < ApplicationRecord
       subtotal += (product.price * item.quantity)
     end
     self.subtotal = subtotal
-    self.tax = subtotal * 0.098
+    self.tax = (subtotal * 0.098).round(2)
     self.total = subtotal + self.tax
     # self.save
   end

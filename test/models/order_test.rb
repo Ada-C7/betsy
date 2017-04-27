@@ -24,9 +24,36 @@ describe Order do
     # end
   end
 
-  describe 'subtotal' do
+  # Order needs product, can't just do Order.new
+  # Test Order(2), can make my own fixtures or change quantities
 
-    it "returns subtotal sum of products' prices" do
+  describe 'calculate_totals' do
+
+    let(:good_order) { orders(:order2) }
+
+    # order 2 has 3 product
+
+    it "assigns subtotal, tax, and total to an order" do
+      good_order.calculate_totals
+      good_order.subtotal.must_equal 20.1
+      good_order.tax.must_equal 1.97
+      good_order.total 22.07
+
     end
+
+    it "text" do
+
+    end
+
+    it "returns the subtotal plus tax" do
+
+    end
+
+    it "returns the " do
+
+    end
+
+
   end
+
 end
