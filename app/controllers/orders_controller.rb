@@ -3,7 +3,10 @@ class OrdersController < ApplicationController
 
   def cart; end
   def checkout; end
-  def confirmation; end
+
+  def confirmation
+    @order = Order.find_by(id: params[:id])
+  end
 
   def add_product
     current_order
@@ -31,9 +34,9 @@ class OrdersController < ApplicationController
       order.status = "paid"
       order.save
       session[:order_id] = nil
-      flash[:status] = :success
-      flash[:result_text] = "Thank you for placing your order"
-      redirect_to order_confirmation_path
+      # flash[:status] = :success
+      # flash[:result_text] = "Thank you for placing your order"
+      redirect_to order_confirmation_path(order.id)
     elsif !order.valid?
       flash[:status] = :failure
       flash[:result_text] = "There was a problem processing your order"
