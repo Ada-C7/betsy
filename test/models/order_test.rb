@@ -30,27 +30,21 @@ describe Order do
   describe 'calculate_totals' do
 
     let(:good_order) { orders(:order2) }
-
-    # order 2 has 3 product
+    let(:order_no_products) { orders(:order3) }
 
     it "assigns subtotal, tax, and total to an order" do
       good_order.calculate_totals
       good_order.subtotal.must_equal 20.1
       good_order.tax.must_equal 1.97
-      good_order.total 22.07
-
+      good_order.total.must_equal 22.07
     end
 
-    it "text" do
 
-    end
-
-    it "returns the subtotal plus tax" do
-
-    end
-
-    it "returns the " do
-
+    it "won't do anything if order has no products" do
+      order_no_products.calculate_totals
+      order_no_products.subtotal.must_equal 0
+      order_no_products.tax.must_equal 0
+      order_no_products.total.must_equal 0
     end
 
 
