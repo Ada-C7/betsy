@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe ProductsController do
-  let(:product) { products(:kidjams, :famjams, :jamjams, :hotdamnjams).sample }
+  let(:product) { products(:kidjams, :famjams, :jamjams).sample }
 
   describe "homepage" do
     it "is successful when there are many products" do
