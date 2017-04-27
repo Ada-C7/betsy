@@ -7,9 +7,9 @@
 product1:
   name: Food1
   price: 7.30
-  category: Cat1
+  category: category1
   description: Very good
-  image:
+  image: NomNom.png
   inventory: 3
   status: active
   merchant: merchant1
@@ -18,9 +18,9 @@ product1:
 product2:
   name: Food2
   price: 4.30
-  category: Cat1
+  category: category1
   description: Cheap
-  image:
+  image: NomNom.png
   inventory: 5
   status: active
   merchant: merchant1
@@ -28,9 +28,9 @@ product2:
 product3:
   name: Food3
   price: 8.50
-  category: Cat2
+  category: category1
   description: Smells good
-  image: active
+  image: NomNom.png
   inventory: 5
   status: active
   merchant: merchant2
@@ -38,9 +38,9 @@ product3:
 product4:
   name: Food4
   price: 15.0
-  category: Cat3
+  category: category1
   description: Kind of expensive
-  image:
+  image: NomNom.png
   inventory: 1
   status: active
   merchant: merchant3
