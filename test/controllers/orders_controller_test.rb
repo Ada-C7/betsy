@@ -69,7 +69,6 @@ describe OrdersController do
   end
 
   describe 'checkout' do
-
     it 'returns the checkout page' do
       get checkout_path
       must_respond_with :success
@@ -94,7 +93,7 @@ describe OrdersController do
                             customer_city: "seattle",
                             customer_zipcode: "12345",
                             customer_state: "WA",
-                            customer_cc_info: "1234567890123456",
+                            credit_card_number: "1234567890123456",
                             }
                           }
       # test all validations?
@@ -122,7 +121,7 @@ describe OrdersController do
     it 'returns error messages if given bad payment info' do
       patch order_path(@order.id), params: @order_no_cc
       flash[:status].must_equal :failure
-      flash[:messages].must_include :customer_cc_info
+      flash[:messages].must_include :credit_card_number
       must_respond_with :redirect
       must_redirect_to checkout_path
     end
@@ -130,7 +129,7 @@ describe OrdersController do
 
   describe 'update_quantity' do
     # product 1 has 3 available in stock
-    # product 2 has 5 available in stock 
+    # product 2 has 5 available in stock
     before do
       # order = orders(:order2)
       product = products(:product1)
@@ -148,7 +147,7 @@ describe OrdersController do
 
     it 'wont update the quantity if there is not enough in stock' do
       patch qty_update_path(@product_order.id), params: { product_order: @params_high_quant }
-      # flash[:status].must_equal :failure
+      flash[:status].must_equal :failure
       flash[:messages].must_include :product_order
       must_respond_with :redirect
     end

@@ -2,7 +2,7 @@ order1:
   customer_name: Cynthia Cobb
   customer_address: 123 St.
   customer_email: cobb@gmail.com
-  customer_cc_info: 1234567890123456
+  credit_card_number: 1234567890123456
   customer_city: Bothell
   customer_zipcode: 98011
   customer_state: WA
