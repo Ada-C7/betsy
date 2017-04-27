@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
     @total = @order.total
   end
 
+  # checkout view wont need this - will turn into only customer info form
   def checkout
     @order = current_order
     @products = get_product_order
@@ -45,11 +46,9 @@ class OrdersController < ApplicationController
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
 
-    # total = order.calculate_totals
-
     if order.valid?
+      order.calculate_totals
       order.status = "paid"
-      # order.total = total
       order.save
       session[:order_id] = nil
       flash[:status] = :success

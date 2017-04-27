@@ -30,7 +30,7 @@ product3:
   price: 8.50
   category: Cat2
   description: Smells good
-  image: active
+  image: 
   inventory: 5
   status: active
   merchant: merchant2

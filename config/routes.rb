@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   get '/cart', to: 'orders#cart', as: 'cart'
+  # checkout is going away...
   get '/checkout', to: 'orders#checkout', as: 'checkout'
 
   resources :orders, only: [:update]
