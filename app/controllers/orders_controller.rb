@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
-  before_action :get_order, only: [:cart, :checkout]
+  before_action :get_order, only: [:cart, :checkout, :confirmation]
 
   def cart; end
   def checkout; end
+  def confirmation; end
 
   def add_product
     current_order
@@ -32,7 +33,7 @@ class OrdersController < ApplicationController
       session[:order_id] = nil
       flash[:status] = :success
       flash[:result_text] = "Thank you for placing your order"
-      redirect_to root_path
+      redirect_to order_confirmation_path
     elsif !order.valid?
       flash[:status] = :failure
       flash[:result_text] = "There was a problem processing your order"
