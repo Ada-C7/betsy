@@ -32,6 +32,13 @@ class UsersController < ApplicationController
 
   def orders
     @order_items = @logged_in_user.order_items
+    @order_statuses = @order_items.map { |order_item|
+      order_item.order.status
+    }.uniq
+
+    unless params[:status].nil? || params[:status] == 'all'
+      @order_items = @order_items.select { |order_item| order_item.order.status == params[:status] }
+    end
   end
 
   private

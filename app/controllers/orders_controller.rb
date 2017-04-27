@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:edit, :update, :confirmation]
   before_action :find_orderitem, only: [:add, :set, :destroy]
-  # skip_before_action :require_login, except: [:shipped, :cancelled]
+  skip_before_action :require_login, except: [:shipped, :cancelled]
 
   # cart
   def index
