@@ -1,8 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_action :require_login
   before_action :find_user
   helper_method :find_user
+
+  def require_login
+    if !session[:user_id]
+      flash[:status] = "warning"
+      flash[:result_text] = "You must be logged in to view this page."
+      redirect_to :root, status: :bad_request
+    end
+  end
 
   def render_404
     render file: "#{ Rails.root }/public/404.html", status: 404

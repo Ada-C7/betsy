@@ -36,4 +36,15 @@ describe User do
 
     user.username.must_equal user.email
   end
+
+  it "sets the image url as default when image is not given" do
+    auth_hash = {
+      "provider" => "github",
+      "uid" => 666,
+      "info" => { "email" => "bob@bob.com", "name" => "" }
+    }
+    user = User.create_from_github(auth_hash)
+
+    user.image_url.must_equal 'default-user-image.png'
+  end
 end
