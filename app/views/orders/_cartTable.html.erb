@@ -1,5 +1,5 @@
-<% if @products %>
-  <% @products.each do |product_order| %>
+<% if @order.products %>
+  <% @order.product_orders.each do |product_order| %>
     <% product = Product.find(product_order.product_id) %>
     <article>
       <table>

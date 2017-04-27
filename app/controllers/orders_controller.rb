@@ -1,18 +1,9 @@
 class OrdersController < ApplicationController
+  before_action :get_order, only: [:cart, :checkout]
 
-  # the instance variable lets you call in the view
-  def cart
-    @order = current_order
-    @products = get_product_order
-    @order.calculate_totals
-  end
+  def cart; end
+  def checkout; end
 
-  def checkout
-    @order = current_order
-    @order.calculate_totals
-  end
-
-  # when you hit add to cart ...
   def add_product
     current_order
     product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
@@ -75,6 +66,11 @@ class OrdersController < ApplicationController
   end
 
 private
+
+  def get_order
+    @order = current_order
+    @order.calculate_totals
+  end
 
   def get_product_order
     ProductOrder.where(order_id: session[:order_id])

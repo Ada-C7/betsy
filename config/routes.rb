@@ -10,10 +10,10 @@ Rails.application.routes.draw do
     #resourses :products, only: [:index]    ----is another way to write this
   end
 
-  resources :merchants, only: [:index, :show]
-  # resources :products
-  patch 'products/:id/status', to: 'products#status', as: 'status'
   resources :reviews
+
+  resources :merchants, only: [:index, :show]
+  patch 'products/:id/status', to: 'products#status', as: 'status'
 
   resources :products do
     post '/add_product', to: 'orders#add_product'
@@ -26,5 +26,4 @@ Rails.application.routes.draw do
   resources :orders, only: [:update]
   patch '/checkout/:id', to: 'orders#update_quantity', as: 'qty_update'
   delete '/checkout/:id', to: 'orders#remove_product', as: 'remove_product'
-
 end
