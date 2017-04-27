@@ -32,5 +32,15 @@ describe SessionsController do
 
       must_redirect_to root_path
     end
+
+    it "successfully logs a user out" do
+      user = users(:one)
+      login(user)
+      session[:user_id].must_equal user.id
+
+      delete logout_path
+      session[:user_id].must_be_nil
+      must_redirect_to root_path
+    end
   end
 end
