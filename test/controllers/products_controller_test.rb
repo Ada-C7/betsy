@@ -17,9 +17,6 @@ describe ProductsController do
     end
   end # END of describe "index" do
 
-
-
-
   describe "index" do
     it "Responds successfully" do
       Product.count.must_be :>, 0
@@ -60,18 +57,12 @@ describe ProductsController do
         }
       }
 
-      get '/products'
       post products_path, params: product_data
-
-      # must_redirect_to work_path(work_data.id)
 
       end_count = Product.count
       end_count.must_equal start_count + 1
     end
   end # END of describe "create"
-
-
-
 
   describe "show" do
     it "shows a product that exist" do
@@ -81,7 +72,7 @@ describe ProductsController do
       must_respond_with :success
     end
 
-    it "return 404 not found status when album does NOT exist" do
+    it "return 404 not found status when product does NOT exist" do
       product_id = 42
       get product_path(product_id)
       must_respond_with :not_found
@@ -96,14 +87,23 @@ describe ProductsController do
     end
   end # END of describe "edit"
 
+
+
+
   describe "status" do
-    it "check if status get changed" do
+    it "check if found" do
       product = products(:product1)
       patch status_path(product)
-      must_respond_with :success
+      must_respond_with :found
     end
   end # END of describe "edit"
 
-
+  describe "new_category" do
+    it "Directs to the right form" do
+      product = products(:product1)
+      get product_new_category_path(product)
+      must_respond_with :success
+    end
+  end
 
 end
