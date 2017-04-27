@@ -24,14 +24,12 @@
         </ul>
       </div>
       <div class="top-bar-right">
-        <%= link_to 'Cart', cart_path, class: "button small" %>
-        <ul class="menu">
-          <% if @login_merchant %>
-          <li><%= link_to "Merchant Log Out", "/logout", class: "button small" %></li>
-          <% else %>
-          <li><%= link_to "Merchant Log In", "/auth/github", class: "button small" %></li>
-          <% end %>
-        </ul>
+        <%= link_to "Cart", cart_path, class: "button small" %>
+        <% if @login_merchant %>
+          <%= link_to "Merchant Log Out", "/logout", class: "button small" %>
+        <% else %>
+          <%= link_to "Merchant Log In", "/auth/github", class: "button small" %>
+        <% end %>
       </div>
     </div>
   </header>
@@ -54,5 +52,13 @@
 
     <%= yield %>
   </main>
+
+  <footer>
+    <div class="top-bar bottom-bar">
+      <p>
+        <strong>DISCLAIMER:</strong> Please do NOT share real credit card information. This website was made for educational purposes.
+      </p>
+    </div>
+  </footer>
 </body>
 </html>
