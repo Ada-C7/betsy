@@ -36,6 +36,86 @@ describe MerchantsController do
       get merchant_path(merchant2.id)
       must_respond_with :not_found
     end
-
   end
+
+
+  describe "auth_callback" do
+    it "Registers a new merchant" do
+      # should increase the count
+      start_count = Merchant.count
+
+      merchant = Merchant.new(
+      username: "test_user",
+      email: "test@user.new",
+      oauth_provider: "github",
+      oauth_uid: 99999
+      )
+
+      login(merchant)
+
+      must_redirect_to root_path
+
+      session[:merchant_id].must_equal Merchant.last.id
+
+      Merchant.count.must_equal start_count + 1
+    end
+
+    it "Won't registers a new user if missing data" do
+      # should increase the count
+      start_count = Merchant.count
+
+      merchant = Merchant.new(
+      username: "test_user",
+      email: " ",
+      oauth_provider: "github",
+      oauth_uid: 99999
+      )
+
+      login(merchant)
+
+      must_redirect_to root_path
+
+      session[:merchant_id].must_equal Merchant.last.id
+
+      Merchant.count.must_equal start_count + 1
+    end
+
+
+    it "Accepts a returning user" do
+      start_count = Merchant.count
+      merchant = merchants(:grace)
+      login(merchant)
+
+      must_redirect_to root_path
+
+      session[:merchant_id].must_equal merchant.id
+
+      Merchant.count.must_equal start_count
+    end
+
+    it "Rejects incomplete auth data" do
+      # Make this incomplete
+      merchant = Merchant.new(
+      # username: "test_user",
+      email: "test@user.new",
+      oauth_provider: "github",
+      oauth_uid: 99999
+      )
+
+      login(merchant)
+      flash[:status].must_equal :failure
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+      # redirect_to where it needs to go
+
+    end
+  end
+
+  describe "logout" do
+    it "text" do
+
+    end
+  end
+
 end
