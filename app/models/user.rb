@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def image_url
-    @image_url ||= 'default-user-image.png'
+    super || 'default-user-image.png'
   end
 
   def order_count

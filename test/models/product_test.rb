@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe Product do
-  let(:product) { products(:kidjams, :famjams, :jamjams, :hotdamnjams).sample }
+  let(:product) { products(:kidjams, :famjams, :jamjams).sample }
 
   # 2+ tests for each validation on a model
   describe "validations" do

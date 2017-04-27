@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :require_login, except: :index
+  skip_before_action :require_login, only: :index
 
   def index
     @users = User.all
+    render layout: "application"
   end
 
   def show
@@ -37,14 +38,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :email, :image_url, :provider, :uid)
-  end
-
-  def require_login
-    if !session[:user_id]
-      flash[:status] = "warning"
-      flash[:result_text] = "You must be logged in to view this page."
-      redirect_to :root, status: :bad_request
-    end
   end
 
 end

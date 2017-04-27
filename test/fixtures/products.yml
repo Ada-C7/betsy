@@ -28,7 +28,7 @@ hotdamnjams:
   price: 25.30
   description: jams that you go "HOT DAMN! NICE JAMS!"
   image_url: http://hotdamnjams.com/hotdamnjam.jpg
-  user: one
+  user: two
 
 noname:
   quantity: 10
