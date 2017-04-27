@@ -3,7 +3,7 @@
 
 <article>
   <p>Total Cost: <%= @order.total_cost %></p>
-  <p>Order Placed: <%= @order.updated_at.to_date.to_formatted_s(:long) %></p>
+  <p>Order Placed: <%= display_time(@order.updated_at) %></p>
   <p>Status: <%= @order.status %></p>
   <section>
     <table>
