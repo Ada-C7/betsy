@@ -37,8 +37,8 @@ class OrdersController < ApplicationController
     order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
     #need to decrease product quantity for all products?
-
     if order.valid?
+      order.decrease_product_inventory
       order.calculate_totals
       order.status = "paid"
       order.save

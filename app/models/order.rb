@@ -41,15 +41,23 @@ class Order < ApplicationRecord
   # before_save :update_total
 
   def calculate_totals
-    product_orders = self.product_orders
+    # product_orders = self.product_orders
     subtotal = 0
     product_orders.each do |item|
       product = item.product
       subtotal += (product.price * item.quantity)
     end
+    # how do you access writer methods
     self.subtotal = subtotal
     self.tax = (subtotal * 0.098).round(2)
     self.total = subtotal + self.tax
     # self.save
+  end
+
+  # you are changing a product...
+  def decrease_product_inventory
+    product_orders.each do |product_order|
+      product_order.product.remove_inventory(product_order.quantity)
+    end
   end
 end
