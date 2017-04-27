@@ -1,10 +1,5 @@
 <h2>Orders</h2>
 
-<% @order_statuses.each do |order_status| %>
-  <%= link_to "#{order_status.capitalize}", account_orders_path(status: order_status) %>
-<% end %>
-<%= link_to "All", account_orders_path(status: 'all') %>
-
 <% if @order_items.empty? %>
   <p>You have no orders.</p>
 <% else %>
@@ -18,7 +13,19 @@
         <th>Quantity</th>
         <th>Subtotal</th>
         <th>Item Status</th>
-        <th>Order Status</th>
+        <th>
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li>
+              <a href="#">Order Status</a>
+              <ul class="menu">
+                <% @order_statuses.each do |order_status| %>
+                  <li><%= link_to "#{order_status.capitalize}", account_orders_path(status: order_status) %></li>
+                <% end %>
+                <li><%= link_to "All", account_orders_path(status: 'all') %></li>
+              </ul>
+            </li>
+          </ul>
+        </th>
       </tr>
     </thead>
     <tbody>
