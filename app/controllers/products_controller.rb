@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_user
+  # before_action :find_user
   before_action :destroy_session_product_id
 
   def root
@@ -86,12 +86,12 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :price, :inventory, :image, :category, :status, :description)
   end
 
-  def find_user
-    # @login_merchant = Product.find_by(id: 1).merchant
-    if session[:merchant_id]
-        @login_merchant = Merchant.find_by(id: session[:merchant_id])
-    end
-  end
+  # def find_user
+  #   # @login_merchant = Product.find_by(id: 1).merchant
+  #   if session[:merchant_id]
+  #       @login_merchant = Merchant.find_by(id: session[:merchant_id])
+  #   end
+  # end
 
   def destroy_session_product_id
     session.delete(:product_id)
