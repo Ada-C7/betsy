@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   get '/cart', to: 'orders#cart', as: 'cart'
   get '/checkout', to: 'orders#checkout', as: 'checkout'
+  get '/confirmation', to: 'order#confirmation', as: 'order_confirmation'
 
   resources :orders, only: [:update]
   patch '/checkout/:id', to: 'orders#update_quantity', as: 'qty_update'
