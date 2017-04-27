@@ -29,19 +29,45 @@
   <%= link_to "Other Products from this Merchant", user_products_path(@product.user.id) %>
 </section>
 
+<section class="reviews">
+  <% @reviews.each do |review| %>
+  <article>
+    <ul>
+      <li>
+        Rating: <%= review.rating %>
+      </li>
+      <li>
+        Comment: <%= review.comment %>
+      </li>
+    </ul>
+  </article>
+  <% end %>
+</section>
+
+<section class="review-form">
+  <%= form_tag review_path,  method: :post do %>
+    <%= hidden_field_tag :id, @product.id %>
+    <%= label_tag :rating, 'Rating: ' %>
+    <%= number_field_tag :rating, 1, min: 1, max: 5 %>
+    <%= label_tag :comment, "Comment: " %>
+    <%= text_field_tag :comment %>
+    <%= submit_tag "Post review" %>
+  <% end %>
+</section>
+
 <ul>
   <% @product.errors.each do |column, msg| %>
-  <li>
-  <%= column.capitalize %> <%= msg %>
-  </li>
+    <li>
+      <%= column.capitalize %> <%= msg %>
+    </li>
   <% end %>
 </ul>
 
 <aside class="cart">
   <%= form_tag add_item_path,  method: :post do %>
-  <%= hidden_field_tag :id, @product.id %>
-  <%= label_tag :quantity, 'quantity' %>
-  <%= number_field_tag :quantity, 1, min: 1 %>
-  <%= submit_tag "Add to cart" %>
+    <%= hidden_field_tag :id, @product.id %>
+    <%= label_tag :quantity, 'quantity' %>
+    <%= number_field_tag :quantity, 1, min: 1 %>
+    <%= submit_tag "Add to cart" %>
   <% end %>
 </aside>

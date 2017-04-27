@@ -14,7 +14,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @reviews = @product.reviews
+  end
 
   def new
     @product = Product.new
@@ -55,6 +57,26 @@ class ProductsController < ApplicationController
     @product.quantity = 0
     @product.save
     redirect_to :root
+  end
+
+  def review
+    if find_user.id != params[:id]
+      review = Review.new(product_id: params[:id], rating: params[:rating],
+      comment: params[:comment])
+      if review.save
+        flash[:status] = :success
+        flash[:result_text] = "Successfully reviewed!"
+        redirect_to product_path(params[:id])
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "Could not review"
+        flash[:messages] = review.errors.messages
+      end
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "You cannot review your own product"
+      render :show, status: :bad_request
+    end
   end
 
   private
