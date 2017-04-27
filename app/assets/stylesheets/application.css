@@ -15,8 +15,12 @@
  *= require foundation_and_overrides
 
  */
-img {
-  width: 500px;
+img.feature {
+  width: 400px;
+}
+
+img.preview {
+  height: 200px;
 }
 
 img.thumbnail {

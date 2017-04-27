@@ -2,5 +2,5 @@
 
 <% @users.each do |user| %>
   <h2><%= user.username %></h2>
-  <%= image_tag(user.image_url) unless user.image_url.nil? %>
+  <%= image_tag(user.image_url, class: "preview") unless user.image_url.nil? %>
 <% end %>

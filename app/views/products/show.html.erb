@@ -1,6 +1,6 @@
 <h6><%= link_to "Back", :back %></h6>
 <section class="product">
-  <%= link_to image_tag(@product.image_url), product_path(@product.id) %>
+  <%= link_to image_tag(@product.image_url, class: "feature"), product_path(@product.id) %>
   <ul class="product-details">
     <li>
       Name: <%= @product.name %>
@@ -29,6 +29,15 @@
   <%= link_to "Other Products from this Merchant", user_products_path(@product.user.id) %>
 </section>
 
+<aside class="cart">
+  <%= form_tag add_item_path,  method: :post do %>
+    <%= hidden_field_tag :id, @product.id %>
+    <%= label_tag :quantity, 'quantity' %>
+    <%= number_field_tag :quantity, 1, min: 1 %>
+    <%= submit_tag "Add to cart" %>
+  <% end %>
+</aside>
+
 <section class="reviews">
   <% if @reviews %>
     <% @reviews.each do |review| %>
@@ -56,20 +65,3 @@
     <%= submit_tag "Post review" %>
   <% end %>
 </section>
-
-<ul>
-  <% @product.errors.each do |column, msg| %>
-    <li>
-      <%= column.capitalize %> <%= msg %>
-    </li>
-  <% end %>
-</ul>
-
-<aside class="cart">
-  <%= form_tag add_item_path,  method: :post do %>
-    <%= hidden_field_tag :id, @product.id %>
-    <%= label_tag :quantity, 'quantity' %>
-    <%= number_field_tag :quantity, 1, min: 1 %>
-    <%= submit_tag "Add to cart" %>
-  <% end %>
-</aside>
