@@ -39,7 +39,8 @@ class ActiveSupport::TestCase
 
   def get_current_order
     post current_order
-
+  end
+  
   def set_up_order(product)
     post product_add_product_path(product.id)
   end
