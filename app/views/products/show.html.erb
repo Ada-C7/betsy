@@ -1,19 +1,17 @@
 
-<div class = "row">
-
-</div>
-
-
 <% if !@login_merchant.nil? && @login_merchant == @product.merchant%>
-<h3><%= @product.status_info[1]%></h3>
-<section class = "row large-12 columns ">
-  <%= link_to "Edit", edit_product_path(@product), class: "button"%>
-  <%= link_to @product.status_info[0], status_path(@product), method: :patch, class: "button"%>
-</section>
-
+  <h3><%= @product.status_info[1]%></h3>
+  <section class = "row large-12 columns ">
+    <%= link_to "Edit", edit_product_path(@product), class: "button"%>
+    <%= link_to @product.status_info[0], status_path(@product), method: :patch, class: "button"%>
+    <%= link_to "Add this product to a category", product_new_category_path(@product), class: "button"%>
+    <%= link_to "Create new category", new_category_path, class: "button"%>
+  </section>
 <% end %>
 
-<% if (!@login_merchant.nil? && @login_merchant == @product.merchant )|| @product.status == "active" %>
+
+
+<% if (!@login_merchant.nil? && @login_merchant == @product.merchant ) || @product.status == "active" %>
 <section class = "row">
   <div class = "large-3 columns product">
     <%=image_tag(@product.image, alt: "Product image not available", class: "image")%>
@@ -29,33 +27,49 @@
       In store: <%= @product.inventory%> item(s)
     </p>
     <div>
-      <%= link_to "Add to cart", "#", class: "button buy"%>
+      <%= link_to "Add to cart", product_add_product_path(@product.id), method: :post, class: "button buy"%>
     </div>
   </div>
-
   <div class = "large-5 columns product">
     <%=@product.description%>
   </div>
-
 </section>
+
+<section class = "row large-12 columns">
+  <p>
+    Categories:
+  <% @product.categories.each do |category|%>
+   <%= link_to category.name, category_products_path(category)%>/
+  <% end %>
+  </p>
+</section>
+
+
 
 <h4 class = "row large-12 columns "> Reviews </h4>
 
-<% if @login_merchant.nil? || @login_merchant != @product.merchant%>
-<%if @product.reviews.count > 0%>
-<p>
-  <%= link_to "Review this product!", new_review_path%>
-</p>
-<% else %>
-<p>
-  No reviews! <%= link_to "Be the first to review!", new_review_path%>
-</p>
-<% end %>
-<% end %>
+<section class = "row large-12 columns ">
+  <% if @login_merchant.nil? || @login_merchant != @product.merchant%>
+    <%if @product.reviews.count > 0%>
+      <p>
+        <%= link_to "Review this product!", new_review_path%>
+      </p>
+    <% else %>
+      <p>
+        No reviews! <%= link_to "Be the first to review!", new_review_path%>
+      </p>
+    <% end %>
+  <% end %>
+</section>
 
-<p>
-  Average rating : <%= @product.average_rating%>
-</p>
+
+<section class = "row">
+  <p class = "large-12 columns ">
+    Average rating : <%= @product.average_rating%>
+  </p>
+</section>
+
+
 
 
 <% @product.reviews.order(rating: :desc).each do |review|%>
@@ -76,6 +90,7 @@
   </p>
 </section>
 <%end%>
+
 <%else%>
   <p>
     This product is currently not available.

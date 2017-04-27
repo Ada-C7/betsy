@@ -20,10 +20,32 @@ describe Order do
     it "will create a new instance when given good info" do
       complete_order.valid?.must_equal true
     end
-    #
+
       # will this get tested in the update OrdersController test?
     # it "will not update a new instance if needed data is missing" do
     #   order.valid?.must_equal false
     # end
+  end
+
+  # Order needs product, can't just do Order.new
+  # Test Order(2), can make my own fixtures or change quantities
+
+  describe 'calculate_totals' do
+    let(:good_order) { orders(:order2) }
+    let(:order_no_products) { orders(:order3) }
+
+    it "assigns subtotal, tax, and total to an order" do
+      good_order.calculate_totals
+      good_order.subtotal.must_equal 20.1
+      good_order.tax.must_equal 1.97
+      good_order.total.must_equal 22.07
+    end
+
+    it "won't do anything if order has no products" do
+      order_no_products.calculate_totals
+      order_no_products.subtotal.must_equal 0
+      order_no_products.tax.must_equal 0
+      order_no_products.total.must_equal 0
+    end
   end
 end

@@ -5,21 +5,21 @@
   <h3 class = "products">List of all available products</h3>
 <% end %>
 
-<div class="row small-up-1 medium-up-3 large-up-6">
+<section class="row small-up-1 medium-up-3 large-up-6">
   <% @products.each do |product| %>
 
-  <div class="column product_b">
-    <%=link_to image_tag(product.image, alt: "Product Image", class: "thumbnail image_index"),product_path(product)%>
+  <section class="column product_b">
+    <div>
+      <%=link_to image_tag(product.image, alt: "Product image not available", class: "thumbnail image_index"),product_path(product)%>
+    </div>
     <h5><%= product.name %></h5>
-
     <p>
       $ <%=product.price %>
-        <%=link_to product.name, product_path(product.id), class: "button" %>
     </p>
     <div>
-      <%= link_to "Add to cart", '#', class: "button buy"%>
+      <%= link_to "Add to cart", product_add_product_path(product.id), method: :post,  class: "button buy"%>
     </div>
     <p><%=product.description%></p>
-  </div>
+  </section>
   <% end %>
-</div>
+</section>

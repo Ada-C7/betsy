@@ -1,22 +1,24 @@
-<% if !@products.nil? %>
-  <% @products.each do |product_order| %>
+
+<% if @order.products %>
+  <% @order.product_orders.each do |product_order| %>
     <% product = Product.find(product_order.product_id) %>
     <article>
       <table>
         <thead>
           <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Change Quantity</th>
-            <th>Remove From Cart</th>
+            <th width="200">Product</th>
+            <th width="200">Price</th>
+            <th width="200">Quantity</th>
+            <th width="200">Change Quantity</th>
+            <th width="200">Remove From Cart</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th><%= product.name %></th>
             <th><%= product.price %></th>
-            <th><%= product_order.quantity %></th>
+            <th><%= "#{product_order.quantity}"%>
+                <div class="small"><%="(#{product.inventory} available)" %></div></th>
             <%= form_for product_order, url: qty_update_path(product_order.id), method: :patch do |f| %>
             <th>
                 <%= f.hidden_field :product_id %>
@@ -24,7 +26,12 @@
                 <%= f.submit value: "Update Quantity", class: "button" %>
             </th>
               <% end %>
-            <th><%= link_to 'Remove', remove_product_path(product), class: 'alert button', method: 'delete', data: { confirm: "Are you sure?" }  %></th>
+            <th><%= link_to 'Remove',
+                    remove_product_path(product),
+                    class: 'alert button',
+                    method: 'delete',
+                    data: { confirm: "Are you sure?" } %>
+            </th>
           </tr>
         </tbody>
       </table>
