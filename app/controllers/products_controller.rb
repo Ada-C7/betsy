@@ -11,7 +11,6 @@ class ProductsController < ApplicationController
       # @products = Product.include(:categories).where(categories: {id: params[:category_id]})
       @products = Category.find(params[:category_id]).products.where(status: "active")
       @category = Category.find(params[:category_id])
-
     else
       @products = Product.where(status: "active")
     end
@@ -23,7 +22,8 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    @product.status = "active"
+    @product.status = "passive"
+    @product.check_image
     @product.merchant_id = @login_merchant.id
     if @product.save
       # flash[:status] = :success
@@ -39,8 +39,13 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
-    session[:product_id] ||= @product.id
+    if !@product.nil?
+      session[:product_id] ||= @product.id
+    end
     # @login_merchant = Product.find_by(id: 1).merchant # Must be removed when right code for @login_merchant is added to the ApplicationController
+    if @product.nil?
+      head :not_found
+    end
   end
 
   def edit
@@ -63,6 +68,18 @@ class ProductsController < ApplicationController
     product.status_change
     redirect_back(fallback_location: root_path)
   end
+
+  def new_category
+    @product = Product.find_by(id: params[:product_id])
+    @categories = Category.all
+  end
+
+  def create_category
+    Product.find_by(id: params[:product_id]).categories << Category.find_by(id: params[:category_id])
+    redirect_to product_path(Product.find_by(id: params[:product_id]))
+  end
+
+
 
   private
   def product_params
