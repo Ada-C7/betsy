@@ -5,12 +5,8 @@ class OrdersController < ApplicationController
     @order = current_order
     @products = get_product_order
     @order.calculate_totals
-    @subtotal = @order.subtotal
-    @tax = @order.tax
-    @total = @order.total
   end
 
-  # checkout view wont need this - will turn into only customer info form
   def checkout
     @order = current_order
     @products = get_product_order
@@ -21,12 +17,10 @@ class OrdersController < ApplicationController
   end
 
   # when you hit add to cart ...
-  def add_item
+  def add_product
     current_order
-    # check products for availablity - decrease quantity here?
     product_order = ProductOrder.add_product(params[:product_id], session[:order_id] )
-    # p product_order.valid?
-    # p product_order.errors.messages
+
     if product_order.valid?
       product_order.save
       redirect_to cart_path
@@ -37,8 +31,6 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: cart_path)
     end
   end
-
-
 
   def update
     # raise

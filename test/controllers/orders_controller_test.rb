@@ -28,7 +28,7 @@ describe OrdersController do
     end
   end
 
-  describe 'add_item' do
+  describe 'add_product' do
 
     before do
       merchant = merchants(:two)
@@ -41,7 +41,7 @@ describe OrdersController do
     end
 
     it 'generates a new product_order' do
-      proc { post product_add_item_path(@product.id) }.must_change 'ProductOrder.count', +1
+      proc { post product_add_product_path(@product.id) }.must_change 'ProductOrder.count', +1
       must_respond_with :redirect
       must_redirect_to cart_path
     end
@@ -49,7 +49,7 @@ describe OrdersController do
     it 'will not add a product if there is an error' do
       id = @product.id + 1
       before_count = ProductOrder.count
-      post product_add_item_path(id)
+      post product_add_product_path(id)
       after_count = ProductOrder.count
 
       after_count.must_equal before_count
@@ -60,7 +60,7 @@ describe OrdersController do
       set_up_order(@product)
       before = ProductOrder.count
       session[:order_id].wont_be_nil
-      post product_add_item_path(@product.id)
+      post product_add_product_path(@product.id)
       after = ProductOrder.count
       after.must_equal before
     end

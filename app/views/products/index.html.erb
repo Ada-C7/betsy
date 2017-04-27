@@ -16,7 +16,7 @@
       $ <%=product.price %>
     </p>
     <div>
-      <%= link_to "Add to cart", product_add_item_path(product.id), method: :post,  class: "button buy"%>
+      <%= link_to "Add to cart", product_add_product_path(product.id), method: :post,  class: "button buy"%>
     </div>
     <p><%=product.description%></p>
   </div>

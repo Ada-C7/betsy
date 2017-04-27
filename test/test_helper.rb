@@ -14,7 +14,6 @@ Minitest::Reporters.use!(
   Minitest.backtrace_filter
 )
 
-
 # To add Capybara feature tests add `gem "minitest-rails-capybara"`
 # to the test group in the Gemfile and uncomment the following:
 # require "minitest/rails/capybara"
@@ -27,6 +26,6 @@ class ActiveSupport::TestCase
   fixtures :all
   # Add more helper methods to be used by all tests here...
   def set_up_order(product)
-    post product_add_item_path(product.id)
+    post product_add_product_path(product.id)
   end
 end
