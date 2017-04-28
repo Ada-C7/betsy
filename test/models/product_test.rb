@@ -98,5 +98,4 @@ describe Product do
       prod_after.inventory.must_equal 0
     end
   end # END of describe remove_inventory
-
 end # END of describe Product

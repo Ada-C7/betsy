@@ -7,20 +7,19 @@
 <h3>Order Sumamry</h3>
   <p>Your Products</p>
     <ul>
-      <% @order.product_orders.each do |product_order| %>
+      <% order = Order.last %>
+      <% order.product_orders.each do |product_order| %>
       <li><%= product_order.product.name %></li>
       <li>Quantity: <%= product_order.quantity %></li>
       <li>Price: <%= product_order.quantity * product_order.product.price%></li>
       <% end %>
     </ul>
-</section>
+
 
 <section>
-<%= render partial: "total" %>
+  <h3>Total</h3>
+    <p>Subtotal: <%= order.subtotal %></p>
+    <p>Tax: <%= order.tax %></p>
+    <div><p>Total: <%= order.total %></p></div>
 </section>
-
-<section>
-  <nav>
-    <%= link_to "Continue Shopping", root_path, class: "button" %>
-  </nav>
 </section>

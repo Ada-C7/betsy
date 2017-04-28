@@ -28,17 +28,15 @@ class OrdersController < ApplicationController
     order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
     order.calculate_totals
-    #need to decrease product quantity for all products?
-    if order.valid?
+    order.manage_inventory
 
-      # move this outside of the if block?
-      order.manage_inventory
+    if order.valid?
       order.status = "paid"
       order.save
       session[:order_id] = nil
-      # flash[:status] = :success
-      # flash[:result_text] = "Thank you for placing your order"
-      redirect_to order_confirmation_path(order.id)
+      flash[:partial] = "orderSummary"
+      redirect_to root_path
+      # redirect_to order_confirmation_path(order.id)
     elsif !order.valid?
       flash[:status] = :failure
       flash[:result_text] = "There was a problem processing your order"
