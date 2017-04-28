@@ -170,7 +170,7 @@ class OrdersController < ApplicationController
 
   def destroy
     @item.destroy if @item
-    session[:order_id] = nil if !@order = Order.find_by_id(session[:order_id])
+    # session[:order_id] = nil if !@order = Order.find_by_id(session[:order_id])
     flash[:status] = :success
     flash[:result_text] = "Successfully removed #{@item.product.name} from cart"
     redirect_to carts_path

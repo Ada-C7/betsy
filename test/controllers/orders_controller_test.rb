@@ -7,6 +7,13 @@ describe OrdersController do
       get carts_path
       must_respond_with :success
     end
+
+    it "should get cart with items" do
+      product = products(:famjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      get carts_path
+      must_respond_with :success
+    end
   end
 
   describe "show" do
@@ -34,15 +41,84 @@ describe OrdersController do
   end
 
   describe "set" do
+    it "should set a product in cart" do
+      product = products(:famjams)
+      post set_item_path, params: { id: product.id, quantity: 1 }
+      must_redirect_to carts_path
+    end
 
+    it "can change item quantity in cart" do
+      product = products(:jamjams)
+      post set_item_path, params: { id: product.id, quantity: 1 }
+      must_redirect_to carts_path
+
+      # maybe check the quantity is two and not three?
+      product = products(:jamjams)
+      post set_item_path, params: { id: product.id, quantity: 2 }
+      must_redirect_to carts_path
+    end
+
+
+    it "cannot add product if not enough in stock" do
+      product = products(:jamjams)
+      post set_item_path, params: { id: product.id, quantity: 40 }
+      flash[:status].must_equal :failure
+      flash[:result_text].must_equal "Could not add due to insufficient stock."
+      must_redirect_to product_path(product.id)
+    end
+
+    it "cannot update existing item quantity in cart if not enough stock" do
+      product = products(:famjams)
+      post set_item_path, params: { id: product.id, quantity: 1 }
+      must_redirect_to carts_path
+
+      post set_item_path, params: { id: product.id, quantity: 51 }
+      flash[:status].must_equal :failure
+      flash[:result_text].must_equal "Could not add due to insufficient stock."
+      must_redirect_to carts_path
+    end
   end
 
   describe "add" do
+    it "should add new product to cart" do
+      product = products(:famjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      must_redirect_to carts_path
+    end
 
+    it "can add item to existing item in cart" do
+      product = products(:jamjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      must_redirect_to carts_path
+
+      product = products(:jamjams)
+      post add_item_path, params: { id: product.id, quantity: 2 }
+      must_redirect_to carts_path
+    end
+
+    it "cannot add product if not enough in stock" do
+      product = products(:jamjams)
+      post add_item_path, params: { id: product.id, quantity: 40 }
+      flash[:status].must_equal :failure
+      flash[:result_text].must_equal "Could not add due to insufficient stock."
+      must_redirect_to product_path(product.id)
+    end
+
+    it "cannot add more items to existing items if not enough stock" do
+      product = products(:jamjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      must_redirect_to carts_path
+
+      post add_item_path, params: { id: product.id, quantity: 30 }
+      flash[:status].must_equal :failure
+      flash[:result_text].must_equal "Could not add due to insufficient stock."
+      must_redirect_to product_path(product.id)
+    end
   end
 
   describe "shipped" do
-
+    # patch shipped_path(order_items(:one).id)
+    # respond_with :redirect
   end
 
   describe "cancelled" do
