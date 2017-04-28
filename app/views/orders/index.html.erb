@@ -1,4 +1,4 @@
-<h1>Shopping Cart</h1>
+<h3><strong>Shopping Cart</strong></h3>
 <article class="cart large-10 small-10 columns">
   <section class="row cart-header">
     <p class="cart large-4 small-4 columns">Product</p>
@@ -16,7 +16,7 @@
                 <div class="add-to-cart">
                   <%= form_tag set_item_path, method: :post do %>
                     <%= hidden_field_tag :id, order_item.product_id %>
-                    <%= select_tag :quantity, options_for_select(1..30) %><br />
+                    <%= select_tag :quantity, options_for_select(order_item.quantity..30) %><br />
                     <%= submit_tag "Update" %>
                     <% end %>
                 </div>
@@ -25,7 +25,7 @@
             <li class="cart large-4 small-4 columns">
               <%= link_to "Remove", order_path(order_item.product_id), method: "delete", class: "button" %>
             </li>
-            </ul></br>
+          </ul>
         <% end %>
     <% end %>
   </section>
