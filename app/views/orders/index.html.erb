@@ -1,35 +1,39 @@
-<h1>Shopping Cart</h1>
+<h3><strong>Shopping Cart</strong></h3>
+<article class="cart large-10 small-10 columns">
+  <section class="row cart-header">
+    <p class="cart large-4 small-4 columns">Product</p>
+    <p class="cart large-2 small-2 columns"><span class="small-gray">Quantity</span></p>
+    <p class="cart large-2 small-2 columns"><span class="small-gray">Price</span></p>
+    <p class="cart large-4 small-4 columns"><span class="small-gray">Remove From Cart</span</p>
+  </section>
 
-<table class="cart large-10 small-8 columns">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th><span class="small-gray">Quantity</span></th>
-      <th><span class="small-gray">Price</span></th>
-      <th>Remove From Cart</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% if @order_items %>
-    <% @order_items.each do |order_item| %>
-      <tr>
-        <td><%= link_to order_item.product.name, product_path(order_item.product_id) %></td>
-        <td><%= form_tag set_item_path, method: :post do %>
-            <%= hidden_field_tag :id, order_item.product_id %>
-            <%= select_tag :quantity, options_for_select(1..30) %><br />
-            <%= submit_tag "Update" %>
-            <% end %></td>
-        <td><span class="big-red"><%= number_to_currency(order_item.product.price) %></span></td>
-        <td><%= link_to "Remove", order_path(order_item.product_id), method: "delete", class: "button" %></td>
-      </tr>
+  <section>
+    <% if @order_items %>
+        <% @order_items.each do |order_item| %>
+          <ul class="row cart-items" class="cart large-10 small-10 columns">
+            <li class="cart product-name large-4 small-4 columns"><%= link_to order_item.product.name, product_path(order_item.product_id) %></li>
+            <li class="cart large-2 small-2 columns">
+                <div class="add-to-cart">
+                  <%= form_tag set_item_path, method: :post do %>
+                    <%= hidden_field_tag :id, order_item.product_id %>
+                    <%= select_tag :quantity, options_for_select(order_item.quantity..30) %><br />
+                    <%= submit_tag "Update" %>
+                    <% end %>
+                </div>
+            </li>
+            <li class="cart large-2 small-2 columns"><span class="big-red"><%= number_to_currency(order_item.product.price) %></span></li>
+            <li class="cart large-4 small-4 columns">
+              <%= link_to "Remove", order_path(order_item.product_id), method: "delete", class: "button" %>
+            </li>
+          </ul>
+        <% end %>
     <% end %>
-  <% end %>
-  </tbody>
-</table>
+  </section>
+</article>
 
-<section class="cart-sidebar large-2 small-4 columns">
-  <ul>
-    <li><%= link_to "Proceed to Checkout", checkout_path, class: "button" %></li>
-    <li><%= link_to "Continue Shopping", root_path, class: "button" %></li>
-  </ul>
-</section>
+<article class="checkout large-2 small-2 columns">
+    <ul>
+      <li><%= link_to "Proceed to Checkout", checkout_path, class: "button" %></li>
+      <li><%= link_to "Continue Shopping", root_path, class: "button" %></li>
+    </ul>
+</article>
