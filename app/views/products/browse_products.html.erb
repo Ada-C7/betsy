@@ -1,26 +1,2 @@
-<section class="list">
   <h3>Browse Products</h3>
-    <% if @products.empty? %>
-      <p>
-        No products match that search term.
-      </p>
-    <% else %>
-      <section class="products-list">
-        <% @products.each do |product| %>
-          <article>
-            <p>
-              <%= link_to image_tag(product.image_url, class: "preview"), product_path(product.id) %>
-            </p>
-            <p>
-              <%= link_to product.name, product_path(product.id) %>
-            </p>
-            <p>
-              <%= product.quantity %>
-            </p>
-            <p>
-              <%= number_to_currency(product.price) %>
-            </p>
-          </article>
-        <% end %>
-    <% end %>
-</section>
+  <%= render partial: "list" %>

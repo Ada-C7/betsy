@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 main {
   padding: 20px;
 }
@@ -17,6 +18,12 @@ section.product {
 
 #product-title {
   display: inline;
+}
+
+section.products-list article {
+  display: inline-block;
+  border: 1px solid #bfbfbf;
+  padding-top: 20px;
 }
 
 section.product-cart {

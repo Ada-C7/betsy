@@ -62,7 +62,7 @@ describe ProductsController do
         login(users(:one))
         post review_path(products(:jamjams).id), params: { product: products(:jamjams), rating: 5, comment: "cool" }
         must_respond_with :bad_request
-        flash[:result_text] = "You cannot review your own product"
+        flash[:result_text].must_equal "You cannot review your own product"
       end
 
       it "does not add a new review to the database" do
@@ -75,7 +75,7 @@ describe ProductsController do
       it "fails to create a new review if no rating provided" do
         post review_path(products(:jamjams).id), params: { product: products(:jamjams), comment: "cool" }
         must_respond_with :bad_request
-        flash[:result_text] = "Could not review"
+        flash[:result_text].must_equal "Could not review"
       end
 
       it "does not add a new review to the database" do

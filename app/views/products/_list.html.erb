@@ -1,0 +1,25 @@
+<section class="list">
+    <% if @products.empty? %>
+      <p>
+        No products match that search term.
+      </p>
+    <% else %>
+      <section class="row small-up-2 medium-up-3 large-up-4 products-list">
+        <% @products.each do |product| %>
+          <article class="column">
+            <p class="small-gray">
+              <%= link_to image_tag(product.image_url, class: "preview"), product_path(product.id) %>
+            </p>
+            <h5 class="small-gray">
+              <%= link_to product.name, product_path(product.id) %>
+            </h5>
+            <p class="small-gray">
+              <%= product.quantity %>
+            </p>
+            <p class="small-gray">
+              <%= product.price %>
+            </p>
+          </article>
+        <% end %>
+    <% end %>
+</section>
