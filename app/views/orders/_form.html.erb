@@ -16,7 +16,7 @@
 
 <%= form_for @order do |f| %>
   <div class="large-4 columns">
-    <h3>Please Enter Customer Shipping Information</h3>
+    <h3>Please Enter Customer Shipping Information:</h3>
     <%= f.label :full_name %>
     <%= f.text_field :customer_name %>
 
@@ -42,7 +42,7 @@
 
     <%= f.label :Credit_card_number%>
     <%= f.text_field :credit_card_number %>
-    
+
     <%= f.label :Security_code_cvv%>
     <%= f.text_field :credit_card_cvv %>
 

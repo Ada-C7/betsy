@@ -15,6 +15,19 @@
  *= require foundation_and_overrides
 
  */
+.totalSummary {
+  padding: 3%;
+}
+
+.totalSummary h3{
+  text-align: center;
+}
+
+.total {
+  border-top: solid;
+  padding-top: 2%;
+}
+
  .bottom-bar{
    position: fixed;
    bottom: 0;

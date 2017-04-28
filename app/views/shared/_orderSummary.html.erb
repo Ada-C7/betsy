@@ -5,20 +5,23 @@
 
   <section class="large-4 columns">
   <h3>Order Sumamry</h3>
-    <p>DATE/TIME</p>
-    <p>Status</p>
-        <% order.product_orders.each do |product_order| %>
-          <h4><%= product_order.product.name %></h4>
-          <ul>
-            <li>Quantity: <%= product_order.quantity %></li>
-            <li>Price: <%= product_order.quantity * product_order.product.price%></li>
-          </ul>
-        <% end %>
+    <p>Purchased at: <%= Time.now.strftime(“%B %d, %Y %H:%M”) %></p>
+    <p>Order Status: <%= order.status.capitalize %></p>
+    <% order.product_orders.each do |product_order| %>
+      <h4><%= product_order.product.name %></h4>
+        <ul>
+          <li>Quantity: <%= product_order.quantity %></li>
+          <li>Price: <%= product_order.quantity * product_order.product.price%></li>
+        </ul>
+      <% end %>
   </section>
+  
   <section class="large-4 columns">
+  <div class="totalSummary">
   <h3>Total</h3>
     <p>Subtotal: <%= order.subtotal %></p>
     <p>Tax: <%= order.tax %></p>
-    <div><p>Total: <%= order.total %></p></div>
+    <div class="total"><p>Total: <%= order.total %></p></div>
+  </div>
   </section>
 </section>
