@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   has_many :products, through: :product_orders
 
   validates :customer_name,
-            presence: { message: "Please enter a first and last name" },
+            presence: { message: "Please enter first and last name" },
             length: { minimum: 2, message: "Name must be greater than one character" },
             on: :update
 
