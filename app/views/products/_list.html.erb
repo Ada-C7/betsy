@@ -4,15 +4,15 @@
         No products match that search term.
       </p>
     <% else %>
-      <section class="products-list">
+      <section class="row small-up-2 medium-up-3 large-up-4 products-list">
         <% @products.each do |product| %>
-          <article>
+          <article class="column">
             <p>
               <%= link_to image_tag(product.image_url, class: "preview"), product_path(product.id) %>
             </p>
-            <p>
+            <h5>
               <%= link_to product.name, product_path(product.id) %>
-            </p>
+            </h5>
             <p>
               <%= product.quantity %>
             </p>

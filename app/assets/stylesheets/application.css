@@ -110,9 +110,13 @@ img.feature {
 }
 
 img.preview {
-  height: 200px;
+  height: 260px;
 }
 
 img.thumbnail {
   width: 100px;
+}
+
+ul {
+  list-style: none;
 }
