@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+h2 {
+  font-size: 28px;
+}
+
 aside.account {
   border-right: 1px solid #bfbfbf;
   padding-bottom: 50px;
@@ -9,4 +13,39 @@ aside.account {
 
 aside .thumbnail {
   margin: 16px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px #ddd solid;
+}
+
+table thead {
+  border: 0px;
+}
+
+thead > tr {
+  background-color: #f6f6f6!important;
+  color: #555!important;
+}
+
+tbody {
+  border: 1px #ddd solid;
+}
+
+tr .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+  border-color: #555 transparent transparent;
+}
+
+tr {
+  background-color: white!important;
+  border: 1px #ddd solid;
+}
+
+.button-group .button {
+  margin: 10px;
+}
+
+.total-row {
+  font-weight: bold;
 }

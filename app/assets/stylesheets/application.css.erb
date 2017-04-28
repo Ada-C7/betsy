@@ -17,10 +17,9 @@
  */
 //= depend_on_asset "cart-icon.png"
 
-
-/** {
-  font-family: "Amazon Ember", "Arial", sans-serif;
-}*/
+* {
+  font-family: Arial, sans-serif;
+}
 
 header {
   background-color: #232f3e;
@@ -48,6 +47,16 @@ header li a.dropdown-menu-item:hover, #nav-cart-count {
   color: #e47911;
   font-weight: bold;
   border: none;
+}
+
+.small-gray {
+  font-size: 13px!important;
+  color: #767676!important;
+}
+
+.big-red {
+  font-size: 21px!important;
+  color: #b12704!important;
 }
 
 /*Header divs for navigation*/
@@ -137,6 +146,7 @@ input[type="submit"], .button {
   color: #111;
   font-size: 0.85em;
   padding: 5px;
+  margin: 2px;
   border-radius: 3px;
   border-style: solid;
   border-width: 1px;
@@ -147,12 +157,14 @@ input[type="submit"], .button {
   vertical-align: middle;
   background: linear-gradient(to bottom,#f7dfa5,#f0c14b);
   transition: none;
+  min-width: 110px;
 }
 
-input[type="submit"]:hover, .button:hover {
+input[type="submit"]:hover, input[type="submit"]:active, .button:hover, .button:active, .button:focus {
   border-color: #a88734 #9c7e31 #846a29;
   color: black;
   background: #f0c14b;
+  transition: none;
 }
 
 /* FOOTER */
@@ -204,4 +216,12 @@ footer section:last-of-type {
   font-size: 0.75em;
   text-align: center;
   padding: 10px;
+}
+
+.filled-star {
+  color: #f0c14b;
+}
+
+.unfilled-star {
+  color: #bfbfbf;
 }

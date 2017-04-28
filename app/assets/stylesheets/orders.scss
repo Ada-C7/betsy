@@ -5,3 +5,23 @@
 .submit-order {
   padding: 20px;
 }
+
+.checkout {
+  border: 1px solid #bfbfbf;
+  padding-top: 30px;
+  background-color: #f3f3f3;
+}
+
+.cart-header, .cart-items {
+  border-bottom: 1px solid #bfbfbf;
+}
+
+.cart-items {
+  padding: 10px 0;
+  margin: 0;
+}
+
+.cart.product-name {
+  font-weight: bold;
+  font-size: 21px;
+}

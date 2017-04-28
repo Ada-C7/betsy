@@ -16,6 +16,12 @@ class ProductsController < ApplicationController
 
   def show
     @reviews ||= @product.reviews
+
+    if @reviews.empty?
+      @average_rating = 0
+    else
+      @average_rating = @reviews.map {|review| review.rating }.inject(0, :+)/@reviews.count.round(0)
+    end
   end
 
   def new
@@ -72,7 +78,7 @@ class ProductsController < ApplicationController
         flash[:result_text] = "Successfully reviewed!"
         redirect_to product_path(params[:id])
       else
-        flash[:status] = :failure
+        flash[:status] = "alert"
         flash[:result_text] = "Could not review"
         flash[:messages] = review.errors.messages
         render :show, status: :bad_request

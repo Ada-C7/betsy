@@ -39,6 +39,9 @@ class UsersController < ApplicationController
     unless params[:status].nil? || params[:status] == 'all'
       @order_items = @order_items.select { |order_item| order_item.order.status == params[:status] }
     end
+
+    @total_quantity = @order_items.map { |order_item| order_item.quantity }.inject(0, :+)
+    @total_revenue = @order_items.map { |order_item| order_item.subtotal }.inject(0, :+)
   end
 
   private
