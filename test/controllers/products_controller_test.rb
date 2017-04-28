@@ -34,13 +34,14 @@ describe ProductsController do
 
   describe "new" do
     it "Directs to the right form" do
+      login(merchants(:grace))
       get new_product_path
       must_respond_with :success
     end
   end
 
   describe "create" do
-    it "creates a new work" do
+    it "creates a new product" do
       login(merchants(:grace))
       start_count = Product.count
 
@@ -81,10 +82,17 @@ describe ProductsController do
 
   describe "edit" do
     it "routes to the edit page" do
+      login(merchants(:grace))
       product = products(:product1)
       get edit_product_path(product)
       must_respond_with :success
     end
+
+    ####### YIKE WHAT DO WE WANT TO HAPPEN?
+    # it "wont allow non-login user route to edit page" do
+    #   product = products(:product1)
+    #   get edit_product_path(product)
+    # end
   end # END of describe "edit"
 
   describe "status" do
@@ -97,6 +105,7 @@ describe ProductsController do
 
   describe "new_category" do
     it "Directs to the right form" do
+      login(merchants(:grace))
       product = products(:product1)
       get product_new_category_path(product)
       must_respond_with :success

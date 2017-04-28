@@ -193,8 +193,9 @@ describe OrdersController do
       order_after = Order.find_by(id: @order.id)
       order_after.status.must_equal "paid"
       session[:order_id].must_be_nil
+      flash[:partial].wont_be_nil
       must_respond_with :redirect
-      must_redirect_to order_confirmation_path(@order.id)
+      must_redirect_to root_path
     end
 
     it 'returns error messages if no credit card info given' do

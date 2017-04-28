@@ -5,6 +5,7 @@ describe CategoriesController do
 
   describe "new" do
     it "Directs to the right form" do
+      login(merchants(:grace))
       get new_category_path
       must_respond_with :success
     end
@@ -12,7 +13,7 @@ describe CategoriesController do
 
   describe "create" do
     it "creates a new work" do
-      # login(merchants(:grace))
+      login(merchants(:grace))
       start_count = Category.count
       category_data = {
         category: {
