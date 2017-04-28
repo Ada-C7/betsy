@@ -30,9 +30,9 @@ class ProductsController < ApplicationController
       flash[:result_text] = "Successfully created the product #{@product.name}"
       redirect_to merchant_path(@login_merchant)
     else
-      # flash[:status] = :failure
-      # flash[:result_text] = "Could not create #{@product.id}"
-      # flash[:messages] = @product.errors.messages
+      flash[:status] = :failure
+      flash[:result_text] = "Could not create #{@product.id}"
+      flash[:messages] = @product.errors.messages
       render :new #, status: :bad_request
     end
   end
@@ -75,11 +75,18 @@ class ProductsController < ApplicationController
   end
 
   def create_category
-    Product.find_by(id: params[:product_id]).categories << Category.find_by(id: params[:category_id])
-    redirect_to product_path(Product.find_by(id: params[:product_id]))
+    if !Product.find_by(id: params[:product_id]).categories.include? Category.find_by(id: params[:category_id])
+      Product.find_by(id: params[:product_id]).categories << Category.find_by(id: params[:category_id])
+      flash[:status] = :success
+      flash[:result_text] = "Category successfully added"
+      redirect_to product_path(Product.find_by(id: params[:product_id]))
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "The category #{Category.find_by(id: params[:category_id]).name} is already added to this product"
+      # flash[:messages] = @product.errors.messages
+      redirect_to product_new_category_path(Product.find_by(id: params[:product_id]))
+    end
   end
-
-
 
   private
   def product_params
