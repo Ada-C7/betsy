@@ -36,6 +36,16 @@ three:
   cvv: "382"
   zipcode: "20932"
 
+four:
+  status: paid
+  email: betsy@gmail.com
+  billing_name: Louise Belcher
+  address: 7897 Long rd 20932
+  card_number: "21233384574309984"
+  card_expiration: 12/20
+  cvv: "382"
+  zipcode: "20932"
+
 no_user:
   status: cancelled
   email: 123sparkles@gmail.com
