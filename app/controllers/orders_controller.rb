@@ -83,6 +83,10 @@ private
                                           :customer_city,
                                           :customer_zipcode,
                                           :customer_state,
-                                          :credit_card_number)
+                                          :credit_card_number
+                                          :credit_card_cvv
+                                          :credit_card_zipcode
+                                          :credit_card_name
+                                          )
   end
 end
