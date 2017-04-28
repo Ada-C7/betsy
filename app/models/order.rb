@@ -54,7 +54,7 @@ class Order < ApplicationRecord
   end
 
   # you are changing a product...want to put this somewhere else...
-  def handle_inventory
+  def manage_inventory
     product_orders.each do |product_order|
       product_order.product.remove_inventory(product_order.quantity)
     end

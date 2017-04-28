@@ -44,7 +44,9 @@ class Product < ApplicationRecord
   end
 
   def remove_inventory(quantity)
-    self.inventory -= quantity
-    self.save
+    if inventory >= quantity
+      self.inventory -= quantity
+      self.save
+    end
   end
 end # END of class Product
