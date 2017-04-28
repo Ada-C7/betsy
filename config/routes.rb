@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'products#root'
 
   get "/auth/github/callback", to: "merchants#auth_callback", as: 'auth_callback'
-  get '/logout', to: "merchants#logout"
+  get '/logout', to: "merchants#logout", as: 'logout'
 
   resources :products do
     post '/add_item', to: 'orders#add_item'

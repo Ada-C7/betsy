@@ -9,10 +9,10 @@
   <% else %>
     <% @merchant.products.where(status: "active").each do |product| %>
     <div class="column">
-      <%=image_tag(product.image, alt: "Product Image", class: "thumbnail")%>
-      <h5><%= product.name %></h5>
+      <%= link_to image_tag(product.image, alt: "Product Image", class: "thumbnail"), product_path(product)%>
+      <h5><%= link_to product.name, product_path(product) %></h5>
       <p><%= product.price %></p>
-      <a href="#" class="button expanded">Buy</a>
+      <%= link_to "Add to Cart", product_add_product_path(product.id), method: :post, class: "button" %>
     </div>
     <% end %>
   <% end %>

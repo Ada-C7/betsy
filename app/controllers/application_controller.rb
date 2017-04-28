@@ -23,4 +23,13 @@ class ApplicationController < ActionController::Base
       return order
     end
   end
+
+  def require_login
+    find_merchant
+    if @login_merchant.nil?
+      flash[:status] = :failure
+      flash[:result_text] = "Only logged in merchants can view that page"
+      redirect_to root_path
+    end
+  end
 end
