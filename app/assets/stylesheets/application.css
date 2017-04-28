@@ -120,21 +120,22 @@ img.thumbnail {
 
 /* FOOTER */
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-    margin: 0 0 150px; /* bottom = footer height */
+  margin: 0 0 150px; /* bottom = footer height */
+  min-height: 100%;
 }
 
 footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 150px;
-    width: 100%;
-    background-color: #131a22;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 150px;
+  width: 100%;
+  background-color: #131a22;
 }
 
 footer.large-12.columns {
