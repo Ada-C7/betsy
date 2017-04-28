@@ -18,7 +18,7 @@
               <%= product.quantity %>
             </p>
             <p>
-              <%= product.price %>
+              <%= number_to_currency(product.price) %>
             </p>
           </article>
         <% end %>

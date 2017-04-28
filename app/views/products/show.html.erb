@@ -16,7 +16,7 @@
   <section class="product-cart large-6 small-4 columns">
     <ul>
       <li>
-        <span class="small-gray">Price:</span> <span class="big-red"><%= @product.price %></span>
+        <span class="small-gray">Price:</span> <span class="big-red"><%= number_to_currency(@product.price) %></span>
       </li>
       <% if @product.quantity <= 5 %>
         <li>
