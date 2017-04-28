@@ -20,14 +20,15 @@
 
 <% elsif @login_merchant.present? && @login_merchant.id == @merchant.id %>
 <!-- Logged in -->
+<section class="row table_scroll m_table">
     <table>
       <tr>
-        <th>View Listing</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Inventory</th>
-        <th>Status</th>
-        <th>Edit</th>
+        <th class = "small-3 colums">View Listing</th>
+        <th class = "small-3 colums">Category</th>
+        <th class = "small-1 colums">Price</th>
+        <th class = "small-1 colums">Inventory</th>
+        <th class = "small-3 colums">Actions</th>
+        <!-- <th class = "small-1 colums">Edit</th> -->
       </tr>
       <% @merchant.products.each do |product| %>
       <tr>
@@ -37,12 +38,21 @@
            <%= link_to category.name, category_products_path(category)%>/
           <% end %>
         </td>
-        <td><%= product.price %></td>
+        <td>$ <%= product.price %></td>
         <td><%= product.inventory %></td>
-        <td><%= link_to product.status_info[0], status_path(product), method: :patch, class: "button"%></td>
-        <td><%= link_to "Edit", edit_product_path(product), class: "button" %></td>
+        <td>
+          <%= link_to "Edit", edit_product_path(product), class: "button" %>
+          <%= link_to "Category", product_new_category_path(product), class: "button"%>
+          <%= link_to product.status_info[0], status_path(product), method: :patch, class: "button"%>
+        </td>
+        <!-- <td><%#= link_to "Edit", edit_product_path(product), class: "button" %></td> -->
       </tr>
       <% end %>
     </table>
+</section>
+<section class = "row">
   <%= link_to "Add Product", new_product_path, class: "button" %>
+  <%= link_to "Create new category", new_category_path, class: "button"%>
+</section>
+
   <% end %>
