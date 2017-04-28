@@ -72,7 +72,7 @@
           Rating: <%= "★ " * review.rating %>
         </li>
         <li>
-          Comment: <%= review.comment %>
+          Comment: <%= review.comment.blank? ? "n/a" : review.comment %>
         </li>
       </ul>
     </article>
