@@ -77,13 +77,20 @@ class ProductsController < ApplicationController
 
   def create_category
     category = Category.find_by(id: params[:category_id])
-    if category
-      Product.find_by(id: params[:product_id]).categories << category
+    product = Product.find_by(id: params[:product_id])
+
+    if product.categories.include?(category)
+      flash[:status] = :failure
+      flash[:result_text] = "This product is already part of that category"
+      redirect_back(fallback_location: root_path)
+    elsif category
+      product.categories << category
       redirect_to product_path(Product.find_by(id: params[:product_id]))
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "You did not choose a category"
+      redirect_back(fallback_location: root_path)
     end
-    flash[:status] = :failure
-    flash[:result_text] = "You did not choose a category"
-    redirect_back(fallback_location: root_path)
   end
 
   private
