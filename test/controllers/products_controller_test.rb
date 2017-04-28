@@ -44,6 +44,46 @@ describe ProductsController do
         must_respond_with :missing
       end
     end
+
+    describe "review" do
+      it "creates a new review connected to that product" do
+        post review_path(products(:famjams).id), params: { product: products(:famjams), rating: 5, comment: "cool" }
+        flash[:result_text].must_equal "Successfully reviewed!"
+        must_redirect_to product_path(products(:famjams).id)
+      end
+
+      it "adds a new review to the database" do
+        proc {
+          post review_path(products(:famjams).id), params: { product: products(:famjams), rating: 5, comment: "cool" }
+        }.must_change 'Review.count', 1
+      end
+
+      it "fails to create a new review if the logged in user owns the product" do
+        login(users(:one))
+        post review_path(products(:jamjams).id), params: { product: products(:jamjams), rating: 5, comment: "cool" }
+        must_respond_with :bad_request
+        flash[:result_text] = "You cannot review your own product"
+      end
+
+      it "does not add a new review to the database" do
+        proc {
+          login(users(:one))
+          post review_path(products(:jamjams).id), params: { product: products(:jamjams), rating: 5, comment: "cool" }
+        }.must_change 'Review.count', 0
+      end
+
+      it "fails to create a new review if no rating provided" do
+        post review_path(products(:jamjams).id), params: { product: products(:jamjams), comment: "cool" }
+        must_respond_with :bad_request
+        flash[:result_text] = "Could not review"
+      end
+
+      it "does not add a new review to the database" do
+        proc {
+          post review_path(products(:jamjams).id), params: { product: products(:jamjams), comment: "cool" }
+        }.must_change 'Review.count', 0
+      end
+    end
   end
 
   describe "logged in users" do
@@ -126,5 +166,4 @@ describe ProductsController do
       end
     end
   end
-
 end
