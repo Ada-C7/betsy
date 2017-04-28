@@ -4,21 +4,21 @@
   <p>Thanks for your purchase. We have notified the merchant and your product(s) will ship soon</p>
 
   <section class="large-4 columns">
-  <h3>Order Summary</h3>
-    <p>Purchased at: <%= Time.now.strftime("%B %d, %Y %H:%M") %></p>
-    <p>Order Status: <%= order.status.capitalize %></p>
+  <h3>Order Sumamry</h3>
+    <p>DATE/TIME</p>
+    <p>Status</p>
         <% order.product_orders.each do |product_order| %>
           <h4><%= product_order.product.name %></h4>
           <ul>
             <li>Quantity: <%= product_order.quantity %></li>
-            <li>Price: $<%= sprintf("%.2f", product_order.quantity * product_order.product.price)%></li>
+            <li>Price: <%= product_order.quantity * product_order.product.price%></li>
           </ul>
         <% end %>
   </section>
   <section class="large-4 columns">
   <h3>Total</h3>
-    <p>Subtotal: $<%= sprintf("%.2f", order.subtotal) %></p>
-    <p>Tax: $<%= sprintf("%.2f", order.tax) %></p>
-    <div><p>Total: $<%= sprintf("%.2f", order.total) %></p></div>
+    <p>Subtotal: <%= order.subtotal %></p>
+    <p>Tax: <%= order.tax %></p>
+    <div><p>Total: <%= order.total %></p></div>
   </section>
 </section>
