@@ -118,11 +118,28 @@ img.thumbnail {
   width: 100px;
 }
 
+/* FOOTER */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0 0 150px; /* bottom = footer height */
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 150px;
+    width: 100%;
+    background-color: #131a22;
+}
+
 footer.large-12.columns {
   padding: 0px;
   color: white;
-  position: fixed;
-  bottom: 0;
 }
 
 footer .back-to-top {
