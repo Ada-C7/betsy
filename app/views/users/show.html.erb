@@ -18,7 +18,7 @@
           <td><%= @logged_in_user.revenue_by_order_status(status) %></td>
         </tr>
       <% end %>
-      <tr>
+      <tr class="total-row">
         <td>Total</td>
         <td><%= @logged_in_user.order_count %></td>
         <td><%= @logged_in_user.total_revenue %></td>

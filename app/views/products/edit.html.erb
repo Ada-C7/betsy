@@ -2,5 +2,5 @@
   <h2> Edit <%= @product.name %> </h2>
 
   <%= render partial: "form" %>
-  <%= link_to "Retire", product_path(@product), method: :delete %>
+  <%= button_to "Retire", product_path(@product), method: :delete %>
 </section>
