@@ -15,6 +15,8 @@
  *= require foundation_and_overrides
 
  */
+//= depend_on_asset "cart-icon.png"
+
 
 * {
   font-family: "Amazon Ember", Arial, sans-serif;
@@ -90,7 +92,7 @@ header nav > div:nth-of-type(2) a {
   background-position: 0px 0px;
   width: 50px;
   height: 35px;
-  background-image: url('cart-icon.png');
+  background-image: url('<%= asset_path('cart-icon.png') %>');
   background-size: 50px;
   background-repeat: no-repeat;
 }
