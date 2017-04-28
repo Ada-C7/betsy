@@ -22,8 +22,9 @@ section.product {
 
 section.products-list article {
   display: inline-block;
-  border-width: thin;
-  border-color: rgb(166, 166, 166);
+  border: 1px solid #bfbfbf;
+  padding-top: 20px;
+}
 
 section.product-cart {
   padding-top: 60px;
