@@ -1,0 +1,7 @@
+<section>
+  <%= form_for @category do |t| %>
+    <%= t.label :name %>
+    <%= t.text_field :name %>
+    <%= t.submit value: "Create", class: "button hollow topbar-responsive-button" %>
+  <% end %>
+</section>

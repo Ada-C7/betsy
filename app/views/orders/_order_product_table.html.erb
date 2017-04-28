@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.each do |order_product|%>
+    <tr>
+      <td><%=link_to order_product.product.name, product_path(order_product.product.id)%></td>
+      <td><%= order_product.quantity%></td>
+      <td>$<%= '%.2f' %(order_product.subtotal)%></td>
+      <% if as_merchant && ((order.status == "paid") && (order_product.status == "not shipped")) %>
+        <td><%= button_to "Ship this product", ship_order_product_path(order_product.id), method: :patch, class: "button hollow topbar-responsive-button " %></td>
+      <% else%>
+        <td><%= order_product.status%></td>
+      <%end%>
+    </tr>
+    <%end%>
+  </tbody>
+</table>

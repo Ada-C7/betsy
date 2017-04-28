@@ -1,0 +1,248 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*= require_tree .
+*= require foundation_and_overrides
+*= require_self
+
+*/
+body{
+  font-family: 'Merriweather', serif;
+  background-image: url(<%= asset_path 'owl-background.png'%>);
+}
+#main-section{
+  width: 80%;
+  background-color: white;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  min-height: 600px;
+}
+
+.flash {
+  color: green;
+  font-size: 2rem;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+footer {
+  border-top: 1px solid black;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 70px;
+  width: 100%;
+  padding-top: 20px;
+}
+#owl-logo{
+  font-size: 150%;
+}
+#search-button, #search-field{
+  width: 100%;
+}
+#search-field{
+  height: 35px;
+}
+#star-image{
+  width: 20px;
+}
+li#login-section{
+  padding-top: 20px;
+}
+
+li{
+  list-style: none;
+}
+
+.orbit img{
+  width: 250px;
+  height: 300px;
+}
+
+.product_info{
+  float: left;
+  margin: 2% 2% 2% 2%;
+}
+
+.log_button{
+  width: 100%;
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+input#quantity{
+  width: 60px;
+}
+
+form#new_product.new_product, .edit_product, .edit_order, .new_category{
+  width: 60%;
+  margin-left: 20%;
+}
+
+form#new_review.new_review{
+  width: 60%;
+  margin-left: 0%;
+}
+input#review_review_text{
+  width: 100%;
+}
+
+#login-section{
+  padding-left: 40px;
+}
+
+#products_in_cart{
+  border-bottom-style: dashed;
+  border-bottom-width: thin;
+
+}
+
+/*RESPONSIVE NAV BAR:*/
+.topbar-responsive {
+  background: #2c3840;
+  padding: 1rem 1.5rem;
+}
+
+.topbar-responsive .topbar-responsive-logo {
+  color: #fefefe;
+  vertical-align: middle;
+}
+
+.topbar-responsive .menu {
+  background: #2c3840;
+}
+
+.topbar-responsive .menu li:last-of-type {
+  margin-right: 0;
+}
+
+.topbar-responsive .menu a {
+  color: #fefefe;
+  transition: color 0.15s ease-in;
+}
+
+.topbar-responsive .menu a:hover {
+  color: #c6d1d8;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .topbar-responsive .menu a {
+    padding: 0.875rem 0;
+  }
+}
+
+.topbar-responsive .menu .topbar-responsive-button {
+  color: #fefefe;
+  border-color: #fefefe;
+  border-radius: 5000px;
+  transition: color 0.15s ease-in, border-color 0.15s ease-in;
+}
+
+.topbar-responsive .menu .topbar-responsive-button:hover {
+  color: #c6d1d8;
+  border-color: #c6d1d8;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .topbar-responsive .menu .topbar-responsive-button {
+    width: 100%;
+    margin: 0.875rem 0;
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  .topbar-responsive {
+    padding: 0.75rem;
+  }
+  .topbar-responsive .top-bar-title {
+    position: relative;
+    width: 100%;
+  }
+  .topbar-responsive .top-bar-title span {
+    position: absolute;
+    right: 0;
+    border: 1px solid #fefefe;
+    border-radius: 5px;
+    padding: 0.25rem 0.45rem;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .topbar-responsive .top-bar-title span .menu-icon {
+    margin-bottom: 4px;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slideDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  .topbar-responsive-links {
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    width: 100%;
+    -webkit-animation: fadeIn 1s ease-in;
+    animation: fadeIn 1s ease-in;
+  }
+}
+
+.orbit button{
+  color:#EF662F;
+}
+/**/
+#products_title{
+  text-align: center;
+  text-decoration:underline;
+  text-decoration-style: dotted;
+}

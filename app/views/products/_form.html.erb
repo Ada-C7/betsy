@@ -1,0 +1,35 @@
+<% if @product.errors.messages.length > 0 %>
+<section>
+  <h2> Something went wrong</h2>
+  <ul>
+    <%@product.errors.messages.each do |field, problems| %>
+      <% problems.each do |problem| %>
+        <li>
+          <%= field %>
+          <%= problem %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</section>
+<%end%>
+
+<section>
+  <%= form_for [@merchant, @product] do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+    <%= f.label :photo_url %>
+    <%= f.text_field :photo_url %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <%= f.label :stock %>
+    <%= f.text_area :stock %>
+    <%= f.hidden_field :merchant_id, :value => @merchant.id%>
+      <p>Choose at least one category for your product:</p>
+    <%= f.label :categories %>
+    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+    <%= f.submit button_text , class: "button hollow topbar-responsive-button " %>
+  <% end %>
+</section>

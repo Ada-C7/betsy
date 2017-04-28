@@ -1,0 +1,36 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+
+sophia_cart:
+  status: "pending"
+  email: "foobar@gmail.com"
+  mailing_address: 123 Fake street NE"
+  card_name: "natalia kulen"
+  credit_card: "3232332232"
+  card_expiration: Mon, 24 Apr 2017 17:40:00 -0700
+  cvv: 434
+  zip_code: 90434
+
+order234:
+  status: "paid"
+  email: "foobar@gmail.com"
+  mailing_address: 123 Fake street NE"
+  card_name: "natalia kulen"
+  credit_card: "3232332232"
+  card_expiration: Mon, 24 Apr 2017 17:40:00 -0700
+  cvv: 434
+  zip_code: 90434
+  paid_at: Mon, 24 Apr 2017 17:40:00 -0700
+
+sophia_cart2:
+  status: "pending"
+  email: "foobarbar@gmail.com"
+  mailing_address: 123 Fake street NE"
+  card_name: "natalia kulen"
+  credit_card: "3232332232"
+  card_expiration: Mon, 24 Apr 2017 17:40:00 -0700
+  cvv: 43456
+  zip_code: 90434

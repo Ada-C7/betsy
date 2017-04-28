@@ -1,0 +1,2 @@
+<h3><%= "#{@merchant.username}, Here are the details for Order #{  @order.id}:" %></h3>
+<%= render partial: "orders/order_details", locals: {order: @order, order_product_list: @merchants_order, as_merchant: @merchant} %>

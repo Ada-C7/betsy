@@ -1,0 +1,22 @@
+
+<p><h2 id= "products_title">Check out all the OWLY goodness!</h2></p>
+<section>
+  <% if params[:merchant_id] && @products.empty? %>
+    <h4> <%= "Currently, #{Merchant.find(params[:merchant_id]).username } does not have any products."%> </h4>
+  <% end %>
+
+  <div class="row">
+    <% @products.each do |product|%>
+      <%if product.retired == true%>
+        <%next%>
+      <%else%>
+      <div class="column text-center small-6 medium-4 large-4 <%= "end" if product == @products.last %>" >
+        <p><%=link_to (image_tag product.photo_url, alt:"picture of #{product.name}", class: "product_photo"), product_path(product)%></p>
+        <p><%= link_to product.name, product_path(product) %></p>
+        <p>Price: $<%=  '%.2f' %(product.price) %></p>
+        <p>Stock: <%= product.stock %></p>
+      </div>
+      <%end%>
+    <% end %>
+  </div>
+</section>

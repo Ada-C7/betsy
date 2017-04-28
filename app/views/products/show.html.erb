@@ -1,0 +1,73 @@
+<h2 >Product details:</h2>
+
+  <section class = "row">
+    <section class = "large-6 medium-6 small-12 column">
+        <%= image_tag @product.photo_url, alt:"picture of #{@product.name}"%>
+        <h4><strong>Name: </strong><%=@product.name%></h4>
+        <h4><strong>Price: </strong>$<%=  '%.2f' %(@product.price)%></h4>
+        <h4><strong>Description:</strong> <%=@product.description%> </h4>
+        <h4><strong>Product categories:</strong></h4>
+        <% @product.categories.each do |category| %>
+          <li><%=link_to category.name, category_path(category.id)%> </li>
+        <% end %>
+      <%if @product.stock == nil || @product.stock < 1%>
+        <h4><strong>Stock:</strong> product is out of stock</h4>
+      <%else%>
+        <h4><strong>Stock: </strong><%=@product.stock%></h4>
+      <%end%>
+      <h4><strong>Merchant:</strong> <%=link_to "#{Merchant.find(@product.merchant_id).username}", merchant_products_path(@product.merchant_id) %></h4>
+
+      <%if  OrderProduct.find_by(order_id: session[:order_id], product_id: @product.id) == nil%>
+        <%= form_for @order_product do |f| %>
+          <%=f.label :quantity%>
+          <%= number_field_tag("quantity", 1, min: 1, max: @product.stock) %>
+          <%= hidden_field_tag("product_id", @product.id)%>
+          <%= f.submit value: "Add to shopping cart" ,  class: "button hollow topbar-responsive-button "%>
+        <% end %>
+      <%else%>
+        <h4>Product already in the <%=link_to "cart", shopping_cart_path%></h4>
+      <%end%>
+      <% if @product.allowed_access?(@current_user) %>
+              <p><%=button_to "Update this product",  edit_product_path(@product.id),method: :get , class: "button hollow topbar-responsive-button "%> </p>
+              <%if @product.retired == false%>
+                <p><%= button_to "Retire this product", retire_product_path(@product), method: :patch, data: {confirm: 'Are you sure?' }, class: "button hollow topbar-responsive-button warning button"%> </p>
+              <%else%>
+                <p>Product is retired</p>
+                <p><%= button_to "Get product back", retire_product_path(@product), method: :patch, data: {confirm: 'Are you sure?' }, class: "button hollow topbar-responsive-button warning button"%> </p>
+              <%end%>
+      <% end %>
+    </section>
+
+    <section class = "large-6 medium-6 small-12 column">
+    <% if !@product.allowed_access?(@current_user) %>
+        <%= form_for @review do |f| %>
+          <%= radio_button_tag("review[rating]", "1") %>
+          <%= label_tag(:one, "1") %>
+          <%= radio_button_tag("review[rating]", "2") %>
+          <%= label_tag(:two, "2") %>
+          <%= radio_button_tag("review[rating]", "3") %>
+          <%= label_tag(:three, "3") %>
+          <%= radio_button_tag("review[rating]", "4") %>
+          <%= label_tag(:four, "4") %>
+          <%= radio_button_tag("review[rating]", "5") %>
+          <%= label_tag(:five, "5") %>
+
+          <%= f.label :review_text %>
+          <%= f.text_field :review_text %>
+          <%= f.hidden_field :product_id, :value => @product.id%>
+          <%= f.submit value: "Comment", class: "button hollow topbar-responsive-button success button" %>
+        <% end %>
+      <% end %>
+    </section>
+
+    <section class = "large-6 medium-6 small-12 column">
+      <h3> Average rating: <%=@product.average_rating%></h3>
+      <% Review.where(product_id: @product.id).each do |review| %>
+        <p><% review.rating.times do %>
+          <%= image_tag ("star.png"), alt:"star rating", id: "star-image"%>
+          <%end%>
+        </p>
+        <p>Comment: <%= review.review_text %></p>
+      <% end %>
+    </section>
+</section>

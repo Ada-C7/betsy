@@ -1,0 +1,10 @@
+<tr>
+  <td><%= link_to "Order ##{order.id}", merchant_order_view_path(@merchant, order.id) %></td>
+  <td><%= order.paid_at.strftime("%b %d, %Y at %I:%M %P") %></td>
+  <td><%= order.status.capitalize %></td>
+  <% if (order.status == "paid") %>
+    <% if order.merchant_shipping_required?(@merchant.id) %>
+    <td><%= button_to "Some products require shipping", merchant_order_view_path(@merchant.id, order.id), method: :get, class:"button hollow topbar-responsive-button" %></td>
+    <% end %>
+  <% end %>
+</tr>

@@ -1,0 +1,32 @@
+<h1 >Shopping cart:</h1>
+<section>
+  <%if cart_is_empty?(@shopping_cart_products)%>
+    <p> Shopping cart is empty </p>
+  <%else%>
+  <div class ="row">
+    <div class ="large-6 column" >
+    <%@shopping_cart_products.each do |op|%>
+      <article id= "products_in_cart">
+          <p><strong>Name of product: </strong><%=link_to op.product.name, product_path(op.product.id)%></p>
+          <p><strong>Quantity: </strong><%=op.quantity%>
+           <%= form_for op do |f| %>
+              <%= number_field_tag("quantity", op.quantity, min: 1, max: op.product.stock) %>
+              <%= hidden_field_tag("order_id", @order.id)%>
+              <%= hidden_field_tag("product_id", op.product.id)%>
+              <%= f.submit value: "Update quantity", class: "button hollow topbar-responsive-button success button"%>
+          <% end %></p>
+          <p><strong>Unit price:</strong><%=op.product.price%>
+          <p><strong>Subtotal:</strong><%=op.subtotal%></p>
+          <p><%=link_to "Delete from cart", order_product_path(op.id), method: :delete, data: {confirm: 'Are you sure?' }, class: "button hollow topbar-responsive-button alert button" %>
+      </article>
+    <%end%>
+  </div>
+    <div class ="large-6 column">
+    <h3><strong>Order Total:</strong> <%=@order.total_price%></h3>
+
+    <p><%=link_to "Proceed to Checkout", edit_order_path(@order.id), class: "button hollow topbar-responsive-button" %> </p>
+    <p><%=link_to "Continue shopping", products_path, class: "button hollow topbar-responsive-button" %> </p>
+  <%end%>
+</div>
+</div>
+</section>

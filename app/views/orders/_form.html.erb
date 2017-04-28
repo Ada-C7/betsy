@@ -1,0 +1,17 @@
+<%= form_for @order do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <%= f.label :mailing_address %>
+  <%= f.text_field :mailing_address %>
+  <%= f.label :card_name %>
+  <%= f.text_field :card_name %>
+  <%= f.label :credit_card %>
+  <%= f.text_field :credit_card , value: nil%>
+  <%= f.label :card_expiration %>
+  <%= f.date_select :card_expiration, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :use_month_numbers => true %>
+  <%= f.label :cvv %>
+  <%= f.text_field :cvv, value: nil %>
+  <%= f.label :zip_code %>
+  <%= f.text_field :zip_code, value: nil %>
+  <%= f.submit value: "Complete order", class: "button hollow topbar-responsive-button "%>
+<% end %>

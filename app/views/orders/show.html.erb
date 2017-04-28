@@ -1,0 +1,20 @@
+<section>
+  <% if @order.errors.messages.length > 0 %>
+  <section>
+    <h2> Something went wrong</h2>
+    <ul>
+      <%@order.errors.messages.each do |field, problems| %>
+      <% problems.each do |problem| %>
+      <li>
+        <%= field %>
+        <%= problem %>
+      </li>
+      <% end %>
+      <% end %>
+    </ul>
+  </section>
+  <%end%>
+
+  <h1>Order show page:</h1>
+
+  <%= render partial: "orders/order_details", locals: {order: @order, order_product_list: @order.order_products, as_merchant: false} %>

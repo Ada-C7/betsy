@@ -1,0 +1,18 @@
+<h3>Category: <%= @category.name %></h3>
+<h4>Products</h4>
+<section>
+  <div class="row">
+    <% @products.each do |product|%>
+      <%if product.retired == true%>
+        <%next%>
+      <%else%>
+      <div class="column text-center  small-6 medium-4 large-4 <%= "end" if product == @products.last%>">
+        <p><%=link_to (image_tag product.photo_url, alt:"picture of #{product.name}", class: "product_photo"), product_path(product)%></p>
+        <p><%= link_to product.name, product_path(product) %></p>
+        <p>Price: $<%= product.price %></p>
+        <p>Stock: <%= product.stock %></p>
+      </div>
+      <%end%>
+    <% end %>
+  </div>
+</section>

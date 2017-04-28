@@ -1,0 +1,60 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+owl1:
+  name: t-shirt
+  price: 20.00
+  photo_url: /assets/photo_1.jpg
+  description: cute owl-tshirt
+  stock: 2
+  merchant: dan
+
+#
+owl2:
+  name: hairband
+  price: 10.00
+  photo_url: /assets/photo_2.jpg
+  description: cute hairband
+  stock: 3
+  merchant: dan
+
+
+hat:
+  name: hat
+  photo_url: /assets/photo_2.jpg
+  price: 10.00
+  merchant: harry
+
+scarve:
+  name: scarve
+  photo_url: /assets/photo_2.jpg
+  price: 10000000000.00
+  merchant: hermione
+
+one:
+  name: Fred
+  price: 45
+  photo_url: /assets/photo.jpg
+  description: "Oh yeah, Fred the Owl."
+  stock: 1
+
+two:
+  name: George
+  price: 60
+  photo_url: /assets/photo2.jpg
+  description: "Oh yeah, George the Owl."
+  stock: 5
+# column: value
+
+
+goodproduct:
+  name: Flower
+  price: 63
+  photo_url: /assets/photo32.jpg
+  description: "good desription."
+  stock: 12
+  merchant: petr

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+  <title>Owl City</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application"%>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
+</head>
+
+<body>
+  <header>
+    <nav class="top-bar topbar-responsive">
+      <div class="top-bar-title">
+        <span data-responsive-toggle="topbar-responsive" data-hide-for="medium">
+          <button class="menu-icon" type="button" data-toggle></button>
+        </span>
+        <a class="topbar-responsive-logo" href="root_path"><strong><li class="menu-text"><%=link_to "Owl City", root_path, id: "owl-logo"%></li></strong></a>
+      </div>
+      <div id="topbar-responsive" class="topbar-responsive-links">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li><a href="/products">See all products</a></li>
+            <li><a href="/merchants">Shop by merchants</a></li>
+            <li><a href="/categories">Shop by categories</a>
+              <ul class="menu vertical">
+                <% Category.all.each do |category| %>
+                <li><%= link_to category.name, category_path(category.id) %>  </li>
+                <% end %>
+              </ul>
+            </li>
+            <li><%=link_to "Shopping cart", shopping_cart_path%></li>
+            <li id = "login-section"><% if @current_user != nil %>
+              <span>Logged in as <%= link_to @current_user.username, merchant_path(@current_user) %></span><br>
+              <span><%= link_to "Log Out", logout_path, method: :delete, class: "button hollow topbar-responsive-button log_button" %></span>
+            <% else %>
+              <p>Not logged in</p>
+              <%= link_to "Log In", '/auth/github', class: "button hollow topbar-responsive-button expanded log_button" %>
+            <% end %>
+          </li>
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <%= form_tag(products_path, :method => "get", id: "search-form") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search by name or description", id: "search-field"%>
+          <%= submit_tag "Search", :name => nil , class: "button hollow topbar-responsive-button ", id: "search-button"%>
+          <% end %>
+        </div>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+    <main id = "main-section">
+    <section class="flash">
+      <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+      <% end %>
+    </section>
+    <%= yield %>
+    </main>
+
+  <footer>
+    <h3 class="text-center"> @2017 JSAN (Janice, Sofia, Anna, Natalia)</h3>
+  <footer>
+</body>
+
+</html>

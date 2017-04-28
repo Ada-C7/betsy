@@ -1,0 +1,16 @@
+<section>
+  <%= form_for (@order) do |f| %>
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity %>
+    <%= f.hidden_field :status, :value => "pending" %>
+    <%= f.hidden_field :email, :value => ""%>
+    <%= f.hidden_field :mailing_address, :value => "" %>
+    <%= f.hidden_field :card_name, :value =>"" %>
+    <%= f.hidden_field :credit_card, :value => 0 %>
+    <%= f.hidden_field :cvv, :value => 0 %>
+    <%= f.hidden_field :card_expiration, :value => DateTime.now %>
+    <%= f.hidden_field :zip_code, :value => ""%>
+    <%= f.hidden_field :paid_at, :value => Datetime.now %>
+    <%= f.submit value: "Create new order" %>
+  <% end %>
+</section>
