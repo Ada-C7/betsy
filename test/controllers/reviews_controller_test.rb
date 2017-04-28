@@ -24,7 +24,20 @@ describe ReviewsController do
       post reviews_path , params: review_data
       must_redirect_to product_path(products(:product1))
       Review.count.must_equal start_count + 1
-      end
-    end   # END of describe "create"
+    end
+
+    it "does not update the DB for bogus data" do
+      start_count = Review.count
+      review_data = {
+        review: {
+          rating: 'vegan',
+        }
+      }
+      get product_path(products(:product1))
+      post reviews_path , params: review_data
+      end_count = Review.count
+      end_count.must_equal start_count
+    end
+  end   # END of describe "create"
 
 end # END of describe ReviewsController
