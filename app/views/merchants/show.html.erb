@@ -32,7 +32,11 @@
       <% @merchant.products.each do |product| %>
       <tr>
         <td><%= link_to product.name, product_path(product) %></td>
-        <td><%= product.category %></td>
+        <td>
+          <% product.categories.each do |category|%>
+           <%= link_to category.name, category_products_path(category)%>/
+          <% end %>
+        </td>
         <td><%= product.price %></td>
         <td><%= product.inventory %></td>
         <td><%= link_to product.status_info[0], status_path(product), method: :patch, class: "button"%></td>

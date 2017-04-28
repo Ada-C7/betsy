@@ -31,10 +31,11 @@ class ProductsController < ApplicationController
       flash[:result_text] = "Successfully created the product #{@product.name}"
       redirect_to merchant_path(@login_merchant)
     else
-      # flash[:status] = :failure
-      # flash[:result_text] = "Could not create #{@product.id}"
-      # flash[:messages] = @product.errors.messages
-      render :new #, status: :bad_request
+      flash[:status] = :failure
+      flash[:result_text] = "Something went wrong"
+      flash[:messages] = @product.errors.messages
+      redirect_to new_product_path
+      # render :new #, status: :bad_request
     end
   end
 
@@ -75,6 +76,7 @@ class ProductsController < ApplicationController
     @categories = Category.all
   end
 
+<<<<<<< HEAD
 # ANNA Already fixed this.
   # def create_category #GIVE THIS TESTS. Then look at validating quantity for product orders wrote custom method for that validation. Make sure category is UNIQUE in validation. then clean up if/elsif
   #   category = Category.find_by(id: params[:category_id])
@@ -93,6 +95,21 @@ class ProductsController < ApplicationController
   #     redirect_back(fallback_location: root_path)
   #   end
   # end
+=======
+  def create_category
+    if !Product.find_by(id: params[:product_id]).categories.include? Category.find_by(id: params[:category_id])
+      Product.find_by(id: params[:product_id]).categories << Category.find_by(id: params[:category_id])
+      flash[:status] = :success
+      flash[:result_text] = "Category successfully added"
+      redirect_to product_path(Product.find_by(id: params[:product_id]))
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "The category #{Category.find_by(id: params[:category_id]).name} is already added to this product"
+      # flash[:messages] = @product.errors.messages
+      redirect_to product_new_category_path(Product.find_by(id: params[:product_id]))
+    end
+  end
+>>>>>>> 3da0570be526f2b54d6e328b4853a35bba02166a
 
   private
   def product_params

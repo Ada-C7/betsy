@@ -6,3 +6,12 @@
 #
 category1:
   name: meat
+  products: product1
+
+
+category2:
+  name: vegan
+
+
+category3:
+  name: salad

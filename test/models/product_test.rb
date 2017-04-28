@@ -32,16 +32,24 @@ describe Product do
     it "name must be unique" do
       product = products(:product1)
       puts product.name
-      new_product = Product.new(name: "Food1", price: 7.30,  merchant: merchant)
+      new_product = Product.new(name: "Food1", price: 7.30,  merchant: merchant, status: "passive")
       new_product.valid?.must_equal false
       new_product.errors.messages.must_include :name
     end
 
     it "requires a price" do
-      product = Product.new(name: "Bob",merchant: merchant)
+      product = Product.new(name: "Bob",merchant: merchant, status: "passive")
       product.valid?.must_equal false
       product.errors.messages.must_include :price
     end
+
+    it "requires a status" do
+      product = Product.new(name: "Bob", price: 7.30, merchant: merchant)
+      product.valid?.must_equal false
+      product.errors.messages.must_include :status
+    end
+
+
   end # END of describe "validations"
 
   describe "average_rating" do
@@ -72,7 +80,44 @@ describe Product do
       product.status_change
       product.status.must_equal "active"
     end
-  end # END of describe "average_rating:
+  end # END of describe "status_change"
+
+
+  describe "status_info" do
+    it "must return an array for both casesin the if else statement" do
+      product1 = products(:product1)
+      product1.status_info.must_be_kind_of Array
+      product4 = products(:product4)
+      product4.status_info.must_be_kind_of Array
+    end
+
+    it "first element in return array is Deactivate if the product status is active and vise versa" do
+      product1 = products(:product1)
+      product1.status_info[0].must_equal "Deactivate"
+      product4 = products(:product4)
+      product4.status_info[0].must_equal "Activate"
+    end
+  end # END of describe "status_info"
+
+  describe "check_image" do
+    it "updates with NomNom.png if image is lacking 1" do
+      product5 = products(:product5)
+      product5.check_image
+      product5.image.must_equal "NomNom.png"
+
+    end
+
+    it "updates with NomNom.png if image is lacking 2" do
+      product5 = products(:product5)
+      product5.update_attributes(image: "")
+      product5.check_image
+      product5.image.must_equal "NomNom.png"
+    end
+  end # END of describe "status_info"
+
+
+
+
 
   describe "remove_inventory" do
     #product1 has 3 in inventory
