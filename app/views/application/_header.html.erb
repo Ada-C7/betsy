@@ -1,35 +1,42 @@
 <header>
-  <h1>Pajamazon</h1>
-  <nav>
-    <ul class="dropdown menu" data-dropdown-menu>
-      <li><%= link_to "Home", root_path %></li>
-      <li>
-        <a href="#">By Category</a>
-        <ul class="menu">
-          <% Category.all.each do |category| %>
-            <li><%= link_to category.name, category_products_path(id: category.id) %></li>
-          <% end %>
-        </ul>
-      </li>
-      <li>
-        <a href="#">By Merchant</a>
-        <ul class="menu">
-          <% User.all.each do |user| %>
-            <li><%= link_to user.username, user_products_path(id: user.id) %></li>
-          <% end %>
-        </ul>
-      </li>
-      <li>
-        <%= link_to "Cart", carts_path %>
-      </li>
+  <%= link_to image_tag('logo-white.png', class: "small-logo"), root_path %>
+  <nav class="clearfix">
+    <div>
+      <ul class="dropdown menu float-left" data-dropdown-menu>
+        <li>
+          <a href="#">By Category</a>
+          <ul class="menu">
+            <% Category.all.each do |category| %>
+              <li><%= link_to category.name, category_products_path(id: category.id), class: "dropdown-menu-item" %></li>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <a href="#">By Merchant</a>
+          <ul class="menu">
+            <% User.all.each do |user| %>
+              <li><%= link_to user.username, user_products_path(id: user.id), class: "dropdown-menu-item" %></li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="float-right">
       <% if @logged_in_user %>
-        <li><%= link_to "Account", account_path %></li>
-        <li class="align-right">Hi, <%= @logged_in_user.username %>!</li>
-        <li class="align-right"><%= link_to "Log Out", logout_path, method: :delete %></li>
+        <%= link_to "Account", account_path %>
+        <span>Hi, <%= @logged_in_user.username %>!</span>
+        <%= link_to "Log Out", logout_path, method: :delete %>
       <% else %>
-        <li class="align-right"><%= link_to "Log In", "/auth/github" %></li>
+        <%= link_to "Log In", "/auth/github" %>
       <% end %>
-    </ul>
+      <%= link_to(carts_path, id: "nav-cart") do %>
+        <%= content_tag(:span, @cart_count, id: "nav-cart-count") %>
+        <%= content_tag(:span, nil, id: "nav-cart-icon") %>
+        <%= content_tag(:span, "Cart", id: "cart-label") %>
+      <% end %>
+    </div>
+
   </nav>
 </header>
 

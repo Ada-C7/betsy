@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :require_login
   before_action :find_user
+  before_action :cart_count
   helper_method :find_user
 
   def require_login
@@ -21,5 +22,10 @@ class ApplicationController < ActionController::Base
     if session[:user_id]
       @logged_in_user ||= User.find_by_id(session[:user_id])
     end
+  end
+
+  def cart_count
+    # TODO: add actual cart count here
+    @cart_count = 5
   end
 end
