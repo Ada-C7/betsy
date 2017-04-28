@@ -31,9 +31,10 @@ class ProductsController < ApplicationController
       redirect_to merchant_path(@login_merchant)
     else
       flash[:status] = :failure
-      flash[:result_text] = "Could not create #{@product.id}"
+      flash[:result_text] = "Something went wrong"
       flash[:messages] = @product.errors.messages
-      render :new #, status: :bad_request
+      redirect_to new_product_path
+      # render :new #, status: :bad_request
     end
   end
 
