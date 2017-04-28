@@ -7,10 +7,10 @@
   <% end %>
 </ul>
 
-<section>
+<section class="form">
   <%= form_for @order do |f| %>
     <%= f.hidden_field :status, value: "paid" %>
-
+    <div class="fields large-10 small-10 columns">
     <%= f.label :email %>
     <%= f.text_field :email %>
 
@@ -31,7 +31,9 @@
 
     <%= f.label :zipcode %>
     <%= f.text_field :zipcode %>
-
+  </div>
+  <div class="submit-order large-2 small-2 columns">
     <%= f.submit "submit order", class: "button" %>
+  </div>
   <% end %>
 </section>

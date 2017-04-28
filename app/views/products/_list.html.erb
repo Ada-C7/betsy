@@ -14,10 +14,7 @@
               <%= link_to product.name, product_path(product.id) %>
             </h5>
             <p class="small-gray">
-              <%= product.quantity %>
-            </p>
-            <p class="small-gray">
-              <%= product.price %>
+              <%= number_to_currency(product.price) %>
             </p>
           </article>
         <% end %>

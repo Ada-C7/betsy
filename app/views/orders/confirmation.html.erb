@@ -1,11 +1,13 @@
-<h1>Order Confirmation Page</h1>
+<h2>Order Confirmation Page</h2>
 <p>Congratulations on submitting your order!</p>
 
-<article>
-  <p>Total Cost: <%= @order.total_cost %></p>
+<section class="large-6 small-6 columns">
+  <p>Total Cost: <%= number_to_currency(@order.total_cost) %></p>
   <p>Order Placed: <%= display_time(@order.updated_at) %></p>
   <p>Status: <%= @order.status %></p>
-  <section>
+  <%= link_to "Continue Shopping", root_path, class: "button" %>
+</section>
+  <article class="large-6 small-6 columns">
     <table>
       <thead>
         <tr>
@@ -19,11 +21,9 @@
           <tr>
             <td><%= link_to order_item.product.name, product_path(order_item.product_id) %></td>
             <td><%= order_item.quantity %></td>
-            <td><%= order_item.subtotal %></td>
+            <td><%= number_to_currency(order_item.subtotal) %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-  </section>
-  <%= link_to "Continue Shopping", root_path, class: "button" %>
-</article>
+  </article>

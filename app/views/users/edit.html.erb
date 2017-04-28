@@ -1,3 +1,4 @@
+<section class="form">
 <%= form_for @logged_in_user, as: :user, url: account_path, method: :patch do |f| %>
 
   <%= f.label :username %>
@@ -11,3 +12,4 @@
 
   <%= f.submit "Submit" %>
 <% end %>
+</section>
