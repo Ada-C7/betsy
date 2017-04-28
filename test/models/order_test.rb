@@ -5,171 +5,180 @@ describe Order do
   describe 'validations' do
     before do
       @order = Order.create
-
-      @order_good_data = {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "12345",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456",
-                            credit_card_name: "bob bob",
-                            credit_card_cvv: "123",
-                            credit_card_zipcode: "12345"
-                          }
-      # test all validations? this one is NO credit card
-      @order_no_cc = {
-                        customer_name: "cynthia cobb",
-                        customer_address: "123 st",
-                        customer_email: "cyn@gmail.com",
-                        customer_city: "seattle",
-                        customer_zipcode: "12345",
-                        customer_state: "WA"
-                      }
-      # credit card under 16
-      @order_cc_short = {
-                          status: "pending",
-                          customer_name: "cynthia cobb",
-                          customer_address: "123 st",
-                          customer_email: "cyn@gmail.com",
-                          customer_city: "seattle",
-                          customer_zipcode: "12345",
-                          customer_state: "WA",
-                          credit_card_number: "123456789012345"
-                        }
-
-      # credit card too long/more than 16
-      @order_cc_long = {
-                          status: "pending",
-                          customer_name: "cynthia cobb",
-                          customer_address: "123 st",
-                          customer_email: "cyn@gmail.com",
-                          customer_city: "seattle",
-                          customer_zipcode: "12345",
-                          customer_state: "WA",
-                          credit_card_number: "12345678901234567"
-                        }
-      # zip code too short
-      @order_zip_short = {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "1234",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456"
-                          }
-      # zip code too long
-      @order_zip_long = {
-                          status: "pending",
-                          customer_name: "cynthia cobb",
-                          customer_address: "123 st",
-                          customer_email: "cyn@gmail.com",
-                          customer_city: "seattle",
-                          customer_zipcode: "123456",
-                          customer_state: "WA",
-                          credit_card_number: "1234567890123456"
-                        }
-      # zip code not present
-      @order_no_zip = {
+      @order_data = {
                         status: "pending",
                         customer_name: "cynthia cobb",
                         customer_address: "123 st",
                         customer_email: "cyn@gmail.com",
                         customer_city: "seattle",
+                        customer_zipcode: "12345",
                         customer_state: "WA",
-                        credit_card_number: "1234567890123456"
+                        credit_card_number: "1234567890123456",
+                        credit_card_name: "bob bob",
+                        credit_card_cvv: "123",
+                        credit_card_zipcode: "12345"
                       }
-      # no credit card name
-      @order_no_name = {
-                          status: "pending",
-                          customer_address: "123 st",
-                          customer_email: "cyn@gmail.com",
-                          customer_city: "seattle",
-                          customer_zipcode: "12345",
-                          customer_state: "WA",
-                          credit_card_number: "1234567890123456"
-                        }
-
-      # credit card name less than two
-      @order_name_short = {
-                            status: "pending",
-                            customer_name: "c",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "12345",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456"
-                          }
-
     end
 
     it 'updates order if given good data' do
-      @order.update_attributes(@order_good_data)
+      @order.update_attributes(@order_data)
       @order.valid?.must_equal true
     end
 
+    ############# CREDIT CARD VALIDATIONS ######################
     it 'returns error messages if no credit card info given' do
-      @order.update_attributes(@order_no_cc)
+      @order_data[:credit_card_number] = ""
+      @order.update_attributes(@order_data)
       @order.valid?.must_equal false
       @order.errors.messages.must_include :credit_card_number
     end
 
-    #
-    # # IT credit card under 16
-    it 'returns error messages if credit card number is less than 16 numbers' do
-      @order.update_attributes(@order_cc_short)
+    # # # IT credit card under 16
+    it 'returns error messages if credit card number is too short' do
+      @order_data[:credit_card_number] = "123"
+      @order.update_attributes(@order_data)
       @order.valid?.must_equal false
       @order.errors.messages.must_include :credit_card_number
     end
-    #
-    # # IT credit card too long/more than 16
-    it 'returns error messages if credit card number is greater than 16 numbers' do
-      @order.update_attributes(@order_cc_long)
+
+    # # # IT credit card too long/more than 16
+    it 'returns error messages if credit card number is too long' do
+      @order_data[:credit_card_number] = "12345678901234567"
+      @order.update_attributes(@order_data)
       @order.valid?.must_equal false
       @order.errors.messages.must_include :credit_card_number
     end
-    #
-    # # IT zip code too short
-    it 'returns error messages if zip code is less than 5 numbers' do
-      @order.update_attributes(@order_zip_short)
-      @order.valid?.must_equal false
-      @order.errors.messages.must_include :customer_zipcode
-    end
-    #
-    # # IT zip code too long
-    it 'returns error messages if zip code is greater than 5 numbers' do
-      @order.update_attributes(@order_zip_long)
-      @order.valid?.must_equal false
-      @order.errors.messages.must_include :customer_zipcode
-    end
-    #
-    # # IT zip code not present
-    it 'returns error messages if zip code is greater than 5 numbers' do
-      @order.update_attributes(@order_zip_short)
-      @order.valid?.must_equal false
-      @order.errors.messages.must_include :customer_zipcode
-    end
-    #
-    # # IT no credit card name
+
+    # # # IT no credit card name
     it "returns error messages if there's no credit card name" do
-      @order.update_attributes(@order_no_name)
+      @order_data[:credit_card_name] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_name
+    end
+
+    # # # IT credit card name less than two
+    it "returns error messages if creditcard name is short" do
+      @order_data[:credit_card_name] = "c"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_name
+    end
+
+    it 'returns error messages if billing zip code is missing' do
+      @order_data[:credit_card_zipcode] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_zipcode
+    end
+
+    it 'returns error messages if billing zipcode is too short' do
+      @order_data[:credit_card_zipcode] = "123"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_zipcode
+    end
+
+    it 'returns error messages if billing zipcode is too long' do
+      @order_data[:credit_card_zipcode] = "123456"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_zipcode
+    end
+
+    it 'returns error messages if no cvv is given' do
+      @order_data[:credit_card_cvv] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_cvv
+    end
+
+    it 'returns error messages if cvv is short' do
+      @order_data[:credit_card_cvv] = "12"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_cvv
+    end
+
+    it 'returns error messages if cvv is too long' do
+      @order_data[:credit_card_cvv] = "1234"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_cvv
+    end
+
+    ########## CUSTOMER/SHIPPING VALIDATIONS ###########
+
+    it 'returns error message if missing customer name' do
+      @order_data[:customer_name] = ""
+      @order.update_attributes(@order_data)
       @order.valid?.must_equal false
       @order.errors.messages.must_include :customer_name
     end
-    #
-    # # IT credit card name less than two
-    it "returns error messages if credit card name less than two characters" do
-      @order.update_attributes(@order_name_short)
+
+    it 'returns error message if customer name too short' do
+      @order_data[:customer_name] = "c"
+      @order.update_attributes(@order_data)
       @order.valid?.must_equal false
       @order.errors.messages.must_include :customer_name
+    end
+
+    it 'returns error message if missing address' do
+      @order_data[:customer_address] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_address
+    end
+
+    it 'returns error message if missing city' do
+      @order_data[:customer_city] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_city
+    end
+
+    it 'returns error message if missing state' do
+      @order_data[:customer_state] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_state
+    end
+
+    it 'returns error messages if zip code is missing' do
+      @order_data[:customer_zipcode] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_zipcode
+    end
+
+    it 'returns error messages if zip code is greater than 5 numbers' do
+      @order_data[:customer_zipcode] = "123456"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_zipcode
+    end
+
+    it 'returns error messages if zip code is less than 5' do
+      @order_data[:customer_zipcode] = "1234"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_zipcode
+    end
+
+    it 'returns error message if no email given' do
+      @order_data[:customer_email] = ""
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_email
+    end
+
+    it 'returns error message if given bad email' do
+      @order_data[:customer_email] = "bob"
+      @order.update_attributes(@order_data)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_email
     end
   end
-
 
   describe 'calculate_totals' do
     let(:good_order) { orders(:order2) }
