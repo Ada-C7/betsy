@@ -16,6 +16,8 @@ class ProductsController < ApplicationController
 
   def show
     @reviews ||= @product.reviews
+    return 0 if @reviews.blank?
+    @average_rating = @reviews.map {|review| review.rating }.inject(0, :+)/@reviews.count.round(0)
   end
 
   def new
