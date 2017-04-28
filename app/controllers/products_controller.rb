@@ -81,12 +81,12 @@ class ProductsController < ApplicationController
         flash[:status] = "alert"
         flash[:result_text] = "Could not review"
         flash[:messages] = review.errors.messages
-        render :show, status: :bad_request
+        render :show
       end
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "You cannot review your own product"
-      render :show, status: :bad_request
+      render :show
     end
   end
 
