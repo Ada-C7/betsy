@@ -69,7 +69,6 @@ describe ProductsController do
       end_count.must_equal start_count + 1
     end
 
-
     it "renders bad_request and does not update the DB for bogus data" do
       login(merchants(:grace))
       start_count = Product.count
@@ -95,7 +94,8 @@ describe ProductsController do
     it "return 404 not found status when product does NOT exist" do
       product_id = 42
       get product_path(product_id)
-      must_respond_with :not_found
+      flash[:status].must_equal :failure
+      must_respond_with :redirect
     end
   end # END of describe "show"
 
@@ -107,10 +107,12 @@ describe ProductsController do
       must_respond_with :success
     end
 
-    it "return 404 not found status when product does NOT exist" do
+    it "redirects to products page if product DNE" do
       product_id = 42
       get edit_product_path(product_id)
-      must_respond_with :not_found
+      flash[:status].must_equal :failure
+      must_respond_with :redirect
+      # must_redirect_to products_path
     end
   end # END of describe "edit"
 
@@ -142,10 +144,20 @@ describe ProductsController do
   # end
 
   describe "status" do
-    it "check if found" do
+
+    it "changes status of an product" do
+      login(merchants(:grace))
       product = products(:product1)
       patch status_path(product)
       must_respond_with :found
+    end
+
+    it "wont allow non-longed in user to change status" do
+      product = products(:product1)
+      status_before = product.status
+      patch status_path(product)
+      status_after = product.status
+      status_after.must_equal status_before
     end
   end # END of describe "edit"
 
@@ -159,22 +171,25 @@ describe ProductsController do
   end
 
   describe "create_category" do
-    it "adds a category" do
+    it "adds a category to a product that already has a category" do
+      login(merchants(:grace))
+      #product 1 should already have category meat
       product1 = products(:product1)
+      # category3 is salad
       category3 = categories(:category3)
       categories_for_a_product = product1.categories
-      puts categories_for_a_product.map(&:name)
+
       product_id = product1.id
       category_id = category3.id
-      post product_categories_path(product1.id) , params: {product_id: product1.id, category_id: category3.id}
-      Product.find_by(id: product1.id).categories.map(&:name).count.must_equal 2
+      post product_categories_path(product1.id), params: {product_id: product1.id, category_id: category3.id}
+      Product.find_by(id: product1.id).categories.count.must_equal 2
     end
 
-    it "adds a category" do
+    it "wont create a category that is already made" do
+      login(merchants(:grace))
       product1 = products(:product1)
       category1 = categories(:category1)
       categories_for_a_product = product1.categories
-      puts categories_for_a_product.map(&:name)
       product_id = product1.id
       category_id = category1.id
       post product_categories_path(product1.id) , params: {product_id: product1.id, category_id: category1.id}

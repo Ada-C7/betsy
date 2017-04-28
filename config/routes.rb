@@ -6,10 +6,9 @@ Rails.application.routes.draw do
   get '/logout', to: "merchants#logout", as: 'logout'
 
   resources :products do
-    post '/add_item', to: 'orders#add_item'
+    # post '/add_item', to: 'orders#add_item'
     get '/categories/new', to: 'products#new_category', as: 'new_category'
     post '/categories', to: 'products#create_category', as: 'categories'
-    # resources :categories, only: [:new, :create]
     post '/add_product', to: 'orders#add_product'
   end
 

@@ -44,16 +44,20 @@ class ProductsController < ApplicationController
     if !@product.nil?
       session[:product_id] ||= @product.id
     end
-    # @login_merchant = Product.find_by(id: 1).merchant # Must be removed when right code for @login_merchant is added to the ApplicationController
+
     if @product.nil?
-      head :not_found
+      flash[:status] = :failure
+      flash[:result_text] = "Product Not Found"
+      redirect_to products_path
     end
   end
 
   def edit
     @product = Product.find_by(id: params[:id])
     if @product.nil?
-      head :not_found
+      flash[:status] = :failure
+      flash[:result_text] = "Product Not Found"
+      redirect_to products_path
     end
   end
 
@@ -66,7 +70,6 @@ class ProductsController < ApplicationController
 
   def status
     product = Product.find_by(id: params[:id])
-    # merchant = Merchant.find_by(id: params[:id])
     product.status_change
     redirect_back(fallback_location: root_path)
   end
@@ -76,26 +79,6 @@ class ProductsController < ApplicationController
     @categories = Category.all
   end
 
-<<<<<<< HEAD
-# ANNA Already fixed this.
-  # def create_category #GIVE THIS TESTS. Then look at validating quantity for product orders wrote custom method for that validation. Make sure category is UNIQUE in validation. then clean up if/elsif
-  #   category = Category.find_by(id: params[:category_id])
-  #   product = Product.find_by(id: params[:product_id])
-  #
-  #   if product.categories.include?(category) #THIS BLOCK IS UNIQUENESS
-  #     flash[:status] = :failure
-  #     flash[:result_text] = "This product is already part of that category"
-  #     redirect_back(fallback_location: root_path)
-  #   elsif category
-  #     product.categories << category
-  #     redirect_to product_path(Product.find_by(id: params[:product_id]))
-  #   else
-  #     flash[:status] = :failure
-  #     flash[:result_text] = "You did not choose a category"
-  #     redirect_back(fallback_location: root_path)
-  #   end
-  # end
-=======
   def create_category
     if !Product.find_by(id: params[:product_id]).categories.include? Category.find_by(id: params[:category_id])
       Product.find_by(id: params[:product_id]).categories << Category.find_by(id: params[:category_id])
@@ -109,19 +92,11 @@ class ProductsController < ApplicationController
       redirect_to product_new_category_path(Product.find_by(id: params[:product_id]))
     end
   end
->>>>>>> 3da0570be526f2b54d6e328b4853a35bba02166a
 
   private
   def product_params
     params.require(:product).permit(:name, :price, :inventory, :image, :category, :status, :description)
   end
-
-  # def find_user
-  #   # @login_merchant = Product.find_by(id: 1).merchant
-  #   if session[:merchant_id]
-  #       @login_merchant = Merchant.find_by(id: session[:merchant_id])
-  #   end
-  # end
 
   def destroy_session_product_id
     session.delete(:product_id)

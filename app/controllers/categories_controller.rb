@@ -10,6 +10,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
+    p "we are at the right method!"
     @category = Category.new(category_params)
     if @category.save
       flash[:status] = :success

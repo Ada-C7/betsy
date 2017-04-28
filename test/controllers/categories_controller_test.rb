@@ -21,12 +21,11 @@ describe CategoriesController do
     it "creates a new work" do
       login(merchants(:grace))
       start_count = Category.count
-      category_data = {
-        category: {
-          name: 'fish',
-        }
-      }
+      category_data = { category:
+                        { name: 'fish'}
+                      }
       post categories_path, params: category_data
+
       end_count = Category.count
       end_count.must_equal start_count + 1
     end
@@ -35,6 +34,7 @@ describe CategoriesController do
       post categories_path
       flash[:status].must_equal :failure
       must_respond_with :redirect
+    end
 
     it "renders bad_request and does not update the DB for bogus data" do
       start_count = Category.count
@@ -48,5 +48,4 @@ describe CategoriesController do
       end_count.must_equal start_count
     end
   end # END of describe "create"
-
 end

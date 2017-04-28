@@ -35,12 +35,16 @@ describe OrdersController do
       @product = Product.new
       @product.name = "pizza"
       @product.price = 5.00
+      @product.image = "www.google.com"
+      @product.status = "pending"
       @product.merchant_id = merchant.id
       @product.inventory = 6
       @product.save
     end
 
     it 'generates a new product_order' do
+      p @product.valid?
+      p @product.errors.messages
       proc { post product_add_product_path(@product.id) }.must_change 'ProductOrder.count', +1
       must_respond_with :redirect
       must_redirect_to cart_path
