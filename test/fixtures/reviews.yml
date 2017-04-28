@@ -31,6 +31,6 @@ review5:
   product: product1
 
 review6:
-  rating: 4
+  rating: 5
   review: this is the first review for product2
   product: product2

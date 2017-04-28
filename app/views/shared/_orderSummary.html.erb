@@ -4,9 +4,9 @@
   <p>Thanks for your purchase. We have notified the merchant and your product(s) will ship soon</p>
 
   <section class="large-4 columns">
-  <h3>Order Sumamry</h3>
-    <p>DATE/TIME</p>
-    <p>Order Status</p>
+  <h3>Order Summary</h3>
+    <p>Purchased at: <%= Time.now.strftime("%B %d, %Y %H:%M") %></p>
+    <p>Order Status: <%= order.status.capitalize %></p>
         <% order.product_orders.each do |product_order| %>
           <h4><%= product_order.product.name %></h4>
           <ul>
