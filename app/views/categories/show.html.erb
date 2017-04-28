@@ -1,0 +1,28 @@
+<% content_for :headline do %>
+     <%= @category.label %>
+<% end %>
+
+<% content_for :categories do %>
+     <% @categories.each do | category |%>
+          <p class=label> <%= link_to category.label, category_products_path(category.id) %> </p>
+     <% end %>
+<% end %>
+
+<% @category.products.each do | product |%>
+     <div class='product'>
+          <% if @category.products != [] %>
+               <%= link_to products_path(product.id) do %>
+                    <%= image_tag  product.photo_url %>
+               <% end %>
+          <% else %>
+               <%= link_to products_path(product.id) do %>
+                    <%= image_tag 'category-04' %>
+               <% end %>
+           <% end %>
+           <p class='details name'> <%= product.name %> </p>
+           <p class='details price'> <%= product.price %> </p>
+     </div>
+<% end %>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
