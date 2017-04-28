@@ -45,6 +45,7 @@ header li a.dropdown-menu-item {
 header li a.dropdown-menu-item:hover, #nav-cart-count {
   color: #e47911;
   font-weight: bold;
+  border: none;
 }
 
 /*Header divs for navigation*/
