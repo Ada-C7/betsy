@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-    # raise
+
     order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
     order.calculate_totals

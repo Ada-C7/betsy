@@ -30,6 +30,23 @@ class Order < ApplicationRecord
             length: { is: 16, message: "Credit card must be a 16 digit number" },
             on: :update
 
+  validates :credit_card_name,
+            presence: { message: "Please enter first and last name for billing information" },
+            length: { minimum: 2, message: "Billing name must be greater than one character" },
+            on: :update
+
+  validates :credit_card_zipcode,
+            presence: { message: "Please enter a zipcode" },
+            numericality: { message: "Zipcode must be a 5 digit number" },
+            length: { is: 5, message: "Zipcode must be a 5 digit number" },
+            on: :update
+
+  validates :credit_card_cvv,
+            presence: { message: "Please enter a security code " },
+            numericality: { message: "CVV must be a 3 digit number" },
+            length: { is: 3, message: "CVV must be a 3 digit number" },
+            on: :update
+
   validates_presence_of :customer_city,
                        message: "Please enter a city",
                        on: :update
@@ -37,6 +54,7 @@ class Order < ApplicationRecord
   validates_presence_of :customer_state,
                        on: :update,
                        message: "Please enter a state"
+
   # validates :status, inclusion: { in: %w(pending, paid, shipped) }
   # before_save :update_total
 

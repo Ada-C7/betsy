@@ -43,8 +43,6 @@ describe OrdersController do
     end
 
     it 'generates a new product_order' do
-      p @product.valid?
-      p @product.errors.messages
       proc { post product_add_product_path(@product.id) }.must_change 'ProductOrder.count', +1
       must_respond_with :redirect
       must_redirect_to cart_path
@@ -88,108 +86,35 @@ describe OrdersController do
     before do
       @order = Order.create
       @order_good_data = { order: {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "12345",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456"
-                            }
+                                  status: "pending",
+                                  customer_name: "cynthia cobb",
+                                  customer_address: "123 st",
+                                  customer_email: "cyn@gmail.com",
+                                  customer_city: "seattle",
+                                  customer_zipcode: "12345",
+                                  customer_state: "WA",
+                                  credit_card_number: "1234567890123456",
+                                  credit_card_name: "bob bob",
+                                  credit_card_cvv: "123",
+                                  credit_card_zipcode: "12345"
+                                  }
                           }
-      # test all validations? this one is NO credit card
-      @order_no_cc = { order: {
-                        customer_name: "cynthia cobb",
-                        customer_address: "123 st",
-                        customer_email: "cyn@gmail.com",
-                        customer_city: "seattle",
-                        customer_zipcode: "12345",
-                        customer_state: "WA"
-                        }
-                      }
-      # credit card under 16
-      @order_cc_short = { order: {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "12345",
-                            customer_state: "WA",
-                            credit_card_number: "123456789012345",
-                            }
+
+      @order_bad_info = { order: {
+                                  status: "pending",
+                                  customer_name: "cynthia cobb",
+                                  customer_address: "123 st",
+                                  customer_email: "cyn@gmail.com",
+                                  customer_city: "seattle",
+                                  customer_zipcode: "12345",
+                                  customer_state: "WA",
+                                  credit_card_number: "1234567890123456",
+                                  credit_card_name: "bob bob",
+                                  credit_card_cvv: "123",
+                                  credit_card_zipcode: ""
+                                  }
                           }
-      # credit card too long/more than 16
-      @order_cc_long = { order: {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "12345",
-                            customer_state: "WA",
-                            credit_card_number: "12345678901234567",
-                            }
-                          }
-      # zip code too short
-      @order_zip_short = { order: {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "1234",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456",
-                            }
-                          }
-      # zip code too long
-      @order_zip_long = { order: {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "123456",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456",
-                            }
-                          }
-      # zip code not present
-      @order_no_zip = { order: {
-                            status: "pending",
-                            customer_name: "cynthia cobb",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456",
-                            }
-                          }
-      # no credit card name
-      @order_no_name = { order: {
-                            status: "pending",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "12345",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456",
-                            }
-                          }
-      # credit card name less than two
-      @order_name_short = { order: {
-                            status: "pending",
-                            customer_name: "c",
-                            customer_address: "123 st",
-                            customer_email: "cyn@gmail.com",
-                            customer_city: "seattle",
-                            customer_zipcode: "12345",
-                            customer_state: "WA",
-                            credit_card_number: "1234567890123456",
-                            }
-                          }
+
     end
 
     it 'updates order if given good data' do
@@ -202,77 +127,13 @@ describe OrdersController do
       must_redirect_to root_path
     end
 
-    it 'returns error messages if no credit card info given' do
-      patch order_path(@order.id), params: @order_no_cc
+    it 'returns error messages given' do
+      patch order_path(@order.id), params: @order_bad_info
       flash[:status].must_equal :failure
-      flash[:messages].must_include :credit_card_number
+      flash[:messages].wont_be_nil
       must_respond_with :redirect
       must_redirect_to checkout_path
     end
-
-    # IT credit card under 16
-    it 'returns error messages if credit card number is less than 16 numbers' do
-      patch order_path(@order.id), params: @order_cc_short
-      flash[:status].must_equal :failure
-      flash[:messages].must_include :credit_card_number
-      must_respond_with :redirect
-      must_redirect_to checkout_path
-    end
-
-    # IT credit card too long/more than 16
-    it 'returns error messages if credit card number is greater than 16 numbers' do
-      patch order_path(@order.id), params: @order_cc_long
-      flash[:status].must_equal :failure
-      flash[:messages].must_include :credit_card_number
-      must_respond_with :redirect
-      must_redirect_to checkout_path
-    end
-
-    # IT zip code too short
-    it 'returns error messages if zip code is less than 5 numbers' do
-      patch order_path(@order.id), params: @order_zip_short
-      flash[:status].must_equal :failure
-      flash[:messages].must_include :customer_zipcode
-      must_respond_with :redirect
-      must_redirect_to checkout_path
-    end
-
-    # IT zip code too long
-    it 'returns error messages if zip code is greater than 5 numbers' do
-      patch order_path(@order.id), params: @order_zip_long
-      flash[:status].must_equal :failure
-      flash[:messages].must_include :customer_zipcode
-      must_respond_with :redirect
-      must_redirect_to checkout_path
-    end
-
-    # IT zip code not present
-    it 'returns error messages if zip code is greater than 5 numbers' do
-      patch order_path(@order.id), params: @order_no_zip
-      flash[:status].must_equal :failure
-      flash[:messages].must_include :customer_zipcode
-      must_respond_with :redirect
-      must_redirect_to checkout_path
-    end
-
-    # IT no credit card name
-    it "returns error messages if there's no credit card name" do
-      patch order_path(@order.id), params: @order_no_name
-      flash[:status].must_equal :failure
-      flash[:messages].must_include :customer_name
-      must_respond_with :redirect
-      must_redirect_to checkout_path
-    end
-
-    # IT credit card name less than two
-    it "returns error messages if credit card name less than two characters" do
-      patch order_path(@order.id), params: @order_name_short
-      flash[:status].must_equal :failure
-      flash[:messages].must_include :customer_name
-      must_respond_with :redirect
-      must_redirect_to checkout_path
-    end
-
   end
 
   describe 'update_quantity' do

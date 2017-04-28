@@ -3,32 +3,173 @@ require "test_helper"
 describe Order do
 
   describe 'validations' do
-    let(:complete_order) { orders(:order1) }
+    before do
+      @order = Order.create
 
-    # it "will create new instance when given good info" do
-    #   order.customer_name = "cynthia"
-    #   order.customer_address = "123 First St."
-    #   order.customer_email = "cyn@gmail.com"
-    #   order.customer_city = "bothell"
-    #   order.customer_zipcode = "98011"
-    #   order.customer_state = "WA"
-    #   order.customer_cc_info = "1234567890123456"
-    #   order.status = "paid"
-    #   order.valid?.must_equal true
-    # end
+      @order_good_data = {
+                            status: "pending",
+                            customer_name: "cynthia cobb",
+                            customer_address: "123 st",
+                            customer_email: "cyn@gmail.com",
+                            customer_city: "seattle",
+                            customer_zipcode: "12345",
+                            customer_state: "WA",
+                            credit_card_number: "1234567890123456",
+                            credit_card_name: "bob bob",
+                            credit_card_cvv: "123",
+                            credit_card_zipcode: "12345"
+                          }
+      # test all validations? this one is NO credit card
+      @order_no_cc = {
+                        customer_name: "cynthia cobb",
+                        customer_address: "123 st",
+                        customer_email: "cyn@gmail.com",
+                        customer_city: "seattle",
+                        customer_zipcode: "12345",
+                        customer_state: "WA"
+                      }
+      # credit card under 16
+      @order_cc_short = {
+                          status: "pending",
+                          customer_name: "cynthia cobb",
+                          customer_address: "123 st",
+                          customer_email: "cyn@gmail.com",
+                          customer_city: "seattle",
+                          customer_zipcode: "12345",
+                          customer_state: "WA",
+                          credit_card_number: "123456789012345"
+                        }
 
-    it "will create a new instance when given good info" do
-      complete_order.valid?.must_equal true
+      # credit card too long/more than 16
+      @order_cc_long = {
+                          status: "pending",
+                          customer_name: "cynthia cobb",
+                          customer_address: "123 st",
+                          customer_email: "cyn@gmail.com",
+                          customer_city: "seattle",
+                          customer_zipcode: "12345",
+                          customer_state: "WA",
+                          credit_card_number: "12345678901234567"
+                        }
+      # zip code too short
+      @order_zip_short = {
+                            status: "pending",
+                            customer_name: "cynthia cobb",
+                            customer_address: "123 st",
+                            customer_email: "cyn@gmail.com",
+                            customer_city: "seattle",
+                            customer_zipcode: "1234",
+                            customer_state: "WA",
+                            credit_card_number: "1234567890123456"
+                          }
+      # zip code too long
+      @order_zip_long = {
+                          status: "pending",
+                          customer_name: "cynthia cobb",
+                          customer_address: "123 st",
+                          customer_email: "cyn@gmail.com",
+                          customer_city: "seattle",
+                          customer_zipcode: "123456",
+                          customer_state: "WA",
+                          credit_card_number: "1234567890123456"
+                        }
+      # zip code not present
+      @order_no_zip = {
+                        status: "pending",
+                        customer_name: "cynthia cobb",
+                        customer_address: "123 st",
+                        customer_email: "cyn@gmail.com",
+                        customer_city: "seattle",
+                        customer_state: "WA",
+                        credit_card_number: "1234567890123456"
+                      }
+      # no credit card name
+      @order_no_name = {
+                          status: "pending",
+                          customer_address: "123 st",
+                          customer_email: "cyn@gmail.com",
+                          customer_city: "seattle",
+                          customer_zipcode: "12345",
+                          customer_state: "WA",
+                          credit_card_number: "1234567890123456"
+                        }
+
+      # credit card name less than two
+      @order_name_short = {
+                            status: "pending",
+                            customer_name: "c",
+                            customer_address: "123 st",
+                            customer_email: "cyn@gmail.com",
+                            customer_city: "seattle",
+                            customer_zipcode: "12345",
+                            customer_state: "WA",
+                            credit_card_number: "1234567890123456"
+                          }
+
     end
 
-      # will this get tested in the update OrdersController test?
-    # it "will not update a new instance if needed data is missing" do
-    #   order.valid?.must_equal false
-    # end
+    it 'updates order if given good data' do
+      @order.update_attributes(@order_good_data)
+      @order.valid?.must_equal true
+    end
+
+    it 'returns error messages if no credit card info given' do
+      @order.update_attributes(@order_no_cc)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_number
+    end
+
+    #
+    # # IT credit card under 16
+    it 'returns error messages if credit card number is less than 16 numbers' do
+      @order.update_attributes(@order_cc_short)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_number
+    end
+    #
+    # # IT credit card too long/more than 16
+    it 'returns error messages if credit card number is greater than 16 numbers' do
+      @order.update_attributes(@order_cc_long)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :credit_card_number
+    end
+    #
+    # # IT zip code too short
+    it 'returns error messages if zip code is less than 5 numbers' do
+      @order.update_attributes(@order_zip_short)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_zipcode
+    end
+    #
+    # # IT zip code too long
+    it 'returns error messages if zip code is greater than 5 numbers' do
+      @order.update_attributes(@order_zip_long)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_zipcode
+    end
+    #
+    # # IT zip code not present
+    it 'returns error messages if zip code is greater than 5 numbers' do
+      @order.update_attributes(@order_zip_short)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_zipcode
+    end
+    #
+    # # IT no credit card name
+    it "returns error messages if there's no credit card name" do
+      @order.update_attributes(@order_no_name)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_name
+    end
+    #
+    # # IT credit card name less than two
+    it "returns error messages if credit card name less than two characters" do
+      @order.update_attributes(@order_name_short)
+      @order.valid?.must_equal false
+      @order.errors.messages.must_include :customer_name
+    end
   end
 
-  # Order needs product, can't just do Order.new
-  # Test Order(2), can make my own fixtures or change quantities
 
   describe 'calculate_totals' do
     let(:good_order) { orders(:order2) }
@@ -66,6 +207,5 @@ describe Order do
       results = bad_order.manage_inventory
       results.empty?.must_equal true
     end
-
   end
 end
