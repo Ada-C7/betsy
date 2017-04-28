@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   # before_action :find_user
+  before_action :require_login, except:[:root, :index, :show]
   before_action :destroy_session_product_id
 
   def root
