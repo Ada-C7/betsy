@@ -116,8 +116,8 @@ describe Product do
 
     # belongs to user
     it "returns a user" do
-      product.user.must_be_instance_of User
-      users(:one).products.must_include product
+      products(:jamjams).user.must_be_instance_of User
+      users(:one).products.must_include products(:jamjams)
     end
 
     # has and belongs to many categories
