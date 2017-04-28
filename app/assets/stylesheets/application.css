@@ -17,7 +17,7 @@
  */
 
 * {
-  font-family: arial, sans-serif;
+  font-family: "Amazon Ember", Arial, sans-serif;
 }
 
 header {
@@ -45,6 +45,7 @@ header li a.dropdown-menu-item {
 header li a.dropdown-menu-item:hover, #nav-cart-count {
   color: #e47911;
   font-weight: bold;
+  border: none;
 }
 
 /*Header divs for navigation*/
@@ -115,4 +116,71 @@ img.preview {
 
 img.thumbnail {
   width: 100px;
+}
+
+input[type="submit"] {
+  background: #f0c14b;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  font-size: 0.85em;
+  padding: 5px;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none!important;
+  vertical-align: middle;
+}
+
+/* FOOTER */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0 0 150px; /* bottom = footer height */
+  min-height: 100%;
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 150px;
+  width: 100%;
+  background-color: #131a22;
+}
+
+footer.large-12.columns {
+  padding: 0px;
+  color: white;
+}
+
+footer .back-to-top {
+  width: 100%;
+  background-color: #37475a;
+  text-align: center;
+  padding: 15px;
+  color: white;
+}
+
+footer .back-to-top:hover {
+  background-color: #485769;
+}
+
+footer section:first-of-type {
+  width: 100%;
+  height: 20px;
+  background-color: #232f3e;
+}
+
+footer section:last-of-type {
+  width: 100%;
+  background-color: #131a22;
+  font-size: 0.75em;
+  text-align: center;
+  padding: 10px;
 }

@@ -1,45 +1,70 @@
-<h6><%= link_to "Back", :back %></h6>
-<section class="product">
-  <%= link_to image_tag(@product.image_url, class: "feature"), product_path(@product.id) %>
-  <ul class="product-details">
+<article>
+  <section class="product large-6 small-8 columns">
+    <h4 id="product-title"><%= @product.name %></h4>
+    <%= link_to @product.user.username, user_products_path(id: @product.user.id), class: "small" %><br />
+
+    <a href="#reviews" class="small">
+      <% if @reviews.empty? %>
+        <%= "Be the first to review this item" %>
+      <% else %>
+        <%= "#{@reviews.count} customer reviews" %>
+      <% end %>
+    </a><br />
+    <%= image_tag(@product.image_url, class: "feature") %>
+  </section>
+
+  <section class="product-cart large-6 small-4 columns">
+    <ul>
+      <li>
+        <span class="small-gray">Price:</span> <span class="big-red"><%= number_to_currency(@product.price) %></span>
+      </li>
+      <% if @product.quantity <= 5 %>
+        <li>
+          <span class="big-red">Only <%= @product.quantity %> left in stock (more on the way). </span>
+          <span class="small">Ships from and sold by Amazon.com. Gift-wrap available.</span>
+        </li>
+      <% end %>
+    </ul>
+
+    <section class="add-to-cart">
+      <%= form_tag add_item_path,  method: :post do %>
+        <%= hidden_field_tag :id, @product.id %>
+        <%= label_tag :quantity, 'Qty:' %>
+        <%= select_tag :quantity, options_for_select(1..30) %><br />
+        <%= submit_tag "Add to cart" %>
+      <% end %>
+    </section>
+
+  </section>
+</article>
+
+<section class="product-details">
+  <h4>Product Details</h4>
+  <ul>
     <li>
-      Name: <%= @product.name %>
-    </li>
-    <li>
-      Price: <%= @product.price %>
-    </li>
-    <li>
-      Quantity: <%= @product.quantity %>
-    </li>
-    <li>
-      Description: <%= @product.description %>
-    </li>
-    <li>
-      Sold by: <%= @product.user.username %>
+      <strong>Description:</strong> <%= @product.description %>
     </li>
     <li>
       <% if session[:user_id] == @product.user.id %>
       <%= link_to "Edit Product", edit_product_path(@product.id) %>
       <% end %>
     </li>
+    <li>
+      <strong>Shipping Weight: </strong>4.2 ounces
+    </li>
+    <li>
+      <strong>Domestic Shipping: </strong>Item can be shipped within U.S.
+    </li>
+    <li>
+      <strong>International Shipping: </strong>This item can be shipped to select countries outside of the U.S.
+    </li>
   </ul>
 </section>
 
-<section class="other-products">
-  <%= link_to "Other Products from this Merchant", user_products_path(@product.user.id) %>
-</section>
-
-<aside class="cart">
-  <%= form_tag add_item_path,  method: :post do %>
-    <%= hidden_field_tag :id, @product.id %>
-    <%= label_tag :quantity, 'quantity' %>
-    <%= number_field_tag :quantity, 1, min: 1 %>
-    <%= submit_tag "Add to cart" %>
-  <% end %>
-</aside>
-
 <section class="reviews">
-  <% if @reviews %>
+  <a name="reviews"></a>
+  <h4>Customer Reviews</h4>
+  <% if !@reviews.empty? %>
     <% @reviews.each do |review| %>
     <article>
       <ul>
@@ -52,16 +77,9 @@
       </ul>
     </article>
     <% end %>
+  <% else %>
+    <p>There are no customer reviews yet.</p>
   <% end %>
 </section>
 
-<section class="review-form">
-  <%= form_tag review_path,  method: :post do %>
-    <%= hidden_field_tag :id, @product.id %>
-    <%= label_tag :rating, 'Rating: ' %>
-    <%= number_field_tag :rating, 1, min: 1, max: 5 %>
-    <%= label_tag :comment, "Comment: " %>
-    <%= text_field_tag :comment %>
-    <%= submit_tag "Post review" %>
-  <% end %>
-</section>
+<%= button_to "Write a customer review", review_path(@product.id), method: :get %>
