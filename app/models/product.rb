@@ -51,4 +51,20 @@ class Product < ApplicationRecord
       self.save
     end
   end
+
+  def self.newest_products
+    Product.where(status: "active").order(:created_at).reverse[0..7]
+  end
+
+  def self.highest_scored_products
+    products_with_averages = {}
+    Product.all.each do |prod|
+      average = prod.average_rating
+      if average != "-"
+        products_with_averages[prod] = average
+      end
+    end
+    lowest_top_average = products_with_averages.values.sort.reverse[0..7]
+    return products_with_averages.select {|prod, avg| avg >= lowest_top_average[-1] }.keys.reverse[0..7]
+  end
 end # END of class Product

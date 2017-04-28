@@ -4,7 +4,10 @@ class ProductsController < ApplicationController
   before_action :destroy_session_product_id
 
   def root
-    @products = Product.where(status: "active")
+    @products_newest = Product.newest_products
+    Product.highest_scored_products
+    @products_highest = Product.highest_scored_products
+    # raise
   end
 
   def index
