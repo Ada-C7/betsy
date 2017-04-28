@@ -2,10 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.row {
-  // text-align: center;
-}
-
 .delete {
   background: red;
 }
@@ -26,11 +22,21 @@
   background-color: green;
 }
 
+.average_rating p {
+  font-weight: bold;
+  padding: 0;
+}
+
 .review_section {
+  // margin: 0;
   border-top: 0.05rem solid lightgrey;
   border-right: 0.15rem solid lightgrey;
   border-left: 0.15rem solid lightgrey;
   border-bottom: 0.05rem solid lightgrey;
+}
+.review_section p {
+  margin: 0;
+  padding: 0;
 }
 
 h3.products {
