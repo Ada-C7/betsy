@@ -85,40 +85,24 @@ describe OrdersController do
   describe 'update' do
     before do
       @order = Order.create
-      @order_good_data = { order: {
-                                  status: "pending",
-                                  customer_name: "cynthia cobb",
-                                  customer_address: "123 st",
-                                  customer_email: "cyn@gmail.com",
-                                  customer_city: "seattle",
-                                  customer_zipcode: "12345",
-                                  customer_state: "WA",
-                                  credit_card_number: "1234567890123456",
-                                  credit_card_name: "bob bob",
-                                  credit_card_cvv: "123",
-                                  credit_card_zipcode: "12345"
-                                  }
-                          }
-
-      @order_bad_info = { order: {
-                                  status: "pending",
-                                  customer_name: "cynthia cobb",
-                                  customer_address: "123 st",
-                                  customer_email: "cyn@gmail.com",
-                                  customer_city: "seattle",
-                                  customer_zipcode: "12345",
-                                  customer_state: "WA",
-                                  credit_card_number: "1234567890123456",
-                                  credit_card_name: "bob bob",
-                                  credit_card_cvv: "123",
-                                  credit_card_zipcode: ""
-                                  }
-                          }
-
+      @order_data = { order: {
+                              status: "pending",
+                              customer_name: "cynthia cobb",
+                              customer_address: "123 st",
+                              customer_email: "cyn@gmail.com",
+                              customer_city: "seattle",
+                              customer_zipcode: "12345",
+                              customer_state: "WA",
+                              credit_card_number: "1234567890123456",
+                              credit_card_name: "bob bob",
+                              credit_card_cvv: "123",
+                              credit_card_zipcode: "12345"
+                              }
+                    }
     end
 
     it 'updates order if given good data' do
-      patch order_path(@order.id), params: @order_good_data
+      patch order_path(@order.id), params: @order_data
       order_after = Order.find_by(id: @order.id)
       order_after.status.must_equal "paid"
       session[:order_id].must_be_nil
@@ -127,8 +111,10 @@ describe OrdersController do
       must_redirect_to root_path
     end
 
-    it 'returns error messages given' do
-      patch order_path(@order.id), params: @order_bad_info
+    it 'returns error messages given bad info' do
+      @order_data[:order][:credit_card_number] = ""
+      p @order_data
+      patch order_path(@order.id), params: @order_data
       flash[:status].must_equal :failure
       flash[:messages].wont_be_nil
       must_respond_with :redirect
@@ -140,7 +126,6 @@ describe OrdersController do
     # product 1 has 3 available in stock
     # product 2 has 5 available in stock
     before do
-      # order = orders(:order2)
       product = products(:product1)
       @product_order = product_orders(:product_order2)
       @params_info = { product_id: product.id, quantity: 3 }
@@ -170,7 +155,6 @@ describe OrdersController do
     end
 
     it 'removes a product from cart' do
-      # use to test that session is set
       session[:order_id].wont_be_nil
       delete remove_product_path(@product.id)
       ProductOrder.find_by(order_id: session[:order_id]).must_be_nil

@@ -41,11 +41,7 @@ describe CategoriesController do
     it "renders bad_request and does not update the DB for bogus data" do
       login(merchants(:grace))
       start_count = Category.count
-      category_data = {
-        category: {
-          name: 'vegan',
-        }
-      }
+      category_data = { category: { name: 'vegan' } }
       post categories_path, params: category_data
       end_count = Category.count
       end_count.must_equal start_count

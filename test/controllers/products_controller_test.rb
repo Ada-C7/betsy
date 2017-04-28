@@ -5,7 +5,6 @@ describe ProductsController do
   describe "root" do
     it "Responds successfully" do
       Product.count.must_be :>, 0
-      puts Product.count
       get root_path
       must_respond_with :success
     end
@@ -20,7 +19,6 @@ describe ProductsController do
   describe "index" do
     it "Responds successfully" do
       Product.count.must_be :>, 0
-      # puts Product.count
       get products_path
       must_respond_with :success
     end
@@ -52,17 +50,15 @@ describe ProductsController do
       login(merchants(:grace))
       start_count = Product.count
 
-      product_data = {
-        product: {
-          name: 'Food23',
-          price: 7.30,
-          description: 'Very good',
-          image:' NomNom.png',
-          inventory: 3,
-          status: 'active',
-          # merchant: 'merchant1'
-        }
-      }
+      product_data = { product: {
+                                  name: 'Food23',
+                                  price: 7.30,
+                                  description: 'Very good',
+                                  image:' NomNom.png',
+                                  inventory: 3,
+                                  status: 'active'
+                                }
+                      }
 
       post products_path, params: product_data
       end_count = Product.count
@@ -72,11 +68,7 @@ describe ProductsController do
     it "renders bad_request and does not update the DB for bogus data" do
       login(merchants(:grace))
       start_count = Product.count
-      product_data = {
-        product: {
-          name: 'Food23',
-        }
-      }
+      product_data = { product: { name: 'Food23' } }
       post products_path, params: product_data
       end_count = Product.count
       end_count.must_equal start_count
@@ -85,7 +77,6 @@ describe ProductsController do
 
   describe "show" do
     it "shows a product that exist" do
-      # product = products(:product1)
       product = Product.first
       get product_path(product)
       must_respond_with :success
@@ -113,7 +104,7 @@ describe ProductsController do
       get edit_product_path(product_id)
       flash[:status].must_equal :failure
       must_respond_with :redirect
-      # must_redirect_to products_path
+      must_redirect_to products_path
     end
   end # END of describe "edit"
 
@@ -121,17 +112,16 @@ describe ProductsController do
     it "Update a product and redirect" do
       login(merchants(:grace))
       product1 = products(:product1)
-      product_data = {
-        product: {
-          name: 'Food111',
-          price: 7.30,
-          description: 'Very good',
-          image: 'NomNom.png',
-          inventory: 3,
-          status: 'active',
-          # merchant: 'merchant1'
-        }
-      }
+      product_data = { product: {
+                                  name: 'Food111',
+                                  price: 7.30,
+                                  description: 'Very good',
+                                  image: 'NomNom.png',
+                                  inventory: 3,
+                                  status: 'active'
+                                }
+                      }
+
       patch product_path(product1), params: product_data
       Product.find_by(id: product1.id).name.must_equal product_data[:product][:name]
     end
@@ -139,24 +129,20 @@ describe ProductsController do
     it "Failure at update due to bogus values" do
       login(merchants(:grace))
       product1 = products(:product1)
-      product_data = {
-        product: {
-          name: 'Food111',
-          price: 7.30,
-          description: 'Very good',
-          image: 'NomNom.png',
-          status: 'active',
-          inventory: 'bogus data'
-          # merchant: 'merchant1'
-        }
-      }
+      product_data = { product: {
+                                  name: 'Food111',
+                                  price: 7.30,
+                                  description: 'Very good',
+                                  image: 'NomNom.png',
+                                  status: 'active',
+                                  inventory: 'bogus data'
+                                }
+                      }
       patch product_path(product1), params: product_data
       flash[:status].must_equal :failure
       Product.find_by(id: product1.id).inventory.must_equal 3
     end
-    
   end # END of describe "update"
-
 
   describe "status" do
 
@@ -188,12 +174,11 @@ describe ProductsController do
   describe "create_category" do
     it "adds a category to a product that already has a category" do
       login(merchants(:grace))
-      #product 1 should already have category meat
+      #product 1 has category meat
       product1 = products(:product1)
       # category3 is salad
       category3 = categories(:category3)
       categories_for_a_product = product1.categories
-
       product_id = product1.id
       category_id = category3.id
       post product_categories_path(product1.id), params: {product_id: product1.id, category_id: category3.id}
