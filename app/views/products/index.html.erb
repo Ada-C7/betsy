@@ -14,7 +14,7 @@
     </div>
     <h5><%= product.name %></h5>
     <p>
-      $ <%=product.price %>
+      $<%= sprintf("%.2f", product.price) %>
     </p>
     <div>
       <%= link_to "Add to cart", product_add_product_path(product.id), method: :post,  class: "button buy"%>

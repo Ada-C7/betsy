@@ -11,14 +11,14 @@
           <h4><%= product_order.product.name %></h4>
           <ul>
             <li>Quantity: <%= product_order.quantity %></li>
-            <li>Price: <%= product_order.quantity * product_order.product.price%></li>
+            <li>Price: $<%= sprintf("%.2f", product_order.quantity * product_order.product.price)%></li>
           </ul>
         <% end %>
   </section>
   <section class="large-4 columns">
   <h3>Total</h3>
-    <p>Subtotal: <%= order.subtotal %></p>
-    <p>Tax: <%= order.tax %></p>
-    <div><p>Total: <%= order.total %></p></div>
+    <p>Subtotal: $<%= sprintf("%.2f", order.subtotal) %></p>
+    <p>Tax: $<%= sprintf("%.2f", order.tax) %></p>
+    <div><p>Total: $<%= sprintf("%.2f", order.total) %></p></div>
   </section>
 </section>

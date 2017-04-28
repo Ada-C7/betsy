@@ -16,7 +16,7 @@
         <tbody>
           <tr>
             <th><%= product.name %></th>
-            <th><%= product.price %></th>
+            <th>$<%= sprintf("%.2f", product.price) %></th>
             <th><%= "#{product_order.quantity}"%>
                 <div class="small"><%="(#{product.inventory} available)" %></div></th>
             <%= form_for product_order, url: qty_update_path(product_order.id), method: :patch do |f| %>
