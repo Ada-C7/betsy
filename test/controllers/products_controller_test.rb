@@ -108,6 +108,7 @@ describe ProductsController do
     end
 
     it "redirects to products page if product DNE" do
+      login(merchants(:grace))
       product_id = 42
       get edit_product_path(product_id)
       flash[:status].must_equal :failure
@@ -132,16 +133,30 @@ describe ProductsController do
         }
       }
       patch product_path(product1), params: product_data
-      # must_redirect_to works_path
       Product.find_by(id: product1.id).name.must_equal product_data[:product][:name]
     end
+
+    it "Failure at update due to bogus values" do
+      login(merchants(:grace))
+      product1 = products(:product1)
+      product_data = {
+        product: {
+          name: 'Food111',
+          price: 7.30,
+          description: 'Very good',
+          image: 'NomNom.png',
+          status: 'active',
+          inventory: 'bogus data'
+          # merchant: 'merchant1'
+        }
+      }
+      patch product_path(product1), params: product_data
+      flash[:status].must_equal :failure
+      Product.find_by(id: product1.id).inventory.must_equal 3
+    end
+    
   end # END of describe "update"
 
-  ####### YIKE WHAT DO WE WANT TO HAPPEN?
-  # it "wont allow non-login user route to edit page" do
-  #   product = products(:product1)
-  #   get edit_product_path(product)
-  # end
 
   describe "status" do
 
