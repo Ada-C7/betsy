@@ -48,4 +48,24 @@ describe Order do
       order_no_products.total.must_equal 0
     end
   end
+
+  describe 'manage_inventory' do
+
+    let(:bad_order) { Order.new }
+    let(:good_order) { orders(:order2) }
+
+    it "decreases the order's products inventory" do
+      total_inventory_before = good_order.products.map {|product| product.inventory}.sum
+      good_order.manage_inventory
+      order_after = Order.find(good_order.id)
+      total_inventory_after = order_after.products.map {|product| product.inventory}.sum
+      total_inventory_after.must_be :<, total_inventory_before
+    end
+
+    it "return empty product_orders array if given bad order" do
+      results = bad_order.manage_inventory
+      results.empty?.must_equal true
+    end
+
+  end
 end

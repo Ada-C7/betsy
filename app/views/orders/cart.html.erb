@@ -6,11 +6,9 @@
   </div>
 
   <article class="large-4 columns">
+
     <div>
-      <h2>Total</h2>
-      <p>Subtotal: <%= @order.subtotal %></p>
-      <p>Tax: <%= @order.tax %></p>
-      <p>Total: <%= @order.total %></p>
+      <%= render partial: "total" %>
     </div>
 
     <nav>

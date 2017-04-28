@@ -74,5 +74,28 @@ describe Product do
     end
   end # END of describe "average_rating:
 
+  describe "remove_inventory" do
+    #product1 has 3 in inventory
+    let(:product) { products(:product1) }
+    it "must decrease inventory by a certain quanitity" do
+      inventory_before = product.inventory
+      product.remove_inventory(1)
+      prod_after = Product.find(product.id)
+      prod_after.inventory.must_equal inventory_before - 1
+    end
 
+    it "will not decrease inventory below inventory amount" do
+      inventory_before = product.inventory
+      product.remove_inventory(inventory_before + 1)
+      prod_after = Product.find(product.id)
+      prod_after.inventory.must_equal inventory_before
+    end
+
+    it "will decrease inventory to zero" do
+      inventory_before = product.inventory
+      product.remove_inventory(inventory_before)
+      prod_after = Product.find(product.id)
+      prod_after.inventory.must_equal 0
+    end
+  end # END of describe remove_inventory
 end # END of describe Product

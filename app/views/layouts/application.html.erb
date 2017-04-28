@@ -49,7 +49,11 @@
         <% end %>
       </section>
     <% end %>
-
+    <% if flash[:partial] %>
+      <section>
+        <%= render partial: "shared/#{flash[:partial]}" %>
+      </section>
+    <% end %>
     <%= yield %>
   </main>
 

@@ -75,12 +75,24 @@ class ProductsController < ApplicationController
     @categories = Category.all
   end
 
-  def create_category
-    Product.find_by(id: params[:product_id]).categories << Category.find_by(id: params[:category_id])
-    redirect_to product_path(Product.find_by(id: params[:product_id]))
-  end
-
-
+# ANNA Already fixed this.
+  # def create_category #GIVE THIS TESTS. Then look at validating quantity for product orders wrote custom method for that validation. Make sure category is UNIQUE in validation. then clean up if/elsif
+  #   category = Category.find_by(id: params[:category_id])
+  #   product = Product.find_by(id: params[:product_id])
+  #
+  #   if product.categories.include?(category) #THIS BLOCK IS UNIQUENESS
+  #     flash[:status] = :failure
+  #     flash[:result_text] = "This product is already part of that category"
+  #     redirect_back(fallback_location: root_path)
+  #   elsif category
+  #     product.categories << category
+  #     redirect_to product_path(Product.find_by(id: params[:product_id]))
+  #   else
+  #     flash[:status] = :failure
+  #     flash[:result_text] = "You did not choose a category"
+  #     redirect_back(fallback_location: root_path)
+  #   end
+  # end
 
   private
   def product_params

@@ -1,8 +1,12 @@
 class OrdersController < ApplicationController
-  before_action :get_order, only: [:cart, :checkout]
+  before_action :get_order, only: [:cart, :checkout, :confirmation]
 
   def cart; end
   def checkout; end
+
+  def confirmation
+    @order = Order.find_by(id: params[:id])
+  end
 
   def add_product
     current_order
@@ -23,16 +27,16 @@ class OrdersController < ApplicationController
     # raise
     order = Order.find_by(id: params[:id])
     order.update_attributes(order_params)
-    #need to decrease product quantity for all products?
+    order.calculate_totals
+    order.manage_inventory
+
     if order.valid?
-      # order.decrease_product_inventory
-      order.calculate_totals
       order.status = "paid"
       order.save
       session[:order_id] = nil
-      flash[:status] = :success
-      flash[:result_text] = "Thank you for placing your order"
+      flash[:partial] = "orderSummary"
       redirect_to root_path
+      # redirect_to order_confirmation_path(order.id)
     elsif !order.valid?
       flash[:status] = :failure
       flash[:result_text] = "There was a problem processing your order"
@@ -70,10 +74,6 @@ private
   def get_order
     @order = current_order
     @order.calculate_totals
-  end
-
-  def get_product_order
-    ProductOrder.where(order_id: session[:order_id])
   end
 
   def order_params

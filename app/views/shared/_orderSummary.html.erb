@@ -1,0 +1,24 @@
+<section class="row">
+<% order = Order.last %>
+<h1>Your Order has Been Placed</h1>
+  <p>Thanks for your purchase. We have notified the merchant and your product(s) will ship soon</p>
+
+  <section class="large-8 columns">
+  <h3>Order Sumamry</h3>
+    <p>Your Products</p>
+      <ul>
+        <% order.product_orders.each do |product_order| %>
+        <li><%= product_order.product.name %></li>
+        <li>Quantity: <%= product_order.quantity %></li>
+        <li>Price: <%= product_order.quantity * product_order.product.price%></li>
+        <% end %>
+      </ul>
+  </section>
+
+  <section class="large-4 columns">
+  <h3>Total</h3>
+    <p>Subtotal: <%= order.subtotal %></p>
+    <p>Tax: <%= order.tax %></p>
+    <div><p>Total: <%= order.total %></p></div>
+  </section>
+</section>
