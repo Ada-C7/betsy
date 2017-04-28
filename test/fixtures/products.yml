@@ -1,0 +1,77 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+apple:
+  name: "apple"
+  price: 1.00
+  quantity: 5
+  merchant: dan
+
+banana:
+  name: "banana"
+  price: 5.00
+  quantity: 10
+  merchant: dan
+
+no_orderitem:
+  name: "thing"
+  price: 7.50
+  quantity: 2
+  merchant: dan
+
+orange:
+  name: "orange"
+  price: 1.00
+  quantity: 30
+  merchant: rory
+
+no_price:
+  name: "Dragonfruit"
+  quantity: 15
+  merchant: dan
+
+invalid_price:
+  name: "Guava"
+  price: 0.00
+  quantity: 1
+  merchant: dan
+
+#can't have a no name fixture b/c then product controller tests don't work with fixtures :(
+no_name:
+  name: no_name
+  price: 3.00
+  quantity: 5
+  merchant: dan
+
+not_unique:
+  name: "Product"
+  price: 5.00
+  quantity: 2
+  merchant: dan
+
+not_unique_again:
+  name: "Product"
+  price: 4.00
+  quantity: 7
+  merchant: dan
+
+no_quantity:
+  name: "Product"
+  price: 4.00
+  quantity: 7
+  merchant: dan
+
+orange2:
+  name: "orange"
+  price: 1.00
+  quantity: 30
+  merchant: dan
+
+zero_quantity:
+  name: "Product"
+  price: 4.00
+  merchant: dan
+  quantity: 0

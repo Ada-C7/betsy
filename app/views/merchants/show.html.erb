@@ -1,0 +1,30 @@
+<main class="row">
+
+<h1><%= @merchant.name %></h3>
+<p><%=@merchant.description %></p>
+<p>contact: <%= @merchant.email %></p>
+
+
+<h2><%= @merchant.name%>'s Products</h2>
+<% @merchant.products.each do |product| %>
+<section class="top columns large-4 small-12" >
+  <ul>
+    <h3><li><%= link_to product.name, product_path(product) %></li></h3>
+    <!-- <p><%= product.description %></p>
+    <p>Cost: <%= product.price %></p>
+    <p><%= product.quantity %> in stock</p>
+    <p>TBD: Add product categories</p> -->
+  </ul>
+</section>
+
+<% end %>
+
+<% if @merchant.id == session[:merchant_id] %>
+<%= link_to "Your products", account_products_path, class: "button" %>
+<%= link_to "Your orders", account_orders_path, class: "button" %>
+<%= link_to "Create a category", new_category_path, class: "button" %>
+<%= link_to "Add New Product", new_merchant_product_path(session[:merchant_id]), class: "button" %>
+<%= link_to "My Info", edit_merchant_path(@merchant.id), class: "button" %>
+<% end %>
+
+</main>

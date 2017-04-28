@@ -1,0 +1,33 @@
+<main class="row">
+
+
+<h2>Pay Now</h2>
+
+<%= form_for :order, method: :patch do |f| %>
+<%= f.hidden_field :order_id, value: current_order.id %>
+
+<%= f.label "Email" %>
+<%= f.text_field :email %><br />
+
+<%= f.label "Mailing Address" %>
+<%= f.text_field :address %><br />
+
+<%= f.label "Name on credit card" %>
+<%= f.text_field :cc_name %><br />
+
+<%= f.label "Credit card number" %>
+<%= f.text_field :cc_num %><br />
+
+<%= f.label "Credit card expiration" %>
+<%= f.text_field :cc_expiry %><br />
+
+<%= f.label "Credit Card CVV (security code)" %>
+<%= f.text_field :cc_security %><br />
+
+<%= f.label "Billing zip code" %>
+<%= f.text_field :zip %>
+
+<%= f.submit "Submit Order", class: "button" %>
+<% end %>
+
+</main>

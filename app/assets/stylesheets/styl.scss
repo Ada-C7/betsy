@@ -1,0 +1,53 @@
+$light-gray: #e6e6e6;
+
+header {
+  .head {
+     h2 {
+       font-family: 'Creepster', cursive;
+       font-size: 10.0em;
+       margin-left: -5%;
+      }
+      text-align:center;
+      a {
+        color:$light-gray;
+        &:hover {
+        color:lighten($light-gray, 10%);
+        }
+      }
+    }
+
+
+  .nav-bar {
+    margin-top: 2%;
+    display:inline;
+  }
+}
+
+.centering {
+  text-align:center;
+}
+
+h1, h2, h3 {
+  font-family: 'Creepster', cursive;
+  color:$light-gray;
+
+  a {
+    color:$light-gray;
+    &:hover {
+    color:lighten($light-gray, 10%);
+    }
+  }
+
+}
+
+
+.index_img {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+
+}
+
+nav {
+  text-align: right;
+}

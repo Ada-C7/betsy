@@ -1,0 +1,11 @@
+one:
+  product_id: products(apple).id
+  category_id: categories(:one).id
+  created_at: 2001-02-03T04:05:06+03:30
+  updated_at: 2001-02-03T04:05:06+03:30
+#
+two:
+  product_id: products(:banana).id
+  category_id: categories(:one).id
+  created_at: 2001-02-03T04:05:06+03:30
+  updated_at: 2001-02-03T04:05:06+03:30

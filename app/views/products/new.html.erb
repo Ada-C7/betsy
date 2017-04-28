@@ -1,0 +1,4 @@
+<main class="row">
+<h3>Add new product</h3>
+<%= render partial: "form", locals: { url_path: merchant_products_path(current_merchant.id), form_method: :post }%>
+</main>

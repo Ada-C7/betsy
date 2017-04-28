@@ -1,0 +1,26 @@
+<main class="row">
+
+
+<h3>Active Products</h3>
+<p>You can edit product information (like categories or quantity) or retire a product so it's no longer avaialble for purchse.</p>
+<% @products.each do |product| %>
+  <% if product.status %>
+  <p><%= product.name %> </p>
+  <p>
+    <%= link_to "edit", edit_merchant_product_path(current_merchant.id, product.id), class: "button" %> <%= link_to "retire",  product_status_path(current_merchant.id, product.id), method: :patch, class: "button" %>
+  </p>
+
+
+  <% end %>
+<% end %>
+
+<h3>Retired Products</h3>
+<p>These products are not currently available for customers to purchase. If you'd like to make them available, click "make active" </p>
+<% @products.each do |product| %>
+  <% if !product.status %>
+  <p><%= product.name %>: <%= link_to "make active",  product_status_path(current_merchant.id, product.id), method: :patch, class: "button" %></p>
+  <% end %>
+
+<% end %>
+
+</main>

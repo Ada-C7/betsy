@@ -1,0 +1,15 @@
+<main class="row">
+
+<h1>Categories</h1>
+
+<% @categories.each do |category| %>
+<section class="top columns large-4 small-12">
+  <h3><%= category.name %></h3>
+  <ul>
+    <li><%= link_to "See all #{category.name} products", category_products_path(category.id) %></li>
+  </ul>
+</section>
+<% end %>
+
+
+</main>

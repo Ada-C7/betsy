@@ -1,0 +1,54 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quantity: 1
+  order: one
+  product: apple
+
+two:
+  quantity: 1
+  order: one
+  product: banana
+
+three:
+  quantity: 4
+  order: two
+  product: banana
+
+four:
+  quantity: 2
+  order: one
+  product: apple
+
+
+fakeorder:
+  quantity: 1
+  order: fake
+  product: apple
+
+fakeproduct:
+  quantity: 1
+  order: one
+  product: grapes
+
+zero_qty:
+  quantity: 0
+
+float_qty:
+  quantity: 0.5
+
+neg_qty:
+  quantity: -4
+
+no_order:
+  quantity: 1
+  product: banana
+
+no_product:
+  quantity: 2
+  order: two
+
+toomany:
+  quantity: 6
+  order: one
+  product: apple

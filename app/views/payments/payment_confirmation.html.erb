@@ -1,0 +1,19 @@
+<main class="row">
+<h2>Payment Confirmation</h2>
+
+<p>
+  Your payment has processed successfully!
+</p>
+
+<% @orderitems.each do |item| %>
+  <ul>
+    <li>Product: <%= link_to item.product(:product_id).name, product_path(item.product_id) %></li>
+    <li>Quantity: <%= item.quantity %></li>
+    <li>Subtotal: $<%= sprintf("%.2f", item.product(:product_id).price) %></li>
+  </ul>
+<% end %>
+<p>Total: $<%= sprintf("%.2f", @order.subtotal) %> </p>
+<p>Order placed at: <%= @order.updated_at %></p>
+<p>Order Status: <%= @order.status %></p>
+
+</main>

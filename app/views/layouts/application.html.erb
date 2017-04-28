@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Creepster" rel="stylesheet">
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <header class="header row">
+    <section class= "columns large-12 small-12 head">
+    <h2><%= link_to "Ghosty", root_path %></h2>
+    <small>So good it's scary</small>
+    </section>
+  </header>
+
+    <nav class="columns large-12 small-12 nav-bar">
+      <%= link_to "Cart", carts_show_path, class: "button nav-button" %>
+      <%= link_to "Categories", categories_path, class: "button nav-button"  %>
+        <% if current_merchant %>
+            <%= link_to "Log Out", logout_path, method: :post, class: "button nav-button"  %>
+            <p>Logged in as: <%= link_to current_merchant.username, merchant_path(current_merchant) %></p>
+        <% else %>
+            <%= link_to "Log In Using GitHub", "/auth/github", class: "button nav-button"  %>
+            <p>Not logged in</p>
+        <% end %>
+    </nav>
+
+
+
+  <section class="flash">
+      <% flash.each do |name, message| %>
+        <div class="<%= name %>"><%= message %></div>
+      <% end %>
+
+    </section>
+
+
+  <body>
+
+
+    <%= yield %>
+
+  </body>
+</html>

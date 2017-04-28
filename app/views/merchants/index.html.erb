@@ -1,0 +1,12 @@
+<h1>Merchants</h1>
+<ul>
+<% @merchants.each do |merchant| %>
+  <h4>Name: <%= link_to merchant.name, merchant_path(merchant) %></h4>
+  <ul>
+    <% if merchant.description != nil %>
+      <li>Description: <%=merchant.description %></li>
+      <%end %>
+    <li><%= link_to "Products", merchant_products_path(merchant) %></li>
+  </ul>
+<% end %>
+</ul>
