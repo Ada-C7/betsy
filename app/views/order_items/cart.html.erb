@@ -1,0 +1,42 @@
+<article class="user">
+
+  <div class="row title">
+    <h3 class="small-12 cloumns">
+      Cart
+    </h3>
+  </div>
+
+  <div class="row">
+    <div class="small-8 columns">
+      <ul>
+        <% if @cart_items.empty? %>
+        <p>
+          Your cart is empty!
+        </p>
+        <% else %>
+          <% @cart_items.each do |item| %>
+            <div class="small-12 columns cart-items">
+              <li>
+                <%= image_tag item.product.photo_url, class: "cart-photo" %>
+                <%= link_to item.product.name, product_path(item.product_id) %>
+
+                <%= form_for item, url: order_item_path(item), method: :patch do |f| %>
+                  <%= f.label :quantity, "Quantity" %>
+                  <%= f.select :quantity, options_for_select((1..item.product.stock), selected: item.quantity)  %>
+                  <%= f.submit "Update quantity", class: "button" %>
+                <% end %>
+
+                <%= button_to "Remove from cart", order_item_path(item), method: :delete, data: {confirm: "Do you really want to remove this from your cart?"}, class: "button"%>
+              </li>
+            </div>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="small-12s columns">
+      <% if @cart_items != [] %>
+        <%= button_to "Checkout", checkout_path, method: :get, class: "button checkout" %>
+      <% end %>
+    </div>
+  </div>
+</article>

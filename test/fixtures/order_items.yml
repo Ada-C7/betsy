@@ -1,0 +1,135 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+
+socks:
+  product: fancy_socks
+  order: order_one
+  quantity: 2
+
+shirts:
+  product: fancy_shirt
+  order: order_one
+  quantity: 1
+
+
+hats:
+  product: aurorahat
+  order: order_one
+  quantity: 3
+
+banana_check_status_order_one:
+  product: banana
+  order: check_status_order_one
+  quantity: 1
+  ship_status: true
+
+apple_check_status_order_one:
+  product: apple
+  order: check_status_order_one
+  quantity: 2
+  ship_status: false
+
+orange_check_status_order_one:
+  product: orange
+  order: check_status_order_one
+  quantity: 1
+  ship_status: false
+
+two_boots:
+  product: boots
+  order: felix_order_one
+  quantity: 2
+  ship_status: false
+
+three_boots:
+  product: boots
+  order: felix_order_two
+  quantity: 3
+  ship_status: true
+
+user_one_orders_items_one:
+  product: user_one_book
+  order: user_one_order_one
+  quantity: 3
+  ship_status: true
+
+user_one_orders_items_two:
+  product: user_one_shoes
+  order: user_one_order_two
+  quantity: 4
+  ship_status: false
+
+user_one_orders_items_three:
+  product: user_one_towel
+  order: user_one_order_three
+  quantity: 4
+  ship_status: false
+
+one_watch_unshipped:
+  product: watch
+  order: user_one_order_three
+  quantity: 1
+  ship_status: false
+
+user_one_orders_items_four:
+  product: user_one_bag
+  order: user_one_order_four
+  quantity: 2
+  ship_status: true
+
+one_watch_shipped:
+  product: watch
+  order: user_one_order_four
+  quantity: 1
+  ship_status: true
+
+user_one_orders_items_five:
+  product: user_one_book
+  order: user_one_order_five
+  quantity: 1
+  ship_status: true
+
+user_one_orders_items_six:
+  product: user_one_towel
+  order: user_one_order_six
+  quantity: 4
+  ship_status: true
+
+order_six_watch_unshipped:
+  product: watch
+  order: user_one_order_six
+  quantity: 1
+  ship_status: false
+
+user_one_orders_items_seven:
+  product: user_one_bag
+  order: user_one_order_seven
+  quantity: 2
+  ship_status: false
+
+user_one_purchase_items_one:
+  product: watch
+  order: user_one_purchase_one
+  quantity: 1
+  ship_status: true
+
+user_one_purchase_items_two:
+  product: fancy_socks
+  order: user_one_purchase_one
+  quantity: 1
+  ship_status: true
+
+user_one_purchase_items_three:
+  product: boots
+  order: user_one_purchase_two
+  quantity: 1
+  ship_status: false
+
+user_one_purchase_items_four:
+  product: fancy_shirt
+  order: user_one_pending_purchase_one
+  quantity: 1
+  ship_status: false

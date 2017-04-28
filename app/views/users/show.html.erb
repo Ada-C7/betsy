@@ -1,0 +1,95 @@
+<article class="user">
+
+  <div class = "row title">
+    <h3 class="small-12 small-centered cloumns">
+      <%= @user.username %>
+    </h3>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 columns">
+      <h4 class="headerh4">My Products</h4>
+      <table class="my-products-list">
+        <% @user.products.each do |product| %>
+        <tr>
+          <td>
+            <%= link_to truncate(product.name), product_path(product.id) %>
+          </td>
+          <td class="edit">
+            <%= link_to "Edit", edit_product_path(product.id), method: :get %>
+          </td>
+          <td class="edit">
+            <% if product.selling? %>
+
+            <%= link_to "Retire", status_path(product.id), method: :patch  %>
+            <% else %>
+            <%= link_to "Sell", status_path(product.id), method: :patch  %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+      <%= button_to "Add a product to your store", new_product_path, method: :get, class: "button" %>
+      <%= button_to "Add a new category", new_category_path, method: :get, class: "button" %>
+      <%= button_to 'Manage My Sales Orders', user_orders_path(@user.id), method: :get, class: "button" %>
+    </div>
+    <div class="small-12 medium-4 columns">
+
+      <h4 class="headerh4">My Purchases</h4>
+      <% if @purchases.empty? %>
+      <p>
+        No purchases yet.
+      </p>
+      <% else %>
+      <p>
+        Total spent: <strong><%= number_to_currency(@user.user_purchases_total) %></strong>
+      </p>
+      <table class="purchases-table">
+        <thead>
+          <tr>
+            <th>
+              Order
+            </th>
+            <th>
+              Purchased
+            </th>
+            <th>
+              Items
+            </th>
+            <th>
+              Total
+            </th>
+          </tr>
+        </thead>
+        <% @purchases.each do |purchase| %>
+        <tr>
+          <td>
+            <%= link_to "#{purchase.id}", order_path(purchase.id) %>
+          </td>
+          <td>
+            <%= purchase.created_at.strftime("%m/%d/%Y") %>
+          </td>
+          <td>
+            <%= purchase.products.length %>
+          </td>
+          <td>
+            <%= number_to_currency(purchase.total) %>
+          </td>
+          <td>
+
+          </td>
+        </tr>
+        <% end %>
+
+      </table>
+      <% end %>
+      </div>
+    <div class="small-12 medium-4 columns">
+      <h4 class="headerh4">My Profile</h4>
+      <p>
+        Description: <%= @user.profile %>
+      </p>
+      <%= button_to "Edit profile", edit_user_path(@user.id), method: :get, class: "button" %>
+    </div>
+  </div>
+</article>

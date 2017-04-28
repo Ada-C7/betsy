@@ -1,0 +1,54 @@
+<article class="fulfillment">
+  <div class="row title">
+    <h3 class="small-12 columns">
+      Order History
+    </h3>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-8 columns">
+
+      <%= render partial: "user" %>
+    </div>
+
+    <div class="small-12 medium-4 columns">
+
+      <h4>Incomplete orders</h4>
+      <% if current_user.user_status_orders("paid") == [] %>
+      <p>
+        No orders yet
+      </p>
+      <% else %>
+      <ul>
+        <% current_user.user_status_orders("paid").each do |order| %>
+        <li>
+          <%= link_to "Order #{order.id}", order_path(order.id) %>
+          Date: <%= order.updated_at.strftime("%m/%d/%Y") %>
+          Status: <%= order.status %>
+          <ul>
+            <% order.order_items.each do |item| %>
+            <% if item.product.user == current_user %>
+            <li>
+              <%= link_to item.product.name, product_path(item.product.id) %>
+              <ul>
+                <li>
+                  <%= item.quantity %> @ <%= number_to_currency(item.product.price) %> each --
+                  Subtotal: <%= number_to_currency(item.subtotal) %>
+                </li>
+                <li>
+                  <%= form_for item, url: order_item_path(item), method: :patch do |f| %>
+                  <%= f.label :ship_status, "Shipping Status:" %>
+                  <%= f.select :ship_status, [['Shipped', true], ['Not shipped yet', false]] %>
+                  <%= f.submit "Update Shipping Status", method: :patch, class: "button"%>
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+            <% end %>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div>
+  </article>

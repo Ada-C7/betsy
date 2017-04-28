@@ -1,0 +1,56 @@
+<div class="row">
+<article class="checkout">
+    <div class="small-12 medium-6 columns">
+      <h2>Shipping Information</h2>
+      <p>
+        Please enter in all details to complete your order.
+      </p>
+
+      <%= form_for @order, url: confirmation_path(@order.id), method: :put do |f| %>
+
+        <%= f.label :email %>
+        <%= f.text_field :email, required: true %>
+
+        <%= f.label "Name on credit card" %>
+        <%= f.text_field :name_on_cc, required: true %>
+
+        <%= f.label "Credit card number -- don't actually give us this! it's fake!" %>
+        <%= f.text_field :cc_number, required: true %>
+
+        <%= f.label "Credit card ccv -- also fake" %>
+        <%= f.text_field :cc_ccv, required: true %>
+
+        <%= f.label :billing_zip %>
+        <%= f.text_field :billing_zip, required: true %>
+
+        <%= f.label :address, "Shipping Address" %>
+        <%= f.text_area :address, required: true %>
+
+        <%= f.submit "Place Order", class: "button" %>
+
+      <% end %>
+    </div>
+    <div class="small-12 medium-6 columns">
+      <h3>Order Details</h3>
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+        <% @order.order_items.each do |order_item| %>
+        <tr>
+          <td><%= order_item.product.name %></td>
+          <td><%= number_to_currency(order_item.product.price) %></td>
+          <td><%= order_item.quantity %></td>
+          <td><%= number_to_currency(order_item.subtotal) %></td>
+        </tr>
+        <% end %>
+      </table>
+      <p>
+          <strong>Your Order Total is: <%= number_to_currency(@order.total) %></strong>
+      </p>
+    </div>
+</article>
+</div>

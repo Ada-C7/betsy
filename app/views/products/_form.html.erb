@@ -1,0 +1,36 @@
+<ul>
+  <% @product.errors.each do |field, msg| %>
+  <li>
+    <%= field %> <%= msg %>
+  </li>
+  <% end %>
+</ul>
+
+<%= form_for @product, method: form_method do |f| %>
+  <%= f.label :name, "Product name:" %>
+  <%= f.text_field :name, required: true %>
+
+  <%= f.label :price %>
+  <%= f.text_field :price, required: true %>
+
+  <%= f.label :stock, "Stock inventory:" %>
+  <%= f.text_field :stock, required: true %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "60x12" %>
+
+  <%= f.label :photo_url, "Image URL:"%>
+  <%= f.text_field :photo_url %>
+
+  <%= f.label :selling_status, "Selling Status:" %>
+  <%= f.select :selling_status, [['Selling', true], ['Retired', false]], required: true%>
+
+  <%= f.label "Categories:" %>
+  <%= f.collection_select :category_ids, Category.order(:name), :id, :name, {},  {multiple: true} %>
+
+  <%# f.label :user_id, "Merchant/user_id:" %>
+  <%# f.text_field :user_id %>
+
+  <%= f.submit action_name, class: "button" %>
+
+<% end %>

@@ -1,0 +1,94 @@
+<article class="show">
+
+  <div class = "row title">
+    <h3 class="small-12 columns">
+      <%= @product.name %>
+    </h3>
+
+  </div>
+  <div class="row">
+    <ul class="categories-list">
+      <% @product.categories.each do |category| %>
+      <li>
+        <%= link_to category.name, category_products_path(category.id) %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="row">
+
+    <div class="small-12 medium-4 columns">
+      <img src="<%=@product.photo_url%>" alt="product photo" class="product_photo">
+    </div>
+
+    <div class="small-12 medium-4 columns">
+      <ul class="price-info">
+        <li class="price"> <%= number_to_currency(@product.price) %> each</li>
+        <% if @product.out_of_stock %>
+          <li id="out-of-stock">Out of stock</li>
+        <% else %>
+          <li> <%= @product.stock %> left in stock </li> 
+        <% end %>
+        <li>
+          <strong>Merchant: </strong><%= link_to @product.user.username, user_products_path(@product.user.id) %>
+        </li>
+        <li>
+          <strong>Average rating: </strong><% if @product.average_rating == 0 %><p>
+            not rated yet</p>
+            <% else %><%= @product.average_rating %><% end %>
+          </li>
+        </ul>
+
+        <% if !@product.out_of_stock %>
+        <%= form_for @item, url: new_order_item_path(@product.id), method: :post do |f| %>
+
+      <%= f.label :quantity %>
+      <%= f.select :quantity, (1..@product.stock) %>
+        <%= f.submit "Add to Cart", class: "button" %>
+
+
+        <% end %>
+        <% end %>
+
+      </div>
+
+      <section>
+        <div class="small-12 medium-4 columns reviews">
+          <section class="review">
+            <h2>What other shoppers think:</h2>
+            <h4>Overall rating: <strong>
+              <% if @product.average_rating == 0 %>
+                <p>not rated yet</p>
+              <% else %><%= @product.average_rating %>/5<% end %></strong></h4>
+              <% @product.reviews.each do |review| %>
+              <h3><%= review.title %> <p class="right rating-number"><%= review.rating %></p><small class="review-date"> <%= review.updated_at.strftime("%B %d, %Y") %></small></h3>
+              <section class="review-body" >
+                <p>
+                  "<%= review.review_text %>"
+                </p>
+              </section>
+              <% end %>
+            </section>
+
+          </div>
+
+          <div class="small-12 medium-4 columns left review-edit-button">
+            <% if can_edit? %>
+            <%= button_to "Edit this product", edit_product_path(@product.id), class: "button", method: :get %>
+            <% end %>
+            <% if can_review? %>
+            <%= button_to "Review this product", new_product_review_path(@product.id), class: "button", method: :get %>
+            <% end %>
+          </div>
+        </section>
+        <div class"row">
+
+          <div class="small-12 columns product-description">
+            <h3>Product Details:</h3>
+            <p><%= @product.description %> </p>
+          </div>
+        </div>
+      </div>
+
+    </article>

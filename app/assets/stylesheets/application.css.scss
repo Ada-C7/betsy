@@ -1,0 +1,445 @@
+
+ /*
+ *= require_tree .
+ *= require_self
+ *= require foundation_and_overrides
+
+COLOR PALLET
+charcoal  color: #373737
+Silk      color: #DCD0C0
+Paper     color: #F4F4F4
+Pale Gold color: #C0B283
+ */
+
+* {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: #373737;
+  background-color: #F4F4F4;
+}
+
+body {
+  clear: both;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: #373737;
+}
+
+h1, h1 a {
+  font-family: 'Codystar', cursive;
+  font-weight: bold;
+  color: #C0B283
+}
+
+h2, h3 {
+  font-family: 'Sail', cursive;
+}
+h4, p{
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+
+a:hover {
+  color: #DCD0C0;
+}
+
+a {
+  color: #373737;
+}
+
+.button {
+  background-color: #DCD0C0;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  background-color: #C0B283;
+}
+
+
+/*Specific to application.html*/
+.checkout {
+  background-color: #C0B283;
+  display: block;
+  margin: auto;
+}
+
+.checkout:hover {
+  background-color: #DCD0C0
+}
+
+.title {
+  text-align: center;
+}
+
+/*header*/
+header {
+  height: 100px;
+  background-color: #F4F4F4;
+}
+
+header h1.main-header {
+  padding: 0;
+  font-size: 3em;
+}
+
+#top-row {
+  border-bottom: solid 2px #DCD0C0;
+}
+
+small {
+  font-family: 'Cookie', cursive;
+  font-size: .6em;
+  font-weight: lighter;
+  font-style: italic;
+}
+
+.header-login {
+  float: right;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: .9em;
+}
+
+.header-login li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.cart img {
+  height: 40px;
+}
+
+.cart {
+  margin: 10px;
+  text-align: right;
+  margin-top: 15px;
+  font-size: 1.5em;
+}
+.cart p {
+    display: inline-block;
+    font-family: 'Lato', sans-serif;
+    font-size: .8em;
+}
+
+.login {
+  margin-right: 10px;
+}
+
+.shop-by li {
+  display: inline-block;
+  font-size: 1.25em;
+  margin: 0 10px;
+  float: left;
+}
+
+.shop-by {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  // text-align: center;
+
+}
+
+/*Adding Styling for the categories index page*/
+.hero {
+  height: 275px;
+}
+
+.top-photos {
+  height: 200px;
+}
+
+img.carousel {
+  height: 200px;
+}
+
+.carousel {
+  text-align: center;
+  /*margin:0 25%;*/
+  display: block;
+  margin: auto;
+}
+
+#slogan {
+  margin-top: 0px;
+  padding: 50px 50px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3em;
+  background-color: #DCD0C0;
+  color: white;
+}
+
+
+ /*All Index Pages*/
+div.title {
+  clear: both;
+}
+
+.index h3 {
+  margin-top: 20px;
+  font-size: 2.5em;
+  clear:both;
+}
+
+ .grid-item {
+   text-align: center;
+   margin: 20px 0px;
+   overflow: auto;
+   font-size: 1.5em;
+  }
+
+.category-name {
+
+}
+
+.index_photo {
+  height: 100px;
+}
+
+.border {
+  width: 90%;
+  height: 200px;
+  border: 2px dotted #C0B283;
+  padding: 10px;
+  overflow: auto;
+ }
+
+ .user-border {
+   width: 90%;
+   height: 75px;
+   border: 2px dotted #C0B283;
+   padding: 10px;
+   overflow: auto;
+ }
+
+
+ /*Show page*/
+
+.product-description {
+  padding-top: 30px;
+  padding-left: 25px;
+  font-size: .8em;
+  padding-bottom: 50px;
+}
+
+.product-description h3 {
+  font-family: 'lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
+
+ .categories-list {
+   display: block;
+   text-align: center;
+
+ }
+
+ .categories-list li {
+   display: inline-block;
+   padding: 0 25px;
+ }
+
+ .show {
+  font-size: 1.25em;
+ }
+
+ .product_photo {
+   width: 100%;
+   padding: 0 2%;
+ }
+
+.reviews {
+  height: 400px;
+  border: 2px dotted #C0B283;
+  overflow: scroll;
+}
+
+.review h2{
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    font-size: 1em;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.review h4{
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    font-size: .8em;
+    text-transform: none;
+    margin-bottom: 15px;
+}
+
+.review h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.review-date {
+  padding-left: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: .8em;
+}
+
+.review-edit-button {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.review-body {
+  font-size: .8em;
+}
+
+.right {
+  float: right;
+}
+
+.rating-number {
+  size: 2em;
+}
+
+.sales-summary {
+  display: block;
+}
+
+.sales-summary h4 {
+  text-align: center;
+}
+
+#out-of-stock {
+  font-weight: bold;
+}
+
+/*Cart Page*/
+.cart-items {
+  margin: 10px 0;
+  font-size: 1.25em;
+}
+
+/*Checkout page*/
+.checkout {
+  margin-top: 20px;
+}
+
+th {
+  text-align: left;
+}
+
+.price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.2em;
+}
+
+.price li {
+  padding-left: -5px;
+}
+
+.price-info {
+  font-family: 'Lato', sans-serif;
+  font-size: .7em;
+}
+
+.price-info strong {
+  text-transform: uppercase;
+}
+
+.fulfillment h4 {
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.fulfillment-orders h5 {
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+}
+
+.fulfillment-orders h3 {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  padding-top: 10px;
+}
+
+// flash
+
+.flash {
+  text-align: center;
+  font-family: 'League Script', cursive;
+}
+.error, .failure {
+  color: #373737;
+  text-decoration: bold;
+  font-size: 1.25em;
+}
+
+.success {
+  color: #C0B283;
+  text-decoration: bold;
+  font-size: 1.25em;
+}
+
+// footer
+footer {
+  margin-top: -20;
+  height: 75px;
+}
+footer div {
+  display: block;
+  text-align: center;
+}
+
+footer div p {
+  padding-top: 20px;
+}
+
+.jolly-owl {
+  display: block;
+  text-align: center;
+}
+
+.credit {
+  font-size: 3em;
+  padding: 20px 0;
+}
+
+.names {
+  padding: 5px 0;
+}
+
+.school {
+  padding-top: 5px;
+}
+
+.title h3 {
+  padding-bottom: 10px;
+}
+
+.headerh4 {
+  text-transform: uppercase;
+}
+
+.my-products-list {
+  padding-bottom: 20px;
+}
+
+.my-products-list td.edit a{
+  color: grey;
+}
+
+table {
+  font-family: 'Quattrocentro Sans', sans-serif;
+}
+
+label, select {
+  size: 2em;
+  font-family: 'Lato', sans-serif;
+}
+
+.cart-photo {
+  height: 100px;
+}

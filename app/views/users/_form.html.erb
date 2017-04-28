@@ -1,0 +1,14 @@
+<ul>
+  <% @user.errors.each do |field, msg| %>
+  <li>
+    <%= field %> <%= msg %>
+  </li>
+  <% end %>
+</ul>
+
+<%= form_for @user, url: user_path, method: :patch do |f| %>
+    <%= f.label :profile %>
+    <%= f.text_field :profile %>
+
+    <%= f.submit "Update profile", class: "button" %>
+<% end %>

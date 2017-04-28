@@ -1,0 +1,62 @@
+
+<section class="fulfillment-orders">
+  <h5><%= order_status_show %> orders</h5>
+  <% if current_user.user_orders == [] %>
+  <p>
+    No orders yet
+  </p>
+  <% else %>
+  <% current_user.user_status_orders(params[:order_status]).each do |order| %>
+  <h3>
+    <%= link_to "Order #{order.id}", order_path(order.id) %>
+    on <%= order.updated_at.strftime("%m/%d/%Y") %>
+
+    | Status: <%= order.status %>
+  </h3>
+  <table>
+    <tr>
+      <th>
+        Product
+      </th>
+      <th>
+        Quantity
+      </th>
+      <th>
+        Price
+      </th>
+      <th>
+        Subtotal
+      </th>
+      <th>
+        Shipping Status
+      </th>
+    </tr>
+    <% order.order_items.each do |item| %>
+    <% if item.product.user == current_user %>
+    <td>
+      <%= link_to item.product.name, product_path(item.product.id) %>
+    </td>
+    <td>
+      <%= item.quantity %>
+    </td>
+    <td>
+      <%= number_to_currency(item.product.price) %>
+    </td>
+    <td>
+      <%= number_to_currency(item.subtotal) %>
+    </td>
+    <td>
+      <%= form_for item, url: order_item_path(item), method: :patch do |f| %>
+
+      <%= f.select :ship_status, [['Shipped', true], ['Not shipped', false]] %>
+    </td>
+    <td>
+      <%= f.submit "Update", method: :patch, class: "button"%>
+      <% end %>
+    </td>
+    <% end %>
+    <% end %>
+  </table>
+  <% end %>
+  <% end %>
+</section>

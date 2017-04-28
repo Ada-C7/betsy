@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+aurora:
+  username: "auroralemieux"
+  email: "aurora@test.com"
+  uid: "12345"
+  provider: "github"
+
+felix:
+  username: "felixbenjamin"
+  email: "felix@test.com"
+  uid: "65432"
+  provider: "github"
+
+no_products_user:
+  username: "no_products_user_model_test"
+  email: "no_products@usertest.com"
+  uid: "34567"
+  provider: "github"
+
+user_orders_test_user_one:
+  username: "user_orders_test_user_one"
+  email: user_orders_test@one.com
+  uid: "333455"
+  provider: "github"
+
+jackie:
+  username: "jackiewatanabe"
+  email: "jackie@test.com"
+  uid: "174903"
+  provider: "github"
+
+# user_two_check_order_tests:
+#   username: "user_two_check_order_tests"
+#   email: "user_two@check_order_tests.com"
+#   uid: "378490"
+#   provider: "github"

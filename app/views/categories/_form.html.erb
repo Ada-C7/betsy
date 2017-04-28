@@ -1,0 +1,9 @@
+<%= form_for @category, method: form_method do |f| %>
+    <%= f.label :name, "Category name" %>
+    <%= f.text_field :name %>
+
+    <%= f.label :photo, "Image URL" %>
+    <%= f.text_field :photo %>
+
+    <%= f.submit class: "button" %>
+<% end %>

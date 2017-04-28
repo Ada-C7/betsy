@@ -1,0 +1,44 @@
+<article class="index row">
+  <div class="row hero">
+    <h3 class="orbit small-12 medium-6 columns" id="slogan">
+      Whatever your budget...
+      <br />
+      We can break it.
+    </h3>
+    <div class="orbit small-12 medium-6 columns top-photos" role="region" aria-label="Top Rated Products" data-orbit>
+      <ul class="orbit-container top-photos">
+        <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+        <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+
+        <% @top_products.each do |product| %>
+        <li class="orbit-slide">
+          <%= link_to(product_path(product.id)) do %>
+          <img class="image carousel" src="<%=product.photo_url%>" alt="Product Photo">
+          <figcaption class="product-caption carousel">
+            <%= product.name %>
+          </figcaption>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class = "row title">
+    <h3 class="small-12 cloumns">Shop by Category</h3>
+  </div>
+  <ul class="row">
+    <% @categories.each do |category| %>
+    <li class="small-12 medium-6 large-4 columns grid-item">
+      <div class="border">
+        <%= link_to(category_products_path(category.id)) do %>
+          <%= category.name.downcase %>
+       <br />
+        <img src="<%= category.photo %>" alt="category_photo", class="index_photo" >
+        <% end %>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+
+</article>

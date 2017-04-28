@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+like:
+  product_id: 1
+  rating: 5
+  review_text: "I like it!"
+
+dislike:
+  product_id: 1
+  rating: 1
+  review_text: "I don't like it"
+
+
+cool:
+  product_id: products(:aurorahat).id
+  rating: 1
+
+yup:
+  product_id: products(:aurorahat).id
+  rating: 3

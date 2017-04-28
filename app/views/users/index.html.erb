@@ -1,0 +1,19 @@
+<article class="index row">
+
+  <div class = "row title">
+    <h3 class="small-12 cloumns">Shop by Merchant</h3>
+  </div>
+
+  <ul class="row">
+    <% @users.each do |user| %>
+      <li class="small-12 medium-6 large-4 columns grid-item">
+        <div class="user-border">
+        <%= link_to(user_products_path(user.id)) do %>
+          <%= user.username %> <br />
+        <% end %>
+      </div>
+      </li>
+    <% end %>
+  </ul>
+
+</article>

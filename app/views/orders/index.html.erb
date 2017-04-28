@@ -1,0 +1,67 @@
+<article class="fulfillment">
+
+  <div class="row title">
+    <h3 class="small-12 columns">
+      Order History
+    </h3>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-8 columns">
+      <h4>Fulfillment Summary</h4>
+      <%= link_to "All orders", user_orders_path(order_status: nil), method: :get, class: "button"%>
+      <%= link_to "Incomplete orders", user_orders_path(order_status: "paid"), method: :get, class: "button"%>
+      <%= link_to "Complete orders", user_orders_path(order_status: "complete"), method: :get, class: "button" %>
+
+      <%= render partial: "orders", locals: {order_status: params[:order_status]}%>
+
+    </div>
+
+
+    <div class="small-12 medium-4 columns sales-summary">
+      <h4>Sales Summary</h4>
+      <table>
+        <tr>
+          <td>
+            Total revenue
+          </td>
+          <td>
+            <%= number_to_currency(current_user.user_total) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Fulfilled items total revenue
+          </td>
+          <td>
+            <%= number_to_currency(current_user.user_status_total(true)) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Unfulfilled items total revenue
+          </td>
+          <td>
+            <%= number_to_currency(current_user.user_status_total(false)) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Incomplete orders
+          </td>
+          <td>
+            <%= current_user.user_status_orders("paid").sort.reverse.length %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Complete orders
+          </td>
+          <td>
+            <%= current_user.user_status_orders("complete").sort.reverse.length %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</article>
