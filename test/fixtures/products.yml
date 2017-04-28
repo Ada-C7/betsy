@@ -13,7 +13,6 @@ product1:
   status: active
   merchant: grace
 
-
 product2:
   name: Food2
   price: 4.30
