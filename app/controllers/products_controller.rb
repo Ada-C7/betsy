@@ -64,8 +64,18 @@ class ProductsController < ApplicationController
   def update
     product = Product.find_by(id: params[:id])
     product.update_attributes(product_params)
-    product.save
-    redirect_to product_path(product)
+    # product.save
+    # redirect_to product_path(product)
+    if product.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{product.name}"
+      redirect_to product_path(product)
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "Could not update #{product.name}"
+      flash[:messages] = product.errors.messages
+      redirect_to edit_product_path(product)
+    end
   end
 
   def status

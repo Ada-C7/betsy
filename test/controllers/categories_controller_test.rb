@@ -18,7 +18,7 @@ describe CategoriesController do
   end
 
   describe "create" do
-    it "creates a new work" do
+    it "creates a new category" do
       login(merchants(:grace))
       start_count = Category.count
       category_data = { category:
@@ -31,12 +31,15 @@ describe CategoriesController do
     end
 
     it "does not allow a blank category to be made" do
+      skip # Dan's recommendation
+      login(merchants(:grace))
       post categories_path
       flash[:status].must_equal :failure
-      must_respond_with :redirect
+      must_redirect_to new_category_path
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
+      login(merchants(:grace))
       start_count = Category.count
       category_data = {
         category: {
