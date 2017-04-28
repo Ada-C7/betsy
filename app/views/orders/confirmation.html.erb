@@ -16,10 +16,7 @@
 </section>
 
 <section>
-<h3>Total</h3>
-  <p>Subtotal: <%= @order.subtotal %></p>
-  <p>Tax: <%= @order.tax %></p>
-  <div><p>Total: <%= @order.total %></p></div>
+<%= render partial: "total" %>
 </section>
 
 <section>
