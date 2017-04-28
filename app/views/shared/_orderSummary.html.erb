@@ -5,7 +5,7 @@
 
   <section class="large-4 columns">
   <h3>Order Sumamry</h3>
-    <p>Purchased at: <%= Time.now.strftime(“%B %d, %Y %H:%M”) %></p>
+    <p>Purchased at: <%= order.created_at.strftime(“%B %d, %Y %H:%M”) %></p>
     <p>Order Status: <%= order.status.capitalize %></p>
     <% order.product_orders.each do |product_order| %>
       <h4><%= product_order.product.name %></h4>
@@ -15,7 +15,7 @@
         </ul>
       <% end %>
   </section>
-  
+
   <section class="large-4 columns">
   <div class="totalSummary">
   <h3>Total</h3>
