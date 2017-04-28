@@ -42,8 +42,8 @@
 </header>
 
 <% if flash[:result_text] or flash[:messages] %>
-  <section class="row status <%= flash[:status] %>">
-    <h3><%= flash[:result_text] %></h3>
+  <div class="row callout <%= flash[:status] %>">
+    <h5><%= flash[:result_text] %></h5>
     <% if flash[:messages] %>
       <ul>
         <% flash[:messages].each do |name, problems| %>
@@ -53,5 +53,5 @@
         <% end %>
       </ul>
     <% end %>
-  </section>
+  </div>
 <% end %>
