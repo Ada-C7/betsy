@@ -1,9 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:edit, :update, :confirmation]
+  before_action :find_order, only: [:edit, :update]
   before_action :find_orderitem, only: [:add, :set, :destroy]
   skip_before_action :require_login, except: [:shipped, :cancelled]
 
-  # cart
   def index
     if session[:order_id]
       @order_items = OrderItem.where(order_id: session[:order_id])
@@ -16,7 +15,7 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
-    session[:order_id] = nil
+    @order = Order.find_by_id(params[:id])
     render_404 if !@order
   end
 
@@ -125,26 +124,23 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    if @order.order_items == [] || !@order
+    if !@order || @order.order_items == []
       flash[:status] = :failure
       flash[:result_text] = "Cannot check out if your cart is empty"
-      render "index"
+      redirect_to "index"
+      return
     end
 
     @order.order_items.each do |order_item|
       if order_item.quantity > order_item.product.quantity
         flash[:status] = :failure
         flash[:result_text] = "Oops, someone must have purchased this item."
-        redirect_to product_path(@item.product.id)
-        return
+        redirect_to "index"
       end
     end
   end
 
   def update
-    # if there is no order_id in session, there is nothing in the cart and they can't check out
-    # if there is an order, but there are no order items, there is nothing in the cart
-    # they can't check out
     if !@order || @order.order_items.length == 0
       flash[:status] = :failure
       flash[:result_text] = "Cannot check out if your cart is empty"
@@ -153,6 +149,7 @@ class OrdersController < ApplicationController
 
     @order.status = "paid"
     if @order.update(order_params)
+      session[:order_id] = nil
       flash[:status] = :success
       flash[:result_text] = "Successfully updated order number #{ @order.id }"
 
