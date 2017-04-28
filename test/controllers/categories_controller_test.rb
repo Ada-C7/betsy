@@ -21,9 +21,7 @@ describe CategoriesController do
     it "creates a new category" do
       login(merchants(:grace))
       start_count = Category.count
-      category_data = { category:
-                        { name: 'fish'}
-                      }
+      category_data = { category: { name: 'fish'} }
       post categories_path, params: category_data
 
       end_count = Category.count
@@ -31,9 +29,8 @@ describe CategoriesController do
     end
 
     it "does not allow a blank category to be made" do
-      skip # Dan's recommendation
       login(merchants(:grace))
-      post categories_path
+      post categories_path, params: { category: { name: "" } }
       flash[:status].must_equal :failure
       must_redirect_to new_category_path
     end

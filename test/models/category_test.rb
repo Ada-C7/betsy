@@ -2,16 +2,6 @@ require "test_helper"
 
 describe Category do
 
-  describe "relations" do
-    it "category has a many products" do
-       category = categories(:category1)
-       category.must_respond_to :products
-       category.products.each do |product|
-         product.must_be_kind_of Product
-       end
-    end
-  end # END of describe "relations"
-
   describe "validations" do
 
     it "name must be present" do
@@ -28,4 +18,15 @@ describe Category do
       new_category.errors.messages.must_include :name
     end
   end # END of describe "validations"
+
+  describe "relations" do
+
+    it "category has a many products" do
+       category = categories(:category1)
+       category.must_respond_to :products
+       category.products.each do |product|
+         product.must_be_kind_of Product
+       end
+    end
+  end # END of describe "relations"
 end

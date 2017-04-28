@@ -25,7 +25,7 @@ describe Order do
       @order.valid?.must_equal true
     end
 
-    ############# CREDIT CARD VALIDATIONS ######################
+    ############# BILLING VALIDATIONS ######################
     it 'returns error messages if no credit card info given' do
       @order_data[:credit_card_number] = ""
       @order.update_attributes(@order_data)

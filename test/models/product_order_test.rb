@@ -16,8 +16,6 @@ describe ProductOrder do
                                             quantity: 1) }
 
     it 'passes validations if product and order exist' do
-      # product_order.valid?
-      # p product_order.errors.messages
       product_order.valid?.must_equal true
     end
 
@@ -48,19 +46,25 @@ describe ProductOrder do
   end
 
   describe 'add_product' do
-
     before do
       ProductOrder.destroy_all
       @good_order = orders(:order2)
       @good_product = products(:product1)
-      # @product_order1 = product_orders(:product_order1)
-      # @product_order2 = product_orders(:product_order2)
+
+      @bad_product_id = Product.last.id + 1
     end
 
-    it 'instantiates a new ProductOrder instance' do
+    it 'add a product to the ProductOrder' do
       output = ProductOrder.add_product( @good_product.id, @good_order.id)
       output.must_be_instance_of ProductOrder
+      output.product_id.must_equal @good_product.id
+      output.order_id.must_equal @good_order.id
       output.valid?.must_equal true
+    end
+
+    it 'wont add a DNE-product' do
+      output = ProductOrder.add_product(@bad_product_id, @good_order.id)
+      output.valid?.must_equal false
     end
   end
 end

@@ -62,14 +62,11 @@ describe Product do
       product.errors.messages.must_include :inventory
     end
 
-    it "inventory must be bigger or equal to 0" do
+    it "inventory must be equal or greater than 0" do
       product = Product.new(merchant: merchant, name: "Food100", price: 7.30, inventory: -1, image: "NomNom.png", status: "passive")
       product.valid?.must_equal false
       product.errors.messages.must_include :inventory
     end
-
-
-
 
     it "requires a image" do
       product = Product.new(merchant: merchant, name: "Food100", price: 7.30, inventory: 1, status: "passive")
@@ -82,8 +79,6 @@ describe Product do
       product.valid?.must_equal false
       product.errors.messages.must_include :status
     end
-
-
   end # END of describe "validations"
 
   describe "average_rating" do
@@ -101,6 +96,7 @@ describe Product do
   end # END of describe "average_rating:
 
   describe "status_change" do
+    
     it "must update status to passive if active" do
       product = products(:product1)
       product.status_change
@@ -118,6 +114,7 @@ describe Product do
 
 
   describe "status_info" do
+
     it "must return an array for both casesin the if else statement" do
       product1 = products(:product1)
       product1.status_info.must_be_kind_of Array
@@ -134,11 +131,11 @@ describe Product do
   end # END of describe "status_info"
 
   describe "check_image" do
+
     it "updates with NomNom.png if image is lacking 1" do
       product5 = products(:product5)
       product5.check_image
       product5.image.must_equal "NomNom.png"
-
     end
 
     it "updates with NomNom.png if image is lacking 2" do
