@@ -1,3 +1,79 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+main {
+  padding: 20px;
+}
+
+li {
+  list-style-type: none;
+}
+
+section.product {
+  border-right: 1px solid #bfbfbf;
+  margin-bottom: 40px;
+}
+
+#product-title {
+  display: inline;
+}
+
+section.product-cart {
+  padding-top: 60px;
+  padding-left: 20px;
+}
+
+section.product-cart ul {
+  margin-left: 0px;
+}
+
+.small-gray {
+  font-size: 13px!important;
+  color: #767676!important;
+}
+
+.big-red {
+  font-size: 21px!important;
+  color: #b12704!important;
+}
+
+.add-to-cart label {
+  display: inline-block;
+}
+
+.add-to-cart select#quantity {
+  display: inline-block;
+  width: 50px;
+  background-color: rgb(248, 248, 248);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(166, 166, 166);
+  font-size: 0.85em;
+  height: 25px;
+}
+
+.reviews, .product-details {
+  border-top: 1px solid #bfbfbf;
+  margin-top: 20px;
+  clear: both;
+}
+
+h4 {
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+a.small {
+  font-size: 0.85em;
+}
+
+a.small:hover {
+  text-decoration: underline;
+  color: #e47911;
+}
+
+img.feature {
+  margin-top: 10px;
+  clear: both;
+}

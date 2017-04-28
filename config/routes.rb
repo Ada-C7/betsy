@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   delete "products/:id", to: "products#retire", as: 'retire_product'
   resources :categories, only: [:new, :create]
 
-  post '/products/:id/review', to: 'products#review', as: 'review'
+  get '/products/:id/review', to: 'products#new_review', as: 'review'
+  post '/products/:id/review', to: 'products#review'
 
   resources :orders, only: [:show, :update, :destroy]
   patch "/orders/:id/shipped", to: "orders#shipped", as: "shipped"

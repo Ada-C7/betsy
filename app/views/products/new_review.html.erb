@@ -1,0 +1,8 @@
+<%= form_tag review_path(@product.id),  method: :post do %>
+  <%= hidden_field_tag :id, @product.id %>
+  <%= label_tag :rating, 'Rating: ' %>
+  <%= number_field_tag :rating, 1, min: 1, max: 5 %>
+  <%= label_tag :comment, "Comment: " %>
+  <%= text_field_tag :comment %>
+  <%= submit_tag "Post review" %>
+<% end %>

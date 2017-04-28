@@ -59,6 +59,10 @@ class ProductsController < ApplicationController
     redirect_to :root
   end
 
+  def new_review
+    @product = Product.find_by_id(params[:id])
+  end
+
   def review
     if find_user != Product.find_by_id(params[:id]).user
       review = Review.new(product_id: params[:id], rating: params[:rating],
