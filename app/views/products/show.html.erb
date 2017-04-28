@@ -1,0 +1,65 @@
+<% content_for :headline do %>
+       <h1> <%= @product.name  %> </h1>
+<% end %>
+
+<% content_for :focus_image do %>
+     <%= image_tag(@product.photo_url, class: "product_img")%>
+<% end %>
+
+<h2 class="cost"> $<%= @product.price %></h2>
+<p class="rating"> <strong> Average Rating: </strong> <%= @product.average_review %> </p>
+<p class="sold-by"> <strong> Sold by: </strong> <%= link_to @product.vendor.username, vendor_path(@product.vendor_id) %></p>
+
+<section class="add-to-cart">
+     <%= form_for @orderitem do |f| %>
+          <%= f.hidden_field :product_id, :value => @product.id %>
+
+          <%= f.label :quantity%>
+          <%= f.select :quantity, (0..@product.quantity)  %>
+
+          <%= f.submit "Add to Cart", class: "button submit large" %>
+     <% end %>
+</section>
+
+
+<p class="description"> <strong> Description: </strong> <%= @product.description %> </p>
+
+<% content_for :tags do %>
+     Categories:
+     <% @product.categories.each do |category| %>
+          <%= link_to category.label, category_products_path(category.id), class: 'label' %>
+     <% end %>
+<% end %>
+
+<% content_for :reviews do %>
+     <h2>Add a Review</h2>
+     <%= form_for @review do |f| %>
+          <%= f.hidden_field :product_id, :value => @product.id %>
+          <%= f.label :rating %>
+          <%= f.select :rating, (1..5) %>
+          <%= f.label :comment %>
+          <%= f.text_field :comment %>
+          <%= f.submit "Add a Review", class: "button" %>
+     <% end %>
+
+
+     <h2> Reviews </h2>
+     <table class="unstriped" >
+       <thead>
+          <tr>
+             <th width="30">Rating</th>
+             <th width="130">Comment</th>
+          </tr>
+        </thead>
+             <% @product.reviews.each do |review| %>
+               <tr>
+                  <td> <%= review.rating %> </td>
+                  <td> <%= review.comment %> </td>
+              </tr>
+             <% end %>
+     </table>
+
+
+          <p> <%= link_to "Edit", edit_product_path(@product.id), class: 'button small' %> </p>
+          <p> <%= link_to "Create a product", new_product_path, class: 'button small'%> </p>
+     <% end %>
