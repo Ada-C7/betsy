@@ -23,8 +23,9 @@ describe Product do
 
   describe "validations" do
     let (:merchant) {merchants(:merchant1)}
+    # (merchant: merchant, name: "Food100", price: 7.30, inventory: 1, image: "NomNom.png", status: "passive")
     it "requires a name" do
-      product = Product.new(price: 7.30, merchant: merchant)
+      product = Product.new(merchant: merchant, price: 7.30, inventory: 1, image: "NomNom.png", status: "passive")
       product.valid?.must_equal false
       product.errors.messages.must_include :name
     end
@@ -32,19 +33,52 @@ describe Product do
     it "name must be unique" do
       product = products(:product1)
       puts product.name
-      new_product = Product.new(name: "Food1", price: 7.30,  merchant: merchant, status: "passive")
+      new_product = Product.new(merchant: merchant, name: "Food1", price: 7.30, inventory: 1, image: "NomNom.png" , status: "passive")
       new_product.valid?.must_equal false
       new_product.errors.messages.must_include :name
     end
 
     it "requires a price" do
-      product = Product.new(name: "Bob",merchant: merchant, status: "passive")
+      product = Product.new(merchant: merchant, name: "Food100",  inventory: 1, image: "NomNom.png", status: "passive")
       product.valid?.must_equal false
       product.errors.messages.must_include :price
     end
 
+    it "requires a price over 0 dollars" do
+      product = Product.new(merchant: merchant, name: "Food100", price: 0, inventory: 1, image: "NomNom.png", status: "passive")
+      product.valid?.must_equal false
+      product.errors.messages.must_include :price
+    end
+
+    it "requires a inventory" do
+      product = Product.new(merchant: merchant, name: "Food100", price: 7.30,  image: "NomNom.png", status: "passive")
+      product.valid?.must_equal false
+      product.errors.messages.must_include :inventory
+    end
+
+    it "inventory must be a number" do
+      product = Product.new(merchant: merchant, name: "Food100", price: 7.30, inventory: "bogus", image: "NomNom.png", status: "passive")
+      product.valid?.must_equal false
+      product.errors.messages.must_include :inventory
+    end
+
+    it "inventory must be bigger or equal to 0" do
+      product = Product.new(merchant: merchant, name: "Food100", price: 7.30, inventory: -1, image: "NomNom.png", status: "passive")
+      product.valid?.must_equal false
+      product.errors.messages.must_include :inventory
+    end
+
+
+
+
+    it "requires a image" do
+      product = Product.new(merchant: merchant, name: "Food100", price: 7.30, inventory: 1, status: "passive")
+      product.valid?.must_equal false
+      product.errors.messages.must_include :image
+    end
+
     it "requires a status" do
-      product = Product.new(name: "Bob", price: 7.30, merchant: merchant)
+      product = Product.new(merchant: merchant, name: "Food100", price: 7.30, inventory: 1, image: "NomNom.png")
       product.valid?.must_equal false
       product.errors.messages.must_include :status
     end
