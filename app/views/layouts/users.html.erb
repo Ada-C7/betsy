@@ -11,12 +11,11 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body class="clearfix">
 
     <%= render partial: "header" %>
 
-    <aside class="large-3 medium-4 columns">
-      <h2>Account</h2>
+    <aside class="large-3 medium-4 columns account">
       <%= image_tag @logged_in_user.image_url, class: "thumbnail" %>
       <ul class="menu vertical">
         <li class="menu-text"><%= @logged_in_user.username %></li>
@@ -31,5 +30,5 @@
     <main class="large-9 medium-8 columns">
       <%= yield %>
     </main>
-
+    <%= render partial: "footer" %>
   </body>

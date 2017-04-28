@@ -11,13 +11,13 @@
               <%= link_to image_tag(product.image_url, class: "preview"), product_path(product.id) %>
             </p>
             <h5>
-              <%= link_to product.name, product_path(product.id) %>
+              <%= link_to product.name, product_path(product.id), class="small-gray" %>
             </h5>
             <p>
-              <%= product.quantity %>
+              <%= product.quantity, class="small-gray" %>
             </p>
             <p>
-              <%= product.price %>
+              <%= product.price, class="small-gray" %>
             </p>
           </article>
         <% end %>

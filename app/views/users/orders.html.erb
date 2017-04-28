@@ -34,7 +34,7 @@
           <td><%= link_to(order_item.order.id, order_path(order_item.order.id)) %></td>
           <td><%= display_time(order_item.created_at) %></td>
           <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
-          <td><%= order_item.product.price %></td>
+          <td><%= number_to_currency(order_item.product.price) %></td>
           <td><%= order_item.quantity %></td>
           <td><%= order_item.subtotal %></td>
           <td>
