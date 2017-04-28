@@ -4,10 +4,12 @@ describe CategoriesController do
   let(:category) { categories(:comfy) }
 
   describe "logged in users" do
+    before do
+      login(users(:one))
+    end
 
     describe "new" do
       it "runs successfully" do
-        skip
         get new_category_path
         must_respond_with :success
       end
@@ -15,13 +17,11 @@ describe CategoriesController do
 
     describe "create" do
       it "creates a new category" do
-        skip
         post categories_path, params: { category: { name: 'cozy'} }
         must_redirect_to root_path
       end
 
       it "adds a new category to the database" do
-        skip
         proc {
           post categories_path, params: { category: { name: 'cozy'} }
         }.must_change 'Category.count', 1

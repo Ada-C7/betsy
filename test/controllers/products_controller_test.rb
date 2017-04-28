@@ -15,7 +15,6 @@ describe ProductsController do
         must_respond_with :success
       end
       it "successful when there are zero products" do
-        skip
         OrderItem.destroy_all
         Product.destroy_all
         get root_path
@@ -36,12 +35,10 @@ describe ProductsController do
 
     describe "show" do
       it "finds a product that exists" do
-        skip
         get product_path(product)
         must_respond_with :success
       end
-      it "returns bad_request for a product that does not exist" do
-        skip
+      it "returns 404 for a product that does not exist" do
         product_id = Product.last.id + 1
         get product_path(product_id)
         must_respond_with :missing
@@ -50,10 +47,12 @@ describe ProductsController do
   end
 
   describe "logged in users" do
+    before do
+      login(users(:one))
+    end
 
     describe "new" do
       it "runs successfully" do
-        skip
         get new_product_path
         must_respond_with :success
       end
@@ -61,12 +60,10 @@ describe ProductsController do
 
     describe "create" do
       it "creates a new product" do
-        skip
         post products_path, params: { product: { user_id: users(:one).id, name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
         must_redirect_to root_path
       end
       it "adds a new product to the database" do
-        skip
         proc {
           post products_path, params: { product: { user_id: users(:one).id, name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
         }.must_change 'Product.count', 1
@@ -84,26 +81,22 @@ describe ProductsController do
 
     describe "edit" do
       it "finds a product that exists" do
-        skip
         get edit_product_path(product)
         must_respond_with :success
       end
       it "returns 404 for a product that does not exist" do
-        skip
         product_id = Product.last.id + 1
         get product_path(product_id)
-        must_respond_with :bad_request
+        must_respond_with :missing
       end
     end
 
     describe "update" do
       it "updates the product" do
-        skip
         patch product_path(product), params: { product: { name: "jammies", quantity: 10, price: 5.0, description: "so cozy", image_url: "jams.jpg" } }
         must_redirect_to root_path
       end
       it "returns bad_request and fails to update product w invalid data" do
-        skip
         patch product_path(product), params: { product: { name: "", quantity: 0, price: 0, description: "", image_url: "" } }
         must_respond_with :bad_request
       end
@@ -111,12 +104,10 @@ describe ProductsController do
 
     describe "retire" do
       it "retires a product that exists" do
-        skip
         delete product_path(product)
         must_redirect_to root_path
       end
       it "does not remove product from the database, only retires it" do
-        skip
         proc {
           delete product_path(product)
           must_redirect_to root_path
@@ -125,7 +116,7 @@ describe ProductsController do
       it "returns 404 for a product that does not exist" do
         product_id = Product.last.id + 1
         delete product_path(product_id)
-        must_respond_with :bad_request
+        must_respond_with :missing
       end
       it "does not remove a product from the database" do
         proc {
