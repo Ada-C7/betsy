@@ -87,9 +87,6 @@ describe ProductsController do
     end
   end # END of describe "edit"
 
-
-
-
   describe "status" do
     it "check if found" do
       product = products(:product1)
@@ -105,5 +102,4 @@ describe ProductsController do
       must_respond_with :success
     end
   end
-
 end
