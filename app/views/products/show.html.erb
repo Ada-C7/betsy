@@ -3,6 +3,8 @@
     <h4 id="product-title"><%= @product.name %></h4>
     <%= link_to @product.user.username, user_products_path(id: @product.user.id), class: "small" %><br />
 
+    <span class="filled-star"><%= "★ " * @average_rating %></span>
+    <span class="unfilled-star"><%= "★ " * (5 - @average_rating) %></span>
     <a href="#reviews" class="small">
       <% if @reviews.empty? %>
         <%= "Be the first to review this item" %>
@@ -65,14 +67,20 @@
   <a name="reviews"></a>
   <h4>Customer Reviews</h4>
   <% if !@reviews.empty? %>
+    <span class="filled-star"><%= "★ " * @average_rating %></span>
+    <span class="unfilled-star"><%= "★ " * (5 - @average_rating) %></span>
+    <p><%= @average_rating %> out of 5 stars</p>
+
+    <h5><strong>Top Customer Reviews</strong></h5>
     <% @reviews.each do |review| %>
     <article>
       <ul>
         <li>
-          Rating: <%= "★ " * review.rating %>
+          Rating: <span class="filled-star"><%= "★ " * review.rating %></span>
+          <span class="unfilled-star"><%= "★ " * (5 - review.rating) %></span>
         </li>
         <li>
-          Comment: <%= review.comment %>
+          Comment: <%= review.comment.blank? ? "n/a" : review.comment %>
         </li>
       </ul>
     </article>

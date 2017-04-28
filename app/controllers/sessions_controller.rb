@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       user = User.create_from_github(auth_hash)
 
       if user.nil?
-        flash[:status] = "failure"
+        flash[:status] = "alert"
         flash[:result_text] = "Login Failed"
         return redirect_to root_path
       end
