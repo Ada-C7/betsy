@@ -65,6 +65,7 @@ class Product < ApplicationRecord
       end
     end
     lowest_top_average = products_with_averages.values.sort.reverse[0..7]
-    return products_with_averages.select {|prod, avg| avg >= lowest_top_average[-1] }.keys.reverse[0..7]
+    # this will return array of products with highest averages but NOT sorted
+    return products_with_averages.select {|prod, avg| avg >= lowest_top_average[-1] }.keys[0..7]
   end
 end # END of class Product

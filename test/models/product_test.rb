@@ -48,8 +48,6 @@ describe Product do
       product.valid?.must_equal false
       product.errors.messages.must_include :status
     end
-
-
   end # END of describe "validations"
 
   describe "average_rating" do
@@ -115,10 +113,6 @@ describe Product do
     end
   end # END of describe "status_info"
 
-
-
-
-
   describe "remove_inventory" do
     #product1 has 3 in inventory
     let(:product) { products(:product1) }
@@ -143,4 +137,40 @@ describe Product do
       prod_after.inventory.must_equal 0
     end
   end # END of describe remove_inventory
+
+  describe "self.newest_products" do
+    before do
+      @merchant = merchants(:merchant1)
+      Product.create(name: "Yummy Salad",
+                                      price: 5.50,
+                                      description: "Bomb diggity",
+                                      image: "NomNom.png",
+                                      inventory: 5,
+                                      status: "active",
+                                      merchant_id: @merchant.id)
+    end
+
+    it "lists the newest product first" do
+      newest_prod = Product.find_by(name: "Yummy Salad")
+      Product.newest_products.must_include newest_prod
+    end
+  end
+
+  describe "self.highest_scored_products" do
+    let(:highest_product) { products(:product2) }
+    let(:no_review_product) { products(:product3) }
+
+    it "lists the highest rated product first" do
+      highest_products = Product.highest_scored_products
+      highest_products.must_include highest_product
+      highest_products.wont_include no_review_product
+      # top = highest_product.highest_scored_products
+      # top.must_equal product2
+    end
+
+    it "does not show products if none are rated" do
+      Product.destroy_all
+      Product.highest_scored_products.empty?.must_equal true
+    end
+  end
 end # END of describe Product
