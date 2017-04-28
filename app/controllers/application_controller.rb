@@ -25,7 +25,13 @@ class ApplicationController < ActionController::Base
   end
 
   def cart_count
-    # TODO: add actual cart count here
-    @cart_count = 5
+    cart = Order.find_by_id(session[:order_id])
+    if cart.nil?
+      @cart_count = 0
+    else
+      @cart_count = cart.order_items.map { |order_item|
+        order_item.quantity
+      }.inject(0, :+)
+    end
   end
 end
