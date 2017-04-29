@@ -1,0 +1,68 @@
+<!-- receipt only shows up if order is paid -->
+<% if @order.status == 'paid' %>
+
+  <h2>Your Receipt</h2>
+
+  <h4>Order #0<%= @order.id %></h4>
+
+  <section>
+    <ul>
+      <li>Order Date: <%= @order.created_at.strftime("%m-%d-%Y") %></li>
+      <li>Order Status: <%= @order.status %></li>
+      <li>Name: <%= @order.card_name %></li>
+      <li>Mailing Address: <%= @order.mailing_address %></li>
+      <li>Zip Code: <%=  @order.zipcode %></li>
+      <li>Email: <%= @order.email_address %></li>
+      <li>Last 4 of Credit Card: <%= @order.credit_card[-4..-1] %></li>
+      <li>Card Expiration Date: <%= @order.card_expiration %></li>
+    </ul>
+  </section>
+
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th width=350>Name</th>
+          <th width=250>Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+
+      <tfoot>
+        <tr>
+          <th>Total</th>
+          <td><%= @items %> items</td>
+          <td></td>
+          <td><%= "$ #{'%.2f' % @sum}" %></td>
+        </tr>
+      </tfoot>
+
+      <tbody>
+        <% @order.product_orders.each do |item| %>
+        <tr>
+          <td><%=link_to "#{Product.find_by_id(item.product_id).name}", product_path(item.product_id) %> </td>
+
+          <td><%= item.quantity %></td>
+
+          <td class="text-right">$ <%= Product.find_by_id(item.product_id).price %> ea.</td>
+
+          <!-- subtotal for the item based on the unit price and quantity -->
+          <td class="text-right">$
+            <%= "#{'%.2f' % (item.quantity * Product.find_by_id(item.product_id).price)}" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<p>Thank you! Your fluff will be with you shortly.</p>
+<% else %>
+<p>Your cart has been cleared!</p>
+<% end %>
+
+<section>
+  <%= link_to "Back to Fluff", root_path, class: "button" %>
+</section>

@@ -1,0 +1,21 @@
+<section class='errormsgs'>
+<% if @user.errors.any? %>
+<ul>
+  <% @user.errors.each do |attribute, message| %>
+    <li><%= attribute.capitalize %> <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+</section>
+
+<%= form_for @user do |f| %>
+
+<%= f.label :username %>
+<%= f.text_field :username %>
+
+<%= f.label :email %>
+<%= f.text_field :email %>
+
+<%= f.submit action_name %>
+
+<% end %>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+user1:
+  id: 1
+  username: MyString
+  email: MyString
+
+user2:
+  id: 2
+  username: MyString
+  email: MyString
+
+ada:
+  oauth_provider: github
+  oauth_uid: 12345
+  email: ada@adadevelopersacademy.org
+  username: countess_ada
+
+grace:
+  oauth_provider: github
+  oauth_uid: 13371337
+  email: grace@hooper.net
+  username: graceful_hoops

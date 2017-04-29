@@ -1,0 +1,57 @@
+<h1>Checkout</h1>
+
+<section class='errormsgs'>
+<% if @order.errors.any? %>
+<ul>
+  <% @order.errors.each do |attribute, message| %>
+    <li><%= attribute.capitalize %> <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+</section>
+
+<section>
+  <%= form_for @order do |f| %>
+
+    <div>
+      <%= f.label :email_address, class: "label"%>
+      <%= f.text_field :email_address, class: "field"%>
+    </div>
+
+    <div>
+      <%= f.label :mailing_address, class: "label"%>
+      <%= f.text_field :mailing_address, class: "field"%>
+    </div>
+
+
+    <div>
+      <%= f.label :card_name, 'Name on Card', class: "label"%>
+      <%= f.text_field :card_name, class: "field"%>
+    </div>
+
+    <div>
+      <%= f.label :card_expiration , 'Card Expiration Date', class: "label"%>
+      <%= f.date_select :card_expiration , :discard_day => true %>
+    </div>
+
+    <div>
+      <%= f.label :credit_card, 'Credit Card Number', class: "label"%>
+      <%= f.text_field :credit_card, class: "field"%>
+    </div>
+
+    <div>
+      <%= f.label :card_cvv , class: "label"%>
+      <%= f.number_field :card_cvv , class: "field"%>
+    </div>
+
+    <div>
+      <%= f.label :zipcode ,   class: "label"%>
+      <%= f.number_field :zipcode , class: "field"%>
+    </div>
+
+
+    <div id = "_form_section_submit">
+      <%= f.submit value: "Place Order"%>
+    </div>
+  <% end %>
+</section>

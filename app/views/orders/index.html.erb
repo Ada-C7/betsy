@@ -1,0 +1,60 @@
+<h1><%= @current_user.username%>'s Orders </h1>
+
+<% if Product.find_by(user_id: params[:user_id]).nil? %>
+
+<h2> You have no orders </h2>
+
+        <%else%>
+        
+<h2>Total Earnings by Status: <%= "$#{@status_revenue}" %> </h2>
+
+
+<h3>Sort by Status:</h3>
+<ul>
+  <li><%= link_to 'Complete', user_orders_path(@current_user.id, :status =>"complete")%></li>
+  <li><%= link_to 'Cancelled', user_orders_path(@current_user.id, :status =>"cancelled")%></li>
+  <li><%= link_to 'Paid', user_orders_path(@current_user.id, :status =>"paid")%></li>
+  <li><%= link_to 'Pending', user_orders_path(@current_user.id, :status =>"pending")%></li>
+  <li><%= link_to 'All', user_orders_path(@current_user.id)%></li>
+</ul>
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Order Date</th>
+    <th>Products</th>
+    <th>Change Status</th>
+  </tr>
+
+
+  <% @orders.each do |order| %>
+  <tr>
+  <td><%= order.status %></td>
+  <td><%= order.created_at %></td>
+  <td><% order.products.each do |product| %>
+
+    <% next unless @current_user.products.include? product %>
+    <table>
+      <tr>
+      <th>Product Name</th>
+      <th>Product Price</th>
+      <th>Amount Purchased</th>
+      <th>Subtotal</th>
+    </tr>
+    <tr>
+    <td><%= link_to "#{product.name}", product_path(product.id) %></td>
+    <td>$<%= product.price %></td>
+    <td><%= @order_quantity = ProductOrder.find_by(product_id: product.id, order_id: order.id).quantity %></td>
+    <td><%= product.price * @order_quantity %></td>
+    </tr>
+  </table>
+    <%end%>
+  </td>
+  <td>  <%= form_tag update_status_path(order.id), :method => 'post' do %>
+        <%= hidden_field_tag :order_id, order.id %>
+        <%= select_tag :status, options_for_select(['complete', 'cancelled', 'paid'], order.status), {:onchange => "this.form.submit();"} %>
+          <% end %>
+  </td>
+  <%end%>
+</table>
+
+<%end%>

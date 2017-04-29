@@ -1,0 +1,30 @@
+<header>
+<nav>
+
+
+    <%= link_to "Products", products_path, :class => 'navlink' %>
+    <%= link_to image_tag('https://derpicdn.net/img/2015/4/12/872614/large.png', width: 220), root_path %>
+    <%= link_to "Sellers", users_path, :class => 'navlink' %>
+
+
+    <section>
+      <% if @current_user %>
+      <span>Fluffed in as <%= link_to "#{@current_user.username}", user_path(session[:user_id])%></span>
+
+      <%= link_to "Logout", logout_path, method: :logout%>
+
+      <span>
+        <%= link_to "#{@cart_quantity}", order_path(session[:user_id]), :class => 'badge cart_quantity' %><%= link_to "Shopping Cart", order_path(session[:user_id]) %>
+      </span>
+
+      <%else%>
+      Not Fluffed in
+      <%= link_to "Login", login_path%>
+      <span>
+        <%= link_to "#{@cart_quantity}", order_path(session[:order_id]), :class => 'badge cart_quantity' %><%= link_to "Shopping Cart", order_path(session[:order_id]) %>
+      </span>
+      <%end%>
+    </section>
+
+</nav>
+</header>

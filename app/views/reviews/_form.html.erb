@@ -1,0 +1,70 @@
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+<h1>Add a Review</h1>
+
+<section>
+
+  <%= form_for @review , :url => { :action => "create" } do |f| %>
+    <%#= f.label :rating, class: 'indent' %>
+    <div class= "rating">
+
+      <emoji>
+      <div class="filler">
+        ☹️
+
+      </div>
+
+      <div class="filler">
+      😕
+      </div>
+
+      <div class="filler">
+      😐
+      </div>
+
+      <div class="filler">
+      🙂
+      </div>
+
+      <div class="filler" >
+      😁
+      </div>
+
+      </emoji>
+
+
+      <section id="form">
+
+        <div class="radio">
+          <%= f.radio_button :rating, '1' %>
+        </div>
+        <div class="radio">
+          <%= f.radio_button :rating, '2' %>
+        </div>
+        <div class="radio">
+            <%= f.radio_button :rating, '3' %>
+        </div>
+        <div class="radio">
+          <%= f.radio_button :rating, '4' %>
+        </div>
+        <div class="radio">
+          <%= f.radio_button :rating, '5'   %>
+        </div >
+
+      </section>
+
+    </div>
+
+
+
+
+    <div>
+      <%#= f.label :comment, class: "label"%>
+      <%= f.text_area :comment, class: "field"%>
+    </div>
+
+    <div id = "_form_section_submit">
+      <%= f.submit value: "SAVE"%>
+    </div>
+    <% end %>
+  </section>

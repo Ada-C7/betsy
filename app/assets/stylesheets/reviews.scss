@@ -1,0 +1,41 @@
+// Place all the styles related to the reviews controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// 1 "em em-frowning"
+// 2 "em em-confused"
+// 3 "em em-feutral-face"
+// 4 "em em-smiley"
+// 5 "em em-grinning"
+
+emoji {
+  width: 100vw;
+  align-items: center;
+  font-size: 23vh;
+      width: 100%;
+
+      padding: 0;
+      // margin-left:  70px;
+       display: inline;
+
+
+}
+
+
+
+.filler {
+display:  inline-flex;
+margin-left: auto;
+margin-right: auto;
+margin-top: 100px;
+}
+
+.radio {
+
+display: inline;
+margin-left: 90px;
+margin-right: 90px;
+padding-left: 2.5%;
+// padding-right: 20px;
+
+}

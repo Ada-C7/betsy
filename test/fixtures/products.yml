@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  stock: 1
+  name: MyString
+  price: 1.50
+  user_id: 1
+  photo: MyString
+  status: false
+
+two:
+  id: 2
+  stock: 1
+  name: MyString
+  price: 1.50
+  user_id: 1
+  photo: MyString
+  status: true
+
+  # three:
+  #     stock: 1
+  #     name: MyString
+  #     price: 1.5
+  #     user_id: 1
+  #     photo: MyString
+  #     status: false

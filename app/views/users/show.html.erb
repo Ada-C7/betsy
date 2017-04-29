@@ -1,0 +1,75 @@
+<h3>User Summary: <%= link_to @user.username, user_path(@user) %></h3>
+
+<h4>Products</h4>
+
+<% if @current_user == @user %>
+<p class='totearnings'>Total Earnings: $<%= @total_earnings %></p>
+<%= link_to "View all Orders", user_orders_path(@current_user.id)%> oo
+<%= link_to "Create New Category", new_category_path %> oo
+<%= link_to "Create New Product", new_product_path %>
+<%end%>
+
+<table>
+  <thead>
+    <tr>
+      <th>Photo</th>
+      <th>Name</th>
+      <th>Categories</th>
+      <% if @current_user == @user%>
+      <th>Active?</th>
+      <%end%>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.products.each do |product| %>
+    <tr>
+      <td> <%= image_tag product.photo %> </td>
+
+      <td><%= link_to product.name, product_path(product.id) %>
+        <% if @current_user.products.include? product %>
+        oo <%= link_to 'Edit this product', edit_product_path(product.id)%>
+        <%end%>
+      </td>
+
+      <td>
+        <% product.categories.each do |category| %>
+        <%= link_to category.name, category_products_path(category.id) %>
+        <% if @current_user.products.include? product%>
+          oo <%= link_to 'Remove Category', remove_category_path(product.id, :category_id => category.id), :method => :delete%>
+          <%end%>
+          <br>
+        <% end %>
+
+        <% if @current_user.products.include? product%>
+        <div>
+          Select to add new category:
+        <%= form_tag({controller:'products', action: 'add_category'}, method: 'post') do %>
+        <%= hidden_field_tag :product_id, product.id %>
+        <%= collection_select(:category, :id, Category.all, :id, :name, {prompt: 'Select Category'}, onchange: "this.form.submit();") %>
+        <% end %>
+      </div>
+
+      </td>
+
+      <td>
+        <%#= product.status %>
+        <%= form_for product, :url => { :action => "update", :controller => "products" , :id => product.id } do |f| %>
+        <%= f.label :status, "Retired" if :status == false %>
+        <%= f.check_box :status, :onclick => "this.form.submit();" %>
+        <% end %>
+
+      </td>
+      <%end%>
+
+      <td><%= "#{'%.2f' % product.price}" %></td>
+
+    </tr>
+    <% end %>
+
+    <h1></h1>
+  </tbody>
+</table>
+
+<%= link_to "See all Sellers", users_path, class: "button" %>
+<%= link_to "Home Page", root_path, class: "button" %>

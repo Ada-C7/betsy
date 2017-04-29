@@ -1,0 +1,9 @@
+<h2>Log In</h2>
+
+<%= link_to "Login via Github", "/auth/github" %>
+
+<%= form_tag do %>
+  <%= label_tag(:username, "Username") %>
+  <%= text_field_tag(:username) %>
+  <%= submit_tag("Log In", class: "button") %>
+<% end %>

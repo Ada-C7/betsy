@@ -1,0 +1,16 @@
+<h1> New Category </h1>
+
+<section class='errormsgs'>
+<% if @category.errors.any? %>
+  <% @category.errors.each do |attribute, message| %>
+    <%= attribute.capitalize %> <%= message %>
+  <% end %>
+<% end %>
+</section>
+
+<%= form_for @category do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.submit class: "button" %>
+<% end %>

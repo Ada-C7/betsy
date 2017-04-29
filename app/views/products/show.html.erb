@@ -1,0 +1,97 @@
+<h1 class='productname'><%= @product.name %></h1>
+
+<section class='errormsgs'>
+<% if @product.errors.any? %>
+<ul>
+  <% @product.errors.each do |attribute, message| %>
+    <li><%= attribute.capitalize %> <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+</section>
+
+<section class="product-details">
+  <h3>Product Details</h3>
+  <ul>
+    <li>Price: $ <%= '%.2f' % @product.price %></li>
+    <% if @product.description != nil %>
+      <li>Description: <%= @product.description %></li>
+    <% end %>
+
+    <li>
+      Categories: <% @product.categories.each do |category|%>
+      <ul>
+      <li><%= link_to category.name, category_products_path(category.id) %></li>
+      </ul>
+      <% end %>
+    </li>
+    <li>Sold by: <%= link_to @product.user.username, user_path(@product.user.id) %></li>
+
+    <% if @product.stock == 0 %>
+      <li>This fluff is out of stock!</li>
+    <% else %>
+      <li>Fluff left: <%= @product.stock %></li>
+    <% end %>
+  </ul>
+</section>
+
+
+  <section class = "cart_section large-12 medium-12 small-12 columns">
+    <% if @product.stock > 0 %>
+    <div class="product-photo">
+      <%= image_tag url="#{@product.photo}" %>
+    </div>
+
+    <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
+      <%= link_to 'Edit your product', edit_product_path(@product.id), class: 'edit-product button' %>
+    <% else %>
+    <div class="large-1 medium-2 columns">
+      <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+        <%= hidden_field_tag :product_id, @product.id %>
+        <%= hidden_field_tag :order_id, @cart.id %>
+        <%= label_tag "quantity" %>
+        <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
+        <%= submit_tag("Add to Cart") %>
+      <% end %>
+    </div>
+    <% end %>
+  </section>
+<% end %>
+
+
+<section class = "review-section">
+  <h4>Reviews</h4>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Last Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product.reviews.each do |review| %>
+      <tr>
+        <td><%= review.rating %></td>
+        <td><%= review.comment %></td>
+        <td><%= review.updated_at %></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+
+  <article>
+    <!-- owner cannot review own product -->
+    <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
+      <p>You can't review your own fluff.</p>
+    <!-- for products with no reviews -->
+    <% else %>
+      <% if @product.reviews.empty? %>
+        <p>Unrated fluff. <%= link_to "Be the first to review this fluff!", new_product_review_path(@product) %></p>
+      <% else %>
+        <%= link_to "Review this Fluff", new_product_review_path(@product) %>
+      <%end%>
+    <%end%>
+  </article>
+</section>

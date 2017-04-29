@@ -1,0 +1,18 @@
+<h1> Edit User Form </h1>
+
+<section class='errormsgs'>
+<% if @product.errors.any? %>
+<ul>
+  <% @product.errors.each do |attribute, message| %>
+    <li><%= attribute.capitalize %> <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+</section>
+
+<%= render partial: "form"%>
+
+
+<section>
+  <%= link_to "Back to Account", user_path(session[:user_id]) %>
+</section>
