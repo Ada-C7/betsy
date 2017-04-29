@@ -1,0 +1,29 @@
+one:
+  order: one
+  product: one
+  quantity: 2
+
+two:
+  order: one
+  product: two
+  quantity: 1
+
+three:
+  order: one
+  product: two
+  quantity: 1
+
+four:
+  order: two
+  product: four
+  quantity: 1
+
+five:
+  order: two
+  product: five
+  quantity: 2
+
+six:
+  order: two
+  product: one
+  quantity: 2
