@@ -1,0 +1,17 @@
+<h3 class="columns large-12 small-12 text-center">Shop by Merchant</h3>
+
+<section id="merchant" class="columns large-12 large-centered columns">
+<ul class="no-bullet text-center">
+  <% @merchants.each do |merchant| %>
+  <li class="text-right">
+    <% if merchant.merchant_name.nil? %>
+      <% name = merchant.username %>
+    <% else %>
+      <% name = merchant.merchant_name %>
+    <% end %>
+    <%= link_to name, merchant_path(merchant.id) %>
+  </li>
+
+  <% end %>
+</ul>
+</section>

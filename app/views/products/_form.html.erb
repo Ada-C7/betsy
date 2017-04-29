@@ -1,0 +1,34 @@
+<section id="product-form">
+  <section class="columns large-6 text-center" id="product-image">
+  <%= image = image_tag "/pic-coming-soon_150x150.jpg"%>
+  <%#= image_tag(@product.image) %>
+</section>
+    <div class="row">
+      <%= form_for @product do |f| %>
+        <%= f.hidden_field :merchant_id, value: @current_user.id %>
+        <div class="large-6 columns">
+          <label>Product Name
+            <%= f.text_field :product_name %>
+          </label>
+        </div>
+        <div class="large-2 columns">
+          <label>Price
+            <%= f.number_field :price%>
+          </label>
+        </div>
+        <div class="large-6 columns">
+          <label>Photo URL
+            <%= f.text_field :photo_url%>
+          </label>
+        </div>
+        <div class="large-2 columns">
+          <label>Stock
+            <%= f.number_field :stock%>
+          </label>
+        </div>
+        <div class = "large-6 columns" id="submit-button-1">
+          <%= f.submit class: "button" %>
+        </div>
+      <% end %>
+    </div>
+</section>

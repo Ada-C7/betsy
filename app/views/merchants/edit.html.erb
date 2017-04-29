@@ -1,0 +1,10 @@
+<h3 class="columns large-12 small-12 text-center">
+  Change Account Details
+</h3>
+<% if @current_user.id == @merchant.id %>
+<%= render partial: "form" %>
+<% else %>
+<div class="text-center">
+<%=flash[:failure] = "Sorry, you can only edit your own account." %>
+</div>
+<% end %>

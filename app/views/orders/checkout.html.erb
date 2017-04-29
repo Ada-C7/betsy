@@ -1,0 +1,53 @@
+<h4 class = "order_title">Enter credit card info</h4>
+
+<section id="payment-form">
+  <div class="row">
+    <%= form_for @order, url: purchase_path(id: params[:id]), method: :patch do |f| %>
+    <div class="large-3 columns">
+      <label>
+        Name on Card
+        <%= f.text_field :cc_name, placeholder: "Ada Lovelace" %>
+      </label>
+    </div>
+    <div class="large-3 columns">
+      <label>Email
+        <%= f.text_field :order_email, placeholder: "ada@petsy.com" %>
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <label>Credit Card Number
+        <%= f.number_field :cc_num %>
+      </label>
+    </div>
+
+    <div class="large-6 columns">
+      <label>Billing Address
+        <%= f.fields_for :mailing_address do |address| %>
+        <li class = "list_no_button">
+          <%= address.label :line1 %>
+          <%= address.text_field :line1, placeholder: "1215 4th Ave. "%>
+
+          <%= address.label :line2 %>
+          <%= address.text_field :line2, placeholder: "City, State, Zip " %>
+        </li>
+        <% end %>
+      </div>
+      <div class="large-1 columns">
+        <label>Expiry
+          <%= f.text_field :cc_expiry, placeholder: "mm/yy" %>
+        </label>
+      </div>
+      <div class="large-1 columns">
+        <label>CVV
+          <%= f.number_field :cvv, placeholder: "3 digits" %>
+          <%= f.hidden_field :status, value: "paid" %>
+        </label>
+      </div>
+    </label>
+  <div class = "large-6 columns" id="submit-button-payment-form">
+    <%= f.submit "Purchase", class: "button" %>
+    <%= link_to "Cancel My Cart", cancel_path(params[:id]), class: 'button' %>
+  </div>
+  <% end %>
+</div>
+</section>

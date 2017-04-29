@@ -1,0 +1,42 @@
+<h4 class = "order_title">Order Details</h4>
+<table class = "morder_table">
+
+
+  <tr>
+    <td>Order number </td>
+    <td> <%= @orderproduct.id %></td>
+  </tr>
+  <tr>
+  <tr>
+    <td>Purchase Date </td>
+    <td> <%= @order.created_at %></td>
+  </tr>
+  <tr>
+    <td>Name </td>
+    <td><%= @order.cc_name %></td>
+  </tr>
+  <tr>
+    <td>Email </td>
+    <td><%= @order.order_email %></td>
+  </tr>
+  <tr>
+    <td>Address </td>
+    <td><%= @order.mailing_address%></td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td><%= @order.status%></td>
+  </tr>
+  <tr>
+    <td>Order Fulfillment Status</td>
+    <td>
+      <%= form_for @orderproduct, url: product_update_path(@product.id, @order.id) do |f| %>
+        <%= f.select :status, [ 'processing', 'shipped' ], prompt: @orderproduct.status %>
+        <%= f.submit "Update", method: :patch%>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<section class = "center">
+<%= link_to "Order List", product_orders_path(id: params[:id]), class: "button" %>
+</section>

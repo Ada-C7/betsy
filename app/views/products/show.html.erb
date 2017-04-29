@@ -1,0 +1,74 @@
+<section>
+  <p class="columns large-2 small-12 back"><%= link_to "Back to all products", products_path %></p>
+  <h3 class="columns large-12 small-12 text-center"><%= @product.product_name %></h3>
+</section>
+
+<section class= "columns large-6" id="product-image">
+  <%= image_tag(@product.photo_url) %>
+</section>
+<section class="columns large-6">
+  <h4>$<%= '%.02f' % @product.price %></h4>
+  <p>Sold By: <%= @product.merchant.merchant_name %></p>
+  <p> Stock: <%= @product.stock %>
+    <p><%= @product.product_description %></p>
+  </section>
+
+
+  <section class="columns large-2">
+    <%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
+    <section id="quantity">
+      Qty: <%= t.number_field :quantity, value: 1, min: 1, max: @product.stock%>
+    </section>
+    <%= t.hidden_field :product_id, value: params[:id] %>
+    <%= t.submit "Add to Cart", class:"button " %>
+    <% end %>
+  </section>
+  <section class="columns large-3">
+    <p> Average Rating: <%= @product.avg_rating %>
+    </section>
+  </section>
+
+
+  <section class="columns large-8 large-centered columns" id="table-section">
+    <table class="expanded">
+      <thead>
+        <tr>
+          <th width="150">Customer Name</th>
+          <th width="50">Rating</th>
+          <th width="200">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @review_list.each do |r| %>
+      </thead>
+      <tr>
+        <td><%= "#{r.nickname}" %></td>
+        <td><%= "#{r.rating}" %></td>
+        <td><%= "#{r.review_description}" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="columns large-8 large-centered columns">
+  <h4 id="review"> Leave a Review </h4>
+  <!-- <div class="columns large-2" style="width:40%"> -->
+    <%= form_for @review, url: review_path(params[:id]) do |t| %>
+    Customer Name
+    <%= t.text_field :nickname, placeholder: "Customer Name" %>
+    Rating (1 to 5)
+    <!-- <div id="rating"> -->
+      <%= t.number_field :rating, placeholder: "5", min: 1, max: 5 %>
+    <!-- </div> -->
+  <!-- </div> -->
+  <!-- <div class="columns large-6"> -->
+    Description
+    <%= t.text_field :review_description, placeholder: "Description (Optional)"%>
+
+      <%= t.submit "Leave Review", class:"button"%>
+      <% end %>
+
+  <!-- </div> -->
+</section>

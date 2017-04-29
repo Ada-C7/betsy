@@ -1,0 +1,84 @@
+<h4 class = "order_title text-center">Cart</h4>
+<%= session[:order_ids] %>
+<table class = "order_table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @order.orderproducts.each do |orderproduct| %>
+    <% product = Product.find_by(id: orderproduct.product_id)%>
+
+
+    <tr>
+      <td><div id = "order_image" class = "sidexside" ><%= image_tag(product.photo_url)%></div>  <div class = "sidexside"><%= product.product_name %></div></td>
+
+
+      <td>$<%= product.price %></td>
+      <td>
+
+
+        <%= form_for orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
+          <%= f.number_field :quantity, min: 1, max: product.original_stock, placeholder: orderproduct.quantity%>
+          <%= f.hidden_field :product_id, value: product.id%>
+          <%= f.hidden_field :id, value: orderproduct.id%>
+          <%= f.submit "Update", class: 'button'%>
+        <% end %>
+
+        <%= button_to "Delete", remove_from_cart_path(params[:id], orderproduct.id), method: :delete,
+          data: {confirm: "Are you sure to remove #{product.product_name}?"}, class: "alert button" %>
+
+
+      </td>
+      <% new_price = product.price.to_f * orderproduct.quantity.to_f %>
+      <td>$<%= '%.02f' % new_price %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Subtotal:</td>
+    <td>$<%= '%.02f' % @order.subtotal %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Tax:</td>
+    <td>$<%= '%.02f' % @order.tax %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Shipping:</td>
+    <td>$5.00</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Total:</td>
+    <td>$<%= '%.02f' % @order.total %></td>
+  </tr>
+
+</tbody>
+</table>
+
+<section class = "center">
+<ul>
+  <li class = "link_buttons"> <%= link_to "Continue Shopping", root_path, class: 'button' %> </li>
+  <li class = "link_buttons"> <%= link_to "Checkout", checkout_path(params[:id]), class: 'button' %> </li>
+  <li class = "link_buttons"> <%= link_to "Cancel My Cart", cancel_path(params[:id]),method: :patch, class: 'button' %> </li>
+</ul>
+</section>
+
+<%#= link_to( 'Checkout'.html_safe,
+            "/orders/:id/checkout",
+            'data-popup' => true,
+            class: "button",
+            onclick: "window.open(this.href,'checkout', 'height=500, width=500');
+                                        return false;"
+   ) %>

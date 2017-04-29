@@ -1,0 +1,40 @@
+
+cat_jacket:
+  product_name: Cat Jacket
+  price: 19.99
+  merchant_id: Merchant.first.id
+  photo_url: http://pinxpets.com/cat-rain-jacket/
+  stock: 5
+  product_description: soooo waterproof but not breathable; mild activity only
+
+petsy1:
+  product_name: wetsy classic
+  price: 100
+  merchant: erica
+  stock: 50
+  product_description: This is the best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy1
+
+petsy2:
+  product_name: wetsy classic II
+  price: 75
+  merchant: andrea
+  stock: 50
+  product_description: This is the second best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy2
+
+petsy3:
+  product_name: wetsy classic III
+  price: 50
+  merchant: erica
+  stock: 50
+  product_description: This is the third best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy3
+
+pup_poncho:
+  product_name: Pup Poncho
+  price: 29.99
+  merchant_id: 1
+  photo_url: http://pinxpets.com/cat-rain-jacket/
+  stock: 2
+  product_description: has no arm holes because it's a poncho

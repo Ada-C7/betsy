@@ -1,0 +1,17 @@
+<h3 class="columns large-12 small-12 text-center">
+  <%= @product.product_name%> is added to Cart!
+</h3>
+
+<section class="center">
+  <div class="align center" id="product-hero-image">
+    <%= image_tag(@product.photo_url) %>
+  </div>
+  <div id="purchased-product-details">
+    <h4><%= @product.product_name %> </h4>
+    <h4>$<%= '%.02f' % @order.subtotal %> </h4>
+  </div>
+</section>
+<section class="center">
+  <%= link_to "Continue Shopping", products_path, class: 'button' %>
+  <%= link_to "Cart", cart_path(@order.id), class: 'button' %>
+</section>

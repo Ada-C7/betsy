@@ -1,0 +1,11 @@
+<h2> What did you think of </h2>
+
+<%= form_for @review, url: product_reviews_path do |review| %>
+
+  <%= review.label :rating %><br>
+  <%= review.select :rating, options_for_select(1..5) %>
+
+  <%= review.label :review_description%><br>
+  <%= review.text_field :review_description %>
+
+  <%= review.submit value: "This is my true opinion based on actual interactions with the product." %>

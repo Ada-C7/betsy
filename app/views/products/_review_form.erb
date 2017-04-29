@@ -1,0 +1,14 @@
+<section>
+  <%= form_for @review do |f| %>
+    <%= f.label :username%>
+    <%= f.string :nickname %>
+
+    <%= f.label :rating %>
+    <%= f.integer :rating%>
+
+    <%= f.label :review_description %>
+    <%= f.string :review_description %>
+
+    <%= f.submit class: "button" %>
+  <% end %>
+</section>

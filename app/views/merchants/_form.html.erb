@@ -1,0 +1,24 @@
+  <section id="merchant-form">
+      <div class="row" id="merchant-form">
+        <%= form_for @merchant do |merchant| %>
+        <div class="large-3 columns">
+          <label>Merchant Name
+            <%= merchant.text_field :merchant_name %>
+          </label>
+        </div>
+        <div class="large-3 columns">
+          <label>Merchant Email
+            <%= merchant.text_field :merchant_email %>
+          </label>
+        </div>
+        <div class="large-3 columns">
+          <label>Username
+            <%= merchant.text_field :username %>
+          </label>
+        </div>
+        <div id="submit-button">
+          <%= merchant.submit class: "button" %>
+        </div>
+        <% end %>
+      </div>
+  </section>

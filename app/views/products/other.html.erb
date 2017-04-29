@@ -1,0 +1,15 @@
+<ul class = "breadcrumbs columns large-12 small-12 text-center">
+  <li><%= link_to "Browse by Dog", dog_path %></li>
+  <li><%= link_to "Browse by Cat", cat_path %></li>
+  <li class = "product-bold"><%= link_to "Browse by Other", other_path %></li>
+</ul>
+<% Product.all.each do |product| %>
+  <%  if /[Oo]ther/.match product.category  %>
+  <div class="columns large-3 medium-6 small-12 all_products">
+    <%= link_to image_tag(product.default_image, alt: "Cute animals in raincoats"), product_path(product) %>
+
+    <%= product.product_name %>
+    <h5>$<%= product.price%></h5>
+  </div>
+  <% end %>
+<% end %>
