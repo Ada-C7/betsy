@@ -1,0 +1,59 @@
+one:
+  order_state: pending
+  name: bob smith
+  email: bobsmithtesting@gmail.com
+  street_address: 123 abc st.
+  city: seattle
+  state: washington
+  zip_code: 12345
+  billing_zip_code: 12345
+  name_on_card: bob smith
+  card_number: 1111222233334444
+  exp_month: 02
+  exp_year: 18
+  cvv: 123
+
+two:
+  order_state: paid
+  name: jane doe
+  email: janedoe@gmail.com
+  street_address: 666 hay st.
+  city: columbus
+  state: ohio
+  zip_code: 54321
+  billing_zip_code: 54321
+  name_on_card: jane doe
+  card_number: 4444555566667777
+  exp_month: 12
+  exp_year: 10
+  cvv: 333
+
+three:
+  order_state: completed
+  name: jane doe
+  email: janedoe@gmail.com
+  street_address: 666 hay st.
+  city: columbus
+  state: ohio
+  zip_code: 54321
+  billing_zip_code: 54321
+  name_on_card: jane doe
+  card_number: 4444555566667777
+  exp_month: 12
+  exp_year: 10
+  cvv: 333
+
+four:
+  order_state: canceled
+  name: jane doe
+  email: janedoe@gmail.com
+  street_address: 666 hay st.
+  city: columbus
+  state: ohio
+  zip_code: 54321
+  billing_zip_code: 54321
+  name_on_card: jane doe
+  card_number: 4444555566667777
+  exp_month: 12
+  exp_year: 10
+  cvv: 333
