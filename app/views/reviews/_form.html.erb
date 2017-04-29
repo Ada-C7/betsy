@@ -1,0 +1,37 @@
+<div class="row">
+  <fieldset class="column small-12 medium-12 large-12">
+
+    <ul class="errors">
+      <% @review.errors.each do
+        |field, msg| %>
+        <li>
+          <%= field %> <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+
+      <%= form_for @review, method: form_method, url: item_path(@review.item_id) do |f| %>
+
+      <%= f.radio_button(:rating, 1) %>
+      <%= f.label :rating, "💛♡♡♡♡" %>
+      <%= f.radio_button(:rating, 2) %>
+      <%= f.label :rating, "💛💛♡♡♡" %>
+      <%= f.radio_button(:rating, 3) %>
+      <%= f.label :rating, "💛💛💛♡♡" %>
+      <%= f.radio_button(:rating, 4) %>
+      <%= f.label :rating, "💛💛💛💛♡" %>
+      <%= f.radio_button(:rating, 5) %>
+      <%= f.label :rating, "💛💛💛💛💛" %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+      <%= f.hidden_field :item_id, value: @review.item_id %>
+
+      <%= f.submit action_name, :class => "button" %>
+
+      <% end %>
+
+    </fieldset>
+
+  </div>

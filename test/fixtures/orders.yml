@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  session_id: 1
+  status: "pending"
+  total: 20
+
+two:
+  session_id: 2
+  status: "paid"
+  total: 25.59
+
+three:
+  session_id: 3
+  status: "paid"
+  total: 10.0
+
+no_pymt:
+  session_id: 4
+  status: "pending"
+  total: 50.82
+
+four:
+  session_id: 5
+  status: "paid"
+  total: 19
+
+five:
+  session_id: 6
+  status: "paid"
+  total: 19

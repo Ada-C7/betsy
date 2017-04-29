@@ -24,17 +24,20 @@
 - You must use oAuth for user authentication.  
 
 ## Getting Started
-1. As a group decide on an app name (this may help lead the aesthetic)
-1. As a group decide on a team name (this will amuse your instructors)
-1. Have one person on your team fork/clone the project master as per usual
-  1. Create a new rails app using `rails new .`
-  1. Add all other team members as collaborators
-  1. Each team member should clone the repo to their computer
+> 1. As a group decide on an app name (this may help lead the aesthetic)
+> 1. As a group decide on a team name (this will amuse your instructors)
+> 1. Have one person on your team fork/clone the project master as per usual
+>  1. Create a new rails app using `rails new .`
+>  1. Add all other team members as collaborators
+>  1. Each team member should clone the repo to their computer
 1. Figure out your workflow for the project, re: Git and Task management
-  1. Determine who will be the Stand Up Leader and Task Leader for the first week
-1. Create a Trello board and ensure that all team members and instructors have access
-1. Review the User Stories below and create Trello tasks to represent them
-1. Slack your team name, app name, and link to your trello board to your Project Manager
+  - avoid working on the same file as a team member
+  - avoid merging to master at night
+  - branch naming convention: initials/branch_name
+>  1. Determine who will be the Stand Up Leader and Task Leader for the first week
+> 1. Create a Trello board and ensure that all team members and instructors have access
+> 1. Review the User Stories below and create Trello tasks to represent them
+> 1. Slack your team name, app name, and link to your trello board to your Project Manager
 
 ## Expectations
 Build an online system for listing, selling, reviewing, and buying a wide variety of products listed by multiple merchants.
@@ -50,34 +53,34 @@ Build an online system for listing, selling, reviewing, and buying a wide variet
 #### Guest User (Unauthenticated)
 As a guest to the website (not signed in) I **can**:
 
-- Browse all products
-- Browse products by category
-- Browse products by merchant (users)
-- View any individual product with additional details
-- Leave a review for a product providing:
-    - A Text review
-    - A rating out of 5
-- Add in-stock products to my cart
-- Remove products from my cart
-- Change the quantity of an existing product in my cart
-- Purchase the items in my cart, providing:
-    - Email Address
-    - Mailing Address
-    - Name on credit card
-    - Credit card number
-    - Credit cart expiration
-    - Credit Card CVV (security code)
-    - Billing zip code
-- Purchasing an order makes the following changes:
-    - Reduces the number of inventory for each product
-    - Changes the order state from "pending" to "paid"
-    - Clears the current cart
-- After purchasing an order, I can view a confirmation screen including:
-    - Each item in the order with a quantity and line-item subtotal
-    - A link to the item description page
-    - Order total price
-    - DateTime the order was placed
-    - The current status of the order
+> - Browse all products **
+> - Browse products by category
+> - Browse products by merchant (users)
+> - View any individual product with additional details
+> - Leave a review for a product providing:
+    > - A Text review
+     >- A rating out of 5
+> - Add in-stock products to my cart
+> - Remove products from my cart
+> - Change the quantity of an existing product in my cart
+> - Purchase the items in my cart, providing:
+    >  Email Address
+    > - Mailing Address
+    > - Name on credit card
+    > - Credit card number
+    > - Credit cart expiration
+    > - Credit Card CVV (security code)
+    > - Billing zip code
+> - Purchasing an order makes the following changes:
+    > - Reduces the number of inventory for each product
+    > - Changes the order state from "pending" to "paid"
+    > - Clears the current cart
+> - After purchasing an order, I can view a confirmation screen including:
+    > - Each item in the order with a quantity and line-item subtotal
+    > - A link to the item description page
+    > - Order total price
+    > - DateTime the order was placed
+    > - The current status of the order
 - Sign up to be a merchant using OAuth
     - Every merchant must have a username
 - Sign in to my merchant account using OAuth

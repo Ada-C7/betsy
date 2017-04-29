@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<div id="main-wrapper" >
+
+
+  <head>
+    <%= favicon_link_tag %>
+    <link rel="shortcut icon" type="image/png" href="/flower.png"/>
+    <link rel="shortcut icon" type="image/png" href="http://eg.com/favicon.png"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Betsy</title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+
+  <div id = "container" >
+
+
+  <header>
+    <h1><%= link_to "Besty", root_path %></h1>
+    <div class="cart">
+      <% if session[:merchant_id] == nil %>
+      <p class = "cart_quantity"><strong><%=  @cart_quantity %></strong></p>
+      <button>  <%= link_to image_tag("cart.png", :class => "cart"), cart_path %></button>
+      <% end %>
+    </div>
+  <nav>
+    <div class="dropdown">
+      <% if current_merchant == nil %>
+      <button class="dropbtn home">  <%= link_to "All Items", items_path %>
+      </button>
+      <div class="dropdown-content"></div>
+      <% else %>
+      <button class="dropbtn home">   <%= link_to "All Items", merchant_items_path(current_merchant) %></button>
+      <div class="dropdown-content"></div>
+      <% end %>
+    </div>
+
+    <div class="dropdown">
+      <% if current_merchant == nil %>
+        <button class="dropbtn">Shop by Category</button>
+        <div class="dropdown-content">
+          <% @categories.each do |category| %>
+            <%= link_to "#{category.name}", category_items_path(category.id) %>
+          <% end %>
+      <% else %>
+        <button class="dropbtn">Categories</button>
+        <div class="dropdown-content">
+          <%= link_to "Add new category", new_category_path %>
+          <% @categories.each do |category| %>
+            <%= link_to "#{category.name}", category_items_path(category.id) %>
+          <% end %>
+      <% end %>
+      <%# raise %>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <% if current_merchant == nil %>
+      <button class="dropbtn">Shop by Merchant</button>
+      <div class="dropdown-content">
+        <%= link_to "Show all", merchants_path %>
+        <% @merchants.each do |merchant| %>
+        <%= link_to "#{merchant.username}", merchant_items_path(merchant.id) %>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+
+
+
+      <div class="dropdown">
+        <% if current_merchant %>
+          <button class="dropbtn">Logged in as <%= link_to "#{ current_merchant.username }", merchant_path(current_merchant) %>
+          </button>
+        <% else %>
+          <button class="dropbtn">Login</button>
+        <% end %>
+        <div class="dropdown-content">
+        <% if current_merchant %>
+          <p>
+          </p>
+          <%= link_to "My Account", merchant_path(current_merchant.id), method: :get%>
+          <%= link_to 'Logout', logout_path, method: :delete %>
+        <% else %>
+            <%= link_to 'Login using GitHub!', '/auth/github' %>
+        <% end %>
+
+
+      </div>
+    </div>
+
+  </header>
+</nav>
+
+<% flash.each do |name, message| %>
+<section class="row status <%= name %>"><h3><%= message %></h3>
+<% end %>
+</section>
+
+
+<body>
+  <%= yield %>
+  <link href="https://fonts.googleapis.com/css?family=Give+You+Glory" rel="stylesheet">
+</body>
+</html>
+  <div id = "footer">
+  <footer>
+    <section>
+      <article>&copy; 2017 Besties</article>
+      <article>Disclaimer: This is a fake site. Although we would love to take
+        your money, please don't enter any real information.</article>
+    </section>
+  </footer>
+  </div>
+</div>
+</div>
+</html>

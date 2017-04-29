@@ -1,0 +1,42 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+
+
+item_one:
+  merchant: kari
+  name: chips
+  description: tortilla
+  price: 4
+  inventory: 20
+  photo: somestring
+
+item_two:
+  merchant: dan
+  name: potato
+  description: idaho gold
+  price: 1.5
+  inventory: 1
+  photo: MyString
+
+no_stock:
+  merchant: dan
+  name: potato
+  description: idaho gold
+  price: 1.5
+  inventory: 0
+
+three:
+  merchant: kari
+  name: MyString
+  description: MyString
+  price: 5.5
+  inventory: 2
+  photo: MyString
+
+bad_data:
+  merchant: kari
+  name: MyString
+  description: MyString
+  price: qwe
+  inventory: none
+  photo: MyString

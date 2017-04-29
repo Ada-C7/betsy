@@ -1,0 +1,20 @@
+<h1>Create a new category!</h1>
+
+<ul class="errors">
+  <% if @category.errors.any? %>
+    <% @category.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+      <% end %>
+  <% end %>
+</ul>
+
+
+<%= form_for @category do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+
+<% end %>

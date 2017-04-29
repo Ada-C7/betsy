@@ -1,0 +1,36 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item: item_one
+  order: one
+  quantity: 4
+  merchant_id: 756141187
+
+two:
+  item: item_two
+  order: one
+  quantity: 1
+  merchant_id: 756141187
+
+three:
+  item: item_two
+  order: two
+  quantity: 1
+
+four:
+  item: item_two
+  order: four
+  quantity: 2
+  merchant_id: dan
+
+five:
+  item: item_one
+  order: four
+  quantity: 4
+  merchant_id: 756141187
+
+six:
+  item: item_one
+  order: five
+  quantity: 5
+  merchant_id: 756141187

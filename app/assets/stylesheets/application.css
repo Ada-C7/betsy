@@ -1,0 +1,219 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require foundation_and_overrides
+
+ */
+ /* Dropdown Button */
+
+ /*header {
+   /*background-color: #a99ed8;*/
+   /*clear: both;*/
+   /*color: white;*/
+ /*}
+
+
+ header h1 {
+   font-size: 3em;
+   margin: 0px;
+ }
+
+ */
+
+
+
+.callout {
+   background: rgba(240,230,220, .6);
+ }
+
+ .callout:hover {
+    background: rgba(240,230,220, .8);
+  }
+
+header h1 {
+  text-shadow: 0 2px 2px #000;
+}
+
+ ul {
+   list-style: none;
+ }
+
+ li a {
+   color: #CCD0C9;
+   font-size: 2em;
+   text-shadow: 0 2px 2px #000;
+ }
+
+
+ html * {
+   font-family: 'Give You Glory', cursive;
+ }
+
+header h1 a {
+  font-size: 70px;
+  color: #CCD0C9;
+
+}
+
+header h1 a:hover {
+  font-size: 70px;
+  color: #CCD0C9;
+  text-shadow: 0 10px 10px #000;
+}
+
+h1.package{
+  text-shadow: 0 2px 2px #000;
+}
+
+ nav {
+   text-align: center;
+ }/*
+
+
+input  {
+  /*background-color: #f9f9ff;*/
+  /*border-radius: 5px;
+}*/
+
+/*input:hover {
+  /*background-color: #bbb1e7;
+}*/
+
+ nav div button.dropbtn {
+     /*background-color: lightgrey;*/
+     /*color: white;*/
+     text-shadow: 0 2px 2px #000;
+     padding: 16px;
+     font-size: 25px;
+     border: none;
+     cursor: pointer;
+     color: #CCD0C9;
+
+    }
+
+ /* The container <div> - needed to position the dropdown content */
+ nav div.dropdown {
+     position: relative;
+     display: inline-block;
+     background-color: none;
+
+ }
+
+ /* Dropdown Content (Hidden by Default) */
+ .dropdown-content {
+     display: none;
+     position: absolute;
+     background-color: #CCD0C9;
+     min-width: 170px;
+     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+     z-index: 1;
+
+ }
+
+ /* Links inside the dropdown */
+ .dropdown-content a {
+     padding: 12px 16px;
+     text-decoration: none;
+     display: block;
+      color: #233B64;
+ }
+
+ .dropbtn a {
+   color: #CCD0C9;
+   text-decoration: none;
+
+ }
+ .dropbtn a:hover {
+   color: #CCD0C9;
+   text-decoration: none;
+   text-shadow: 0 4px 4px #000;
+   background-color: none;
+ }
+
+
+ /* Change color of dropdown links on hover */
+ .dropdown-content a:hover {
+   background-color: #233B64;
+   color: #CCD0C9;
+
+
+ }
+
+ .cart_quantity {
+  display: inline-block;
+ }
+
+.cart {
+  height: 2em;
+}
+ /* Show the dropdown menu on hover */
+ .dropdown:hover .dropdown-content {
+     display: block;
+   }
+
+ /* Change the background color of the dropdown button when the dropdown content is shown */
+ .dropdown:hover .dropbtn {
+     background-color: #233B64;
+
+ }
+
+
+/*.button {
+  padding: 16px;
+  font-size: 25px;
+  border: 1px;
+  cursor: pointer;
+  color: #CCD0C9;
+}*/
+
+
+.button a {
+  color: #CCD0C9;
+}
+
+h5.main_page {
+  color: #233B64;
+}
+
+/*footer {
+  text-shadow: 0 2px 2px #000;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  overflow:hidden;
+}*/
+
+footer {
+  padding-top: 10em;
+    bottom: 0;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+#main-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

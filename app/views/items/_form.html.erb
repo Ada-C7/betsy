@@ -1,0 +1,34 @@
+<% if !@item.nil? %>
+<ul class="errors">
+  <% @item.errors.each do |field, message| %>
+  <li>
+    <%= field %> <%= message %>
+  </li>
+  <% end %>
+</ul>
+
+<%= form_for @item do |f| %>
+
+<%= f.label :name %></br>
+<%= f.text_field :name %></br>
+
+<%= f.label :price %></br>
+<%= f.text_field :price %></br>
+
+<%= f.label :description %></br>
+<%= f.text_field :description %></br>
+
+<%= f.label :Amount_in_Stock %></br>
+<%= f.text_field :inventory %></br>
+
+<%= f.label :photo %></br>
+<%= f.text_field :photo %>
+
+<%= f.label :categories %></br>
+<%= f.select :category_ids, options_for_select(@categories.collect { | category | [category.name, category.id] }), { :prompt => "Please select"}, { :multiple => true} %>
+<%= f.submit action_name, :class => "button" %>
+
+<% end %>
+
+
+<%end%>

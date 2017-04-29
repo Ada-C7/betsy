@@ -1,0 +1,15 @@
+<h1> <%= @merchant.username %> Order Fulfillment</h1>
+
+<section>
+  <h4>Total Revenue:</h3>
+  $<%= sprintf('%.2f', @merchant.revenue) %>
+</section>
+
+<%= render partial: "totals_by_status" %>
+
+<%= render partial: "merchant_orders" %>
+
+<%= render partial: "order_items" %>
+
+<button class="button"><%= link_to "Add New Item", new_item_path %></button>
+<button class="button"><%= link_to "Add New Category", new_category_path %></button>

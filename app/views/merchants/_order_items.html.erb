@@ -1,0 +1,66 @@
+<section>
+  <h4>Order Items</h4>
+
+<table id="order_items">
+  <thead>
+    <th>
+      Item
+    </th>
+    <th>
+      Subtotal
+    </th>
+    <th>
+      Quantity
+    </th>
+    <th>
+      Order ID
+    </th>
+    <th>
+      Status
+    </th>
+    <th>
+      Date
+    </th>
+    <th>
+      Time
+    </th>
+    <th>
+      Shipped
+    </th>
+  </thead>
+<% @merchant.order_items.each do |order_item| %>
+  <tr>
+    <td>
+      <%=link_to "#{Item.find(order_item.item_id).name.capitalize}", item_path(order_item.item_id), method: :get%>
+    </td>
+    <td>
+      $<%= sprintf('%.2f', @merchant.subtotal(order_item) )%>
+    </td>
+    <td>
+      <%= order_item.quantity%>
+    </td>
+    <td>
+      <%= link_to order_item.order_id, order_path(order_item.order_id) %>
+    </td>
+    <td>
+      <%= order_item.order.status %>
+    </td>
+    <td>
+      <%= order_item.updated_at.strftime('%v') %>
+    </td>
+    <td>
+      <%= order_item.updated_at.strftime('%r') %>
+    </td>
+    <td>
+      <% if order_item.status.nil? %>
+        <%= link_to 'ship', ship_order_path(order_item: order_item.id), method: :put %>
+      <% else %>
+        <%=  "✔︎" %>
+        <% end %>
+    </td>
+  </tr>
+  <%end%>
+
+</table>
+
+</section>
