@@ -23,7 +23,7 @@ describe OrdersController do
     end
 
     it "should show 404 when order not found" do
-      get order_path("no order")
+      get order_path("stupid")
       must_respond_with :missing
     end
   end
@@ -35,7 +35,7 @@ describe OrdersController do
     end
 
     it "should show 404 when order not found" do
-      get confirmation_path("no order")
+      get confirmation_path("stupid")
       must_respond_with :missing
     end
   end
@@ -62,6 +62,7 @@ describe OrdersController do
     it "cannot add product if not enough in stock" do
       product = products(:jamjams)
       post set_item_path, params: { id: product.id, quantity: 40 }
+
       flash[:status].must_equal :failure
       flash[:result_text].must_equal "Could not add due to insufficient stock."
       must_redirect_to product_path(product.id)
@@ -99,6 +100,7 @@ describe OrdersController do
     it "cannot add product if not enough in stock" do
       product = products(:jamjams)
       post add_item_path, params: { id: product.id, quantity: 40 }
+
       flash[:status].must_equal :failure
       flash[:result_text].must_equal "Could not add due to insufficient stock."
       must_redirect_to product_path(product.id)
@@ -116,61 +118,115 @@ describe OrdersController do
     end
   end
 
-  describe "shipped" do
+  describe "User is Logged in" do
     before do
       login(users(:one))
     end
 
-    it "marks order item shipped" do
-      patch shipped_path(order_items(:one).id)
+    describe "shipped" do
+      it "marks order item shipped" do
+        patch shipped_path(order_items(:one).id)
 
-      flash[:status].must_equal :success
-      flash[:result_text].must_equal "Order item was shipped"
-      must_respond_with :redirect
+        flash[:status].must_equal :success
+        flash[:result_text].must_equal "Order item was shipped"
+        must_respond_with :redirect
+      end
+
+      it "responds with bad request and doesn't update the DB if bad item" do
+        patch shipped_path(order_items(:missing_quantity).id)
+
+        flash[:status].must_equal :failure
+        flash[:result_text].must_equal "Could not ship item"
+        must_respond_with :bad_request
+      end
     end
 
-    it "respods with bad request and doesn't update the DB if bad item" do
-      patch shipped_path(order_items(:missing_quantity).id)
+    describe "cancelled" do
+      it "marks order item cancelled" do
+        patch cancelled_path(order_items(:one).id)
 
-      flash[:status].must_equal :failure
-      flash[:result_text].must_equal "Could not ship item"
-      must_respond_with :bad_request
+        flash[:status].must_equal :success
+        flash[:result_text].must_equal "Order item was cancelled"
+        must_respond_with :redirect
+      end
+
+      it "responds with bad request and doesn't update the DB if bad item" do
+        patch cancelled_path(order_items(:missing_product).id)
+
+        flash[:status].must_equal :failure
+        flash[:result_text].must_equal "Could not cancel item"
+        must_respond_with :bad_request
+      end
+    end
+
+    describe "complete order" do
+      it "marks order complete if all order items are shipped" do
+        patch shipped_path(order_items(:five).id)
+
+        must_respond_with :redirect
+        must_redirect_to account_orders_path
+        flash[:status] = :success
+        flash[:result_text].must_equal "Order was completed"
+      end
+
+      it "marks order complete if all order items are cancelled and at least one is shipped" do
+        patch shipped_path(order_items(:four).id)
+        patch cancelled_path(order_items(:six).id)
+
+        must_respond_with :redirect
+        must_redirect_to account_orders_path
+        flash[:status] = :success
+        flash[:result_text].must_equal "Order was completed"
+      end
+
+      it "marks order cancelled if all items cancelled" do
+        patch cancelled_path(order_items(:five).id)
+
+        must_respond_with :redirect
+        must_redirect_to account_orders_path
+        flash[:status] = :success
+        flash[:result_text].must_equal "Order was cancelled"
+      end
+
+      it "order status unchanged if any items are paid" do
+        patch shipped_path(order_items(:four).id)
+
+        order_items(:four).order.status.must_equal "paid"
+        must_respond_with :redirect
+        must_redirect_to account_orders_path
+      end
     end
   end
 
-  describe "cancelled" do
-    before do
-      login(users(:one))
+  describe "User is not Logged in" do
+    describe "shipped" do
+      it "cannot mark items shipped" do
+        patch shipped_path(order_items(:one).id)
+
+        flash[:status].must_equal "warning"
+        flash[:result_text].must_equal "You must be logged in to view this page."
+        must_respond_with :bad_request
+      end
     end
 
-    it "marks order item cancelled" do
-      patch cancelled_path(order_items(:one).id)
+    describe "cancelled" do
+      it "cannot mark items cancelled" do
+        patch cancelled_path(order_items(:one).id)
 
-      flash[:status].must_equal :success
-      flash[:result_text].must_equal "Order item was cancelled"
-      must_respond_with :redirect
+        flash[:status].must_equal "warning"
+        flash[:result_text].must_equal "You must be logged in to view this page."
+        must_respond_with :bad_request
+      end
     end
 
-    it "respods with bad request and doesn't update the DB if bad item" do
-      patch cancelled_path(order_items(:missing_product).id)
+    describe "cannot complete order" do
+      it "marks order complete if all order items are shipped" do
+        patch shipped_path(order_items(:five).id)
 
-      flash[:status].must_equal :failure
-      flash[:result_text].must_equal "Could not cancel item"
-      must_respond_with :bad_request
-    end
-  end
-
-  describe "complete order" do
-    before do
-      login(users(:one))
-    end
-
-    it "marks order complete if all order items are shipped" do
-      patch shipped_path(order_items(:five).id)
-
-      must_respond_with :redirect
-      must_redirect_to account_orders_path
-      flash[:result_text].must_equal "Order was completed"
+        flash[:status].must_equal "warning"
+        flash[:result_text].must_equal "You must be logged in to view this page."
+        must_respond_with :bad_request
+      end
     end
   end
 

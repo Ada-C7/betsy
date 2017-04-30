@@ -36,6 +36,12 @@ five:
   quantity: 1
   status: "paid"
 
+six:
+  product: kidjams
+  order: three
+  quantity: 3
+  status: "paid"
+
 # invalid data
 
 missing_quantity:

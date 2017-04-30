@@ -27,7 +27,7 @@ two:
   zipcode: "20932"
 
 three:
-  status: complete
+  status: paid
   email: betsy@gmail.com
   billing_name: Louise Belcher
   address: 7897 Long rd 20932
