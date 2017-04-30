@@ -83,20 +83,17 @@ class OrdersController < ApplicationController
 
   def shipped
     @order_item = OrderItem.find_by_id(params[:order_item_id])
+
     @order_item.status = "shipped"
-    # @order_item.save
     if @order_item.save
       flash[:status] = :success
       flash[:result_text] = "Order item was shipped"
-      redirect_to account_orders_path
+      complete_order
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not ship item"
-      render :account_orders, status: :bad_request
+      redirect_to account_orders_path, status: :bad_request
     end
-
-    complete_order
-    redirect_back(fallback_location: account_orders_path)
   end
 
   def cancelled
@@ -105,15 +102,12 @@ class OrdersController < ApplicationController
     if @order_item.save
       flash[:status] = :success
       flash[:result_text] = "Order item was cancelled"
-      redirect_to account_orders_path
+      complete_order
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not cancel item"
-      render :account_orders, status: :bad_request
+      redirect_to account_orders_path, status: :bad_request
     end
-
-    complete_order
-    redirect_back(fallback_location: account_orders_path)
   end
 
   def complete_order
@@ -133,7 +127,7 @@ class OrdersController < ApplicationController
       order.status = "cancelled"
       if order.save
         flash[:status] = :success
-        flash[:result_text] = "Order  was cancelled"
+        flash[:result_text] = "Order was cancelled"
         redirect_to account_orders_path
       else
         flash.now[:status] = :failure
@@ -146,13 +140,15 @@ class OrdersController < ApplicationController
       order.status = "complete"
       if order.save
         flash[:status] = :success
-        flash[:result_text] = "Order  was completed"
+        flash[:result_text] = "Order was completed"
         redirect_to account_orders_path
       else
         flash.now[:status] = :failure
         flash.now[:result_text] = "Could not complete order"
         render :account_orders, status: :bad_request
       end
+    else
+      redirect_to account_orders_path
     end
   end
 
@@ -166,8 +162,6 @@ class OrdersController < ApplicationController
 
     @order.order_items.each do |order_item|
       if order_item.quantity > order_item.product.quantity
-        puts order_item.quantity
-        puts order_item.product.quantity
         flash.now[:status] = :failure
         flash.now[:result_text] = "Oops, someone must have purchased this item."
         render "index"

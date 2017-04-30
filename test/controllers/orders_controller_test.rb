@@ -117,29 +117,60 @@ describe OrdersController do
   end
 
   describe "shipped" do
-    # patch shipped_path(order_items(:one).id)
-    # respond_with :redirect
+    before do
+      login(users(:one))
+    end
+
+    it "marks order item shipped" do
+      patch shipped_path(order_items(:one).id)
+
+      flash[:status].must_equal :success
+      flash[:result_text].must_equal "Order item was shipped"
+      must_respond_with :redirect
+    end
+
+    it "respods with bad request and doesn't update the DB if bad item" do
+      patch shipped_path(order_items(:missing_quantity).id)
+
+      flash[:status].must_equal :failure
+      flash[:result_text].must_equal "Could not ship item"
+      must_respond_with :bad_request
+    end
   end
 
   describe "cancelled" do
+    before do
+      login(users(:one))
+    end
 
+    it "marks order item cancelled" do
+      patch cancelled_path(order_items(:one).id)
+
+      flash[:status].must_equal :success
+      flash[:result_text].must_equal "Order item was cancelled"
+      must_respond_with :redirect
+    end
+
+    it "respods with bad request and doesn't update the DB if bad item" do
+      patch cancelled_path(order_items(:missing_product).id)
+
+      flash[:status].must_equal :failure
+      flash[:result_text].must_equal "Could not cancel item"
+      must_respond_with :bad_request
+    end
   end
 
   describe "complete order" do
-    # doesn't work
-    it "marks order complete if all order items are shipped" do
-      skip
-      # order = orders(:four)
-      # order.status.must_equal "paid"
+    before do
+      login(users(:one))
+    end
 
-      #patch shipped_path(order.id), params: { id: order_items(:five).id }
+    it "marks order complete if all order items are shipped" do
       patch shipped_path(order_items(:five).id)
-      #must_redirect_to account_orders_path
-      must_respond_with :success
-      flash[:result_text].must_equal "Order item was shipped"
-      #puts OrderItem.find_by_id(order_items(:five).id).status
-      #order.reload
-      #order.status.must_equal "complete"
+
+      must_respond_with :redirect
+      must_redirect_to account_orders_path
+      flash[:result_text].must_equal "Order was completed"
     end
   end
 
