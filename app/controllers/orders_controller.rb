@@ -1,12 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :get_order, only: [:cart, :checkout, :confirmation]
+  before_action :get_order, only: [:cart, :checkout]
 
   def cart; end
   def checkout; end
-
-  def confirmation
-    @order = Order.find_by(id: params[:id])
-  end
 
   def add_product
     current_order
