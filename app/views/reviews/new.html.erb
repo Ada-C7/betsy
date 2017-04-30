@@ -1,0 +1,35 @@
+<h3 class = "row">Add a review for </h3>
+
+
+<% if @review.errors.messages.length > 0 %>
+<section class="errors">
+  <h2>Something went wrong!</h2>
+  <ul>
+    <% @review.errors.messages.each do |field, problem_list| %>
+      <% problem_list.each do |problem| %>
+        <li>
+          <strong><%= field %>:</strong>
+          <%= problem %>
+        </li>
+        <% end %>
+    <% end %>
+  </ul>
+</section>
+<% end %>
+
+
+<section class="row large-4">
+  <%= form_for @review do |f| %>
+    <div>
+      <%= f.label :rating, class: "label" %>
+      <%= f.select :rating, options_for_select(1..5,3)%>
+    </div>
+    <div>
+      <%= f.label :review, class: "label"%>
+      <%= f.text_field :review, class: "field"%>
+    </div>
+    <div id = "_form_section_submit">
+      <%= f.submit value: "SAVE"%>
+    </div>
+  <% end %>
+  </section>

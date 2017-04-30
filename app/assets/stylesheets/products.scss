@@ -1,0 +1,49 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.delete {
+  background: red;
+}
+
+.image_index {
+  max-height: 10rem;
+}
+
+.button {
+  border-radius: 0.5rem;
+}
+
+.buy {
+  background-color: lightgreen;
+}
+
+.buy:hover {
+  background-color: green;
+}
+
+.average_rating p {
+  font-weight: bold;
+  padding: 0;
+}
+
+.review_section {
+  // margin: 0;
+  border-top: 0.05rem solid lightgrey;
+  border-right: 0.15rem solid lightgrey;
+  border-left: 0.15rem solid lightgrey;
+  border-bottom: 0.05rem solid lightgrey;
+}
+.review_section p {
+  margin: 0;
+  padding: 0;
+}
+
+h3.products {
+  padding: 2rem;
+}
+
+.product {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}

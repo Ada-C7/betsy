@@ -1,0 +1,5 @@
+
+<%@categories.order(:name).each do |category|%>
+    <%= link_to category.name.downcase, category_products_path(category)%>/
+    <!--  To find out the nested routes paths go to console and do 'rails routes'-->
+<% end %>

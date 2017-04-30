@@ -1,0 +1,15 @@
+order1:
+  customer_name: Cynthia Cobb
+  customer_address: 123 St.
+  customer_email: cobb@gmail.com
+  credit_card_number: 1234567890123456
+  customer_city: Bothell
+  customer_zipcode: 98011
+  customer_state: WA
+  status: paid
+
+order2:
+  status: pending
+
+order3:
+  status: pending

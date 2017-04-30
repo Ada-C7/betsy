@@ -1,0 +1,20 @@
+<h3>Add a category to  <%=@product.name %></h3>
+
+<% category_names = @categories.map(&:name) %>
+<%select_array = []%>
+<%Category.all.map(&:id).each do |id|%>
+  <% select_array << [Category.find(id).name, id]%>
+<%end%>
+
+
+<section class="row large-4">
+  <%= form_tag product_categories_path(@product.id), method: :post do %>
+    <div>
+      <%= select_tag :category_id, options_for_select(select_array)%>
+    </div>
+
+    <divs>
+      <%= submit_tag  "SAVE"%>
+    </div>
+  <% end %>
+</section>
