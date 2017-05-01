@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   post '/products/:id/review', to: 'products#review'
 
   resources :orders, only: [:show, :update, :destroy]
-  patch "/orders/:id/shipped", to: "orders#shipped", as: "shipped"
-  patch "orders/:id/cancelled", to: "orders#cancelled", as: "cancelled"
+  patch "/orders/:order_item_id/shipped", to: "orders#shipped", as: "shipped"
+  patch "orders/:order_item_id/cancelled", to: "orders#cancelled", as: "cancelled"
 
   get "/carts", to: "orders#index"
   post "/carts/set", to: "orders#set", as: "set_item"
