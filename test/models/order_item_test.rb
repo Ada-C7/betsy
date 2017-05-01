@@ -94,4 +94,11 @@ describe OrderItem do
     end
   end
 
+  describe "subtotal" do
+    it "calculates subtotal for order items" do
+      item = order_items(:six)
+      item.subtotal.must_equal 600.0
+    end
+  end
+
 end

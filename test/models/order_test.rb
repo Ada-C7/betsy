@@ -118,7 +118,10 @@ describe Order do
     end
   end
 
-  describe "relations" do
-
+  describe "total_cost" do
+    it "calculates total cost of an order" do
+      order = orders(:four)
+      order.total_cost.must_equal 40.0
+    end
   end
 end
