@@ -194,6 +194,12 @@ describe OrdersController do
         must_respond_with :redirect
         must_redirect_to account_orders_path
       end
+
+      # there are no tests for cases in which it wouldn't be possible
+      # to update the status of the order to complete or cancelled,
+      # baceuse I couldn't come up with any way to  test that
+      # my best assumption would be to place contriants fo the status
+      # in model validation (restrain what the status can be to just 4 options)
     end
   end
 

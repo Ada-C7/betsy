@@ -156,7 +156,7 @@ class OrdersController < ApplicationController
     if !@order || @order.order_items == []
       flash[:status] = :failure
       flash[:result_text] = "Cannot check out if your cart is empty"
-      redirect_to "index"
+      redirect_to carts_path
       return
     end
 
@@ -164,7 +164,7 @@ class OrdersController < ApplicationController
       if order_item.quantity > order_item.product.quantity
         flash.now[:status] = :failure
         flash.now[:result_text] = "Oops, someone must have purchased this item."
-        render "index"
+        render carts_path
         return
       end
     end
@@ -174,7 +174,7 @@ class OrdersController < ApplicationController
     if !@order || @order.order_items.length == 0
       flash[:status] = :failure
       flash[:result_text] = "Cannot check out if your cart is empty"
-      redirect_to "index"
+      redirect_to carts_path
       return
     end
 
