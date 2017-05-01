@@ -17,4 +17,8 @@ class Order < ApplicationRecord
   def total_cost
     order_items.map { |order_item| order_item.subtotal }.inject(:+).round(2)
   end
+
+  def card_last_digits
+    "xxxxxxxxxxxxxxx" + card_number.split("").last(4).join
+  end
 end
