@@ -245,6 +245,17 @@ describe OrdersController do
       flash[:result_text].must_equal "Cannot check out if your cart is empty"
     end
 
+    it "redirects when order has no items in cart" do
+      product = products(:kidjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      delete order_path(product.id)
+      get checkout_path
+
+      must_respond_with :redirect
+      flash[:status].must_equal :failure
+      flash[:result_text].must_equal "Cannot check out if your cart is empty"
+    end
+
     it "doesn't allow puchase when someone already bought the item" do
       product = products(:jamjams)
       post add_item_path, params: { id: product.id, quantity: 2 }
@@ -281,6 +292,50 @@ describe OrdersController do
       must_redirect_to confirmation_path(order)
     end
 
+    it "chages status of items to paid" do
+      product = products(:kidjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      get checkout_path
+
+      order_params = {
+        order: {
+          email: "betsy@gmail.com",
+          billing_name: "Louise Belcher",
+          address: "7897 Long rd 20932",
+          card_number: "21233384574309984",
+          card_expiration: "12/20",
+          cvv: "382",
+          zipcode: "20932"
+        }
+      }
+      order = Order.last
+      patch order_path(order), params: order_params
+
+      order.order_items.first.status.must_equal "paid"
+    end
+
+    it "reduces stock for puchased products" do
+      product = products(:kidjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      get checkout_path
+
+      order_params = {
+        order: {
+          email: "betsy@gmail.com",
+          billing_name: "Louise Belcher",
+          address: "7897 Long rd 20932",
+          card_number: "21233384574309984",
+          card_expiration: "12/20",
+          cvv: "382",
+          zipcode: "20932"
+        }
+      }
+      order = Order.last
+      patch order_path(order), params: order_params
+
+      Product.find_by_id(products(:kidjams).id).quantity.must_equal 19
+    end
+
     it "cannot update order if it was created outside of this session" do
       order = orders(:four)
       order_params = {
@@ -300,7 +355,27 @@ describe OrdersController do
     end
 
     it "returns bad_request and fails to update the DB with bad order data" do
+      product = products(:kidjams)
+      post add_item_path, params: { id: product.id, quantity: 1 }
+      get checkout_path
 
+      order_params = {
+        order: {
+          email: "",
+          billing_name: "",
+          address: "",
+          card_number: "21233",
+          card_expiration: "",
+          cvv: "",
+          zipcode: ""
+        }
+      }
+      order = Order.last
+      patch order_path(order), params: order_params
+
+      flash.now[:status].must_equal :failure
+      flash.now[:result_text].must_equal "A problem occurred: Could not update order number #{ order.id }"
+      must_respond_with :bad_request
     end
 
   end

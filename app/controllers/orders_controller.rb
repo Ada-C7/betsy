@@ -195,7 +195,7 @@ class OrdersController < ApplicationController
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "A problem occurred: Could not update order number #{ @order.id }"
-      flash.now[:messages] = @product.errors.messages
+      flash.now[:messages] = @order.errors.messages
       render :edit, status: :bad_request
     end
   end
