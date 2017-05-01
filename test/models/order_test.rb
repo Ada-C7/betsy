@@ -124,4 +124,11 @@ describe Order do
       order.total_cost.must_equal 40.0
     end
   end
+
+  describe "card_last_digits" do
+    it "displayes only the last 4 digits of given credit card number" do
+      order = orders(:three)
+      order.card_last_digits.must_equal "xxxxxxxxxxxxxxx9984"
+    end
+  end
 end
