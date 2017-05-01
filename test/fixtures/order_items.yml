@@ -25,7 +25,7 @@ three:
   status: "paid"
 
 four:
-  product: kidjams
+  product: famjams
   order: three
   quantity: 3
   status: "paid"
@@ -37,7 +37,7 @@ five:
   status: "paid"
 
 six:
-  product: kidjams
+  product: famjams
   order: three
   quantity: 3
   status: "paid"

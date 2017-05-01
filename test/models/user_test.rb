@@ -56,7 +56,7 @@ describe User do
 
     describe "User#order_count" do
       it "returns the number of orders to be fulfilled by a user" do
-        users(:one).order_count.must_equal 2
+        users(:one).order_count.must_equal 4
       end
 
       it "returns zero for a user without orders to fulfill" do
