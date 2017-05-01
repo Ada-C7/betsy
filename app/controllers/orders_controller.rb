@@ -175,6 +175,7 @@ class OrdersController < ApplicationController
       flash[:status] = :failure
       flash[:result_text] = "Cannot check out if your cart is empty"
       redirect_to "index"
+      return
     end
 
     @order.status = "paid"
@@ -194,7 +195,8 @@ class OrdersController < ApplicationController
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "A problem occurred: Could not update order number #{ @order.id }"
-      render "edit"
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :bad_request
     end
   end
 
