@@ -62,7 +62,7 @@ describe OrdersController do
       product = products(:jamjams)
       post set_item_path, params: { id: product.id, quantity: 40 }
 
-      flash[:status].must_equal :failure
+      flash[:status].must_equal :alert
       flash[:result_text].must_equal "Could not add due to insufficient stock."
       must_redirect_to product_path(product.id)
     end
@@ -73,7 +73,7 @@ describe OrdersController do
       must_redirect_to carts_path
 
       post set_item_path, params: { id: product.id, quantity: 51 }
-      flash[:status].must_equal :failure
+      flash[:status].must_equal :alert
       flash[:result_text].must_equal "Could not add due to insufficient stock."
       must_redirect_to carts_path
     end
@@ -100,7 +100,7 @@ describe OrdersController do
       product = products(:jamjams)
       post add_item_path, params: { id: product.id, quantity: 40 }
 
-      flash[:status].must_equal :failure
+      flash[:status].must_equal :alert
       flash[:result_text].must_equal "Could not add due to insufficient stock."
       must_redirect_to product_path(product.id)
     end
@@ -111,7 +111,7 @@ describe OrdersController do
       must_redirect_to carts_path
 
       post add_item_path, params: { id: product.id, quantity: 30 }
-      flash[:status].must_equal :failure
+      flash[:status].must_equal :alert
       flash[:result_text].must_equal "Could not add due to insufficient stock."
       must_redirect_to product_path(product.id)
     end
@@ -247,7 +247,7 @@ describe OrdersController do
       get checkout_path
 
       must_respond_with :redirect
-      flash[:status].must_equal :failure
+      flash[:status].must_equal :alert
       flash[:result_text].must_equal "Cannot check out if your cart is empty"
     end
 
@@ -258,7 +258,8 @@ describe OrdersController do
       get checkout_path
 
       must_respond_with :redirect
-      flash[:status].must_equal :failure
+      must_redirect_to carts_path
+      flash[:status].must_equal :alert
       flash[:result_text].must_equal "Cannot check out if your cart is empty"
     end
 
@@ -270,7 +271,7 @@ describe OrdersController do
       product_sold.save
       get checkout_path
 
-      flash[:status].must_equal :failure
+      flash[:status].must_equal :alert
       flash[:result_text].must_equal "Oops, someone must have purchased this item."
     end
   end
@@ -357,7 +358,7 @@ describe OrdersController do
       }
       patch order_path(order), params: order_params
       must_respond_with :redirect
-      must_redirect_to "index"
+      must_redirect_to carts_path
     end
 
     it "returns bad_request and fails to update the DB with bad order data" do
