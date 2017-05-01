@@ -1,0 +1,33 @@
+<section class = "title" id="product">
+<h1>Browse  Products</h1>
+
+  <% if @current_merchant %>
+  <%= link_to "Add a new Product", new_product_path, class: "button" %>
+  <%else%>
+  <%= link_to "View Cart", class: "button"%>
+  <%end%>
+
+
+
+</section>
+
+</title>
+<section class="product-table">
+
+
+
+      <% @products.each do |product| %>
+      <aside class="product-box">
+        <h4><%= link_to product.name, product_path(product) %> </h4>
+        <section class = "image-box">
+          <%= image_tag product.img_url %>
+        </section>
+      <p>
+        <h4>  <%= product.description%></h4>
+           <%= link_to "Add to Cart", new_order_product_path(product.id), class: "button" %>
+
+      </aside>
+      <% end %>
+
+
+</section>

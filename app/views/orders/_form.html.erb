@@ -1,0 +1,23 @@
+
+<%= form_for @order do |f| %>
+<div>
+<%= f.label :name, :class=>'form-for-text' %>
+<%= f.text_field :name %>
+<%= f.label :email, :class=>'form-for-text' %>
+<%= f.text_field :email %>
+<%= f.label :address, :class=>'form-for-text' %>
+<%= f.text_field :address %>
+<%= f.label :cc_name, :class=>'form-for-text' %>
+<%= f.text_field :cc_name %>
+<%= f.label :cc_number, :class=>'form-for-text' %>
+<%= f.text_field :cc_number %>
+<%= f.label :cc_expiration, :class=>'form-for-text' %>
+<%= f.text_field :cc_expiration %>
+<%= f.label :cc_cvv, :class=>'form-for-text' %>
+<%= f.text_field :cc_cvv %>
+<%= f.label :zip_code, :class=>'form-for-text' %>
+<%= f.text_field :zip_code %>
+</div>
+<%= f.submit value: "#{submit_text}", class: "button"%>
+
+<% end %>

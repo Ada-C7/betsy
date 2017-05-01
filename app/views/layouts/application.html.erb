@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= content_for?(:title) ? yield(:title) : "Andy's Kloset" %></title>
+
+  <%= stylesheet_link_tag    "application" %>
+  <link href="https://fonts.googleapis.com/css?family=Erica+One|Londrina+Shadow|Marcellus|Roboto+Condensed" rel="stylesheet">
+  <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+  <header class = "head">
+
+    <div class="row" >
+      <section class="columns large-4 medium-4 small-12">
+    <%= image_tag ('https://raw.githubusercontent.com/sahanamurthy/betsy/master/app/assets/images/woody_logo.png') ,:class=>"woody"%>
+      </section>
+      <section class="columns large-8 medium-12 small-12">
+      </section>
+    </div>
+    <div class = "row">
+      <section class="columns large-12 medium-12 small-12">
+        <nav>
+          <button class="dropbtn">
+            <%=link_to "Home", root_path, :class => "dropbtn" %></button>
+            <div class="dropdown">
+              <button class="dropbtn">Merchants</button>
+              <div class="dropdown-content">
+                <%= link_to "View all merchants", merchants_path, :class => "link" %>
+                <%= link_to "Sign Up", "/auth/github", method: :post, :class => "link" %>
+                <% if @current_merchant %>
+                <%= link_to "Account details", merchant_path(@current_merchant), :class => "link" %>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Browse </button>
+              <div class="dropdown-content">
+                <%= link_to "All products", products_path, :class => "link" %>
+                <%= link_to "By category", categories_path, :class => "link" %>
+                <%= link_to "By merchant", all_merchant_path, :class => "link" %>
+              </div>
+            </div>
+
+              <% if @current_merchant %>
+              <button class="dropbtn"><%=link_to "Log Out", logout_path, method: :post, class: "dropbtn", :class => "dropbtn" %></button>
+              <p class="text-right">Logged in as <%= link_to @current_merchant.username, merchant_path(@current_merchant) %></p>
+              <% else %>
+              <button class="dropbtn"><%=link_to "Log In", "/auth/github", method: :post, class: "dropbtn", :class => "dropbtn" %></button>
+              <p class="text-right">Not logged in</p>
+              <% end %>
+
+                <section id = "cart">
+                  <% if session[:order_id]%>
+                  <%= link_to image_tag('treasure_chest_add.png'),order_path(session[:order_id]) ,:class=>"cart"%>
+                  <%else%>
+                  <%= link_to image_tag('treasure_chest.png'),products_path ,:class=>"cart"%>
+                  <%end%>
+                </section>
+
+        </nav>
+  </div>
+        </section>
+
+      </section>
+
+    </section>
+
+
+
+
+  </div>
+
+
+</header>
+<section class = "row">
+
+  <section class="flash">
+    <%= flash[:status] %>
+    <% if flash[:result_text] or flash[:message] %>
+    <h3>
+      <%= flash[:status] == :failure ? "A problem occurred: " : "" %> <%= flash[:result_text] %>
+    </h3>
+    <% end %>
+
+    <% if flash[:messages] %>
+    <% flash.each do |name, problems| %>
+    <em> <%= "#{problems}" %></em> <br>
+    <% end %>
+    <% end %>
+  </section>
+</section>
+
+  <section class= "row columns large -8 small -12 ">
+    <section class = "site">
+    <%= yield %>
+  </section>
+
+</section>
+<section class = "footer">
+</section>
+</body>
+</html>

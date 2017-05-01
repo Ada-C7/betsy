@@ -1,0 +1,11 @@
+<section class="title">
+  <h1> Merchants </h1>
+</section>
+
+<ul>
+  <% @merchants.each do |merchant| %>
+  <li>
+    <%= link_to "#{merchant.username}", merchant_path(merchant), class: "button" %>
+  </li>
+  <% end %>
+</ul>

@@ -1,0 +1,4 @@
+<%= render partial: "form", locals: {submit_text: "Edit"} %>
+<%= link_to "Delete Product", delete_order_product_path(@order_product), data: { method: :delete }, class: "button" %>
+
+<!-- look at order and if order already has a product_id that is in that order, bump the quantity rather than adding additional item. -->

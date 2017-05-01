@@ -1,0 +1,6 @@
+
+<h2>By: <%= @product_review.name %></h2>
+<h2>Product: <%= Product.find_by(id:@product_review.product_id).name %></h2>
+<h2>Rating: <%= @product_review.rating %></h2>
+<h3><%= @product_review.comment %></h3>
+<%= render partial: "form", locals: { submit_text: "Create" }%>

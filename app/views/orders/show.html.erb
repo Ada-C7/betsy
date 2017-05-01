@@ -1,0 +1,25 @@
+<table>
+  <tr colspan = "3">
+    <th> Order Identification Number: <%= @order[:id]  %></th>
+    <th> Cart </th<
+  </tr>
+  <tr>
+    <td> Name: <%= @order[:name]%> </td>
+    <td rowspan = "3" >
+  <p> Products:
+    <%@product_names.each_with_index do |product, index|%>
+    <p><%= index + 1%>.  <%= link_to "#{product.name}", product_path(product.id), :class=> "links" %> <%= link_to "Edit/Delete", edit_order_product_path(@order.id), class: "button" %>
+    <%end%>
+
+  </td>
+  </tr>
+
+  <tr>
+    <td> Email: <%= @order[:email]%> </td>
+  </tr>
+  <tr>
+    <td> Order Status: <%= @order[:status]%> </td>
+  </tr>
+</table>
+
+  <%= link_to "Complete Order", edit_order_path(@order), class: "button" %>

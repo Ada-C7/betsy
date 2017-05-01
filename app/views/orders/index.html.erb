@@ -1,0 +1,5 @@
+<h1> All Orders </h1>
+<table>
+<% @orders.each do |order| %>
+  <tr colspan = "3"><p><%= link_to order.id, order_path(order.id) %><%=" #{order.name}"%><p></tr>
+<%end%>

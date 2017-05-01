@@ -1,0 +1,13 @@
+<section class="title">
+  <h1> Reviews for product #<%= params[:product_id] %> </h1>
+</section>
+
+<% @product_reviews.each do |review| %>
+  <aside>
+    <h2>Id: <%= review.id %></h2>
+    <h2>By: <%= review.name%></h2>
+    <h2>Product Id: <%= review.product_id %></h2>
+    <h2>Rating: <%= review.rating %></h2>
+    <h2>Comment: <%= review.comment %></h2>
+  </aside>
+<% end %>

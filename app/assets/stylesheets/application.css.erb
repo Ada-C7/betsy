@@ -1,0 +1,163 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require foundation_and_overrides
+
+/*backgorund image and min sizing*/
+body {
+    background-image: url(<%= asset_path 'ts2.jpg' %>);
+    background-attachment: fixed;
+   background-repeat: no-repeat;
+   background-size: cover;
+   -moz-background-size: cover;
+   min-height: 500px;
+   min-width: auto;
+
+}
+
+body li{list-style: none;margin:10%;margin-top: 15%;}
+
+body a{color:white;font-family: 'Roboto Condensed', sans-serif;}
+
+/*Container color for menu bar*/
+nav{background-color: #e12e17;height:45px;width:100%;border-radius: 10px;opacity:.8; z-index: -2}
+
+#cart{display:inline;}
+.cart {height:10px;display: inline;float:right;}
+.cart img{height:50px;}
+.text-right, .text-right a {color:#e7a925;font-weight: bolder;display: inline;}
+.woody{right:-100px;
+  z-index:-1;
+  position:relative;
+  left:-10px;
+}
+
+/*Default button styling*/
+.button {
+  margin:10px;
+  text-align: center;
+  background-color:#e12e17;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration:none;
+  }
+
+
+/* Dropdown Button */
+.dropbtn {
+   background-color: #e12e17;
+   color: white;
+   padding: 0px;
+   margin: 0px;
+   font-weight: bold;
+   font-size: 16px;
+   border: none;
+   cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+   position: relative;
+   display: inline-block;
+   font-family: 'Erica One', cursive; color:gold;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+   display: none;
+   position: absolute;
+   background-color: #e12e17;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+   color: black;
+   /*padding: 12px 16px;*/
+   text-decoration: none;
+   display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color:gold}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+   display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+   background-color: #7289FF;
+}
+
+/***************Main Site*******************/
+
+
+/*Transparent shadowbox for main container*/
+.site{background-color: rgba(251, 221, 146, 0.2);}
+
+.site h1, h2 {color:white; font-family:'Londrina Shadow', cursive;vertical-align: middle;}
+.site h4{ font-family: 'Marcellus',sans-serif;}
+.site h3, p , a {font-family: 'Roboto Condensed', sans-serif;}
+.site img {border-radius: 10px;}
+ aside img{width: 200px; height: 200px; border-radius: 5px;}
+
+ aside {width: 30%; display: inline-block;}
+
+
+/****************Site Specific********************/
+/*Category Page*/
+.category-box {width:30%; margin:0;}
+.category-box img {margin: 10px;border-radius: 15px;opacity: .9;}
+.title{height:auto; background-color: inherit; z-index: -2;}
+.category-title{font-family:'Roboto Condensed', cursive; font-size:20px; color:white;text-align: center;}
+
+
+/*Products Index  */
+#product h1, li {display: inline-block;margin-left:20px; margin-right: 20px;}
+
+
+/*View By Merchant*/
+.merchant-box {width: 150px; height: 100px; border-radius: 5px;background-color: #e12e17; margin:10px; text-align: center;}
+.merchant-box, a {border: black; font-family: 'Londrina Shadow', cursive;vertical-align: middle; font-size: 18px;}
+
+/*View Order Fulfillment Page*/
+.form-for-text {
+  color: white;
+}
+
+.links {
+  color: #e12e17;
+  font-weight: bold;
+}
+
+.aside {
+  border-style: solid;
+  border-color: #e12e17;
+  border-radius: 10%;
+  margin:5px;
+  background-color: rgba(240, 213, 213, 0.81);
+  text-align: left;
+  padding-left: 10px;
+}
+
+.aside, p {
+  display: inline-block;
+}
+
+#review {background-color: #e12e17; border-radius: 5px;margin-top: 20px;}

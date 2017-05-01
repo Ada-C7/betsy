@@ -1,0 +1,35 @@
+# Read about fqixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Marisol
+  username: cool_cat
+  email: cool_cat@gmail.com
+
+
+two:
+  name: Allison
+  username: ANorth
+  email: agnorthrop@gmail.com
+
+start_1:
+  name: Baby
+  username: Babyboomer
+  email: has@email.com
+
+
+start_2:
+  name: Boomer
+  username: Babyboomer_2
+  email: an@email.com
+
+ada:
+  oauth_provider: github
+  oauth_uid: 12345
+  email: ada@adadevelopersacademy.org
+  username: countess_ada
+
+grace:
+  oauth_provider: github
+  oauth_uid: 13371337
+  email: grace@hooper.net
+  username: graceful_hoops

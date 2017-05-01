@@ -1,0 +1,79 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: aliens
+  description: little green men
+  quantity: 3
+  price: 1.5
+  merchant: one
+
+aliens_two:
+  name: aliens
+  description: little green men
+  quantity: 3
+  price: 1.5
+  merchant: start_1
+
+two:
+  name: tour guide barbie
+  description: she's a tour guide, she's a barbie
+  quantity: 100
+  price: 10.5
+  merchant: start_1
+
+three:
+  name:
+  description:
+  quantity:
+  price:
+  merchant: start_2
+
+four:
+  name:
+  description: she's a tour guide, she's a barbie
+  quantity: 100
+  price: 10.5
+  merchant: start_2
+
+no_quantity:
+  name: Woody
+  description: she's a tour guide, she's a barbie
+  quantity:
+  price: 10.5
+  merchant: start_1
+
+odd_quantity:
+  name: Woody
+  description: she's a tour guide, she's a barbie
+  quantity: sdjlf
+  price: 10.5
+  merchant: start_2
+
+no_price:
+  name: Woody
+  description: she's a tour guide, she's a barbie
+  quantity: 5
+  price:
+  merchant: start_1
+
+bad_price:
+  name: Woody
+  description: she's a tour guide, she's a barbie
+  quantity: 5
+  price: bdshkvbfj
+  merchant: start_2
+
+
+mean_price:
+  name: Woody
+  description: she's a tour guide, she's a barbie
+  quantity: 5
+  price: -5
+  merchant: start_1
+
+no_category:
+  name: Woody
+  description: she's a tour guide, she's a barbie
+  quantity: 5
+  price: -5
+  merchant: start_1

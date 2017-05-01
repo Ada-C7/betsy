@@ -1,0 +1,33 @@
+<section class="title">
+  <% if @merchant == @current_merchant %>
+    <h1>Hiya, <%=@merchant[:name]%></h1>
+  <% else %>
+    <h1><%= @merchant[:name]%></h1>
+  <% end %>
+</section>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%= @merchant[:id] %></td>
+    <td><%= @merchant[:username] %></td>
+    <td><%= @merchant[:name] %></td>
+    <td><%= @merchant[:email] %></td>
+  </tr>
+</tbody>
+</table>
+
+<% if @merchant == @current_merchant %>
+  <%= link_to "Edit account details", edit_merchant_path, class: "button" %>
+  <%= link_to "Delete account", merchant_path(@merchant), data: {method: :delete, confirm: "Are you sure you want to delete this account?"}, class: "button" %>
+  <%= link_to "View your products", product_by_merchant_path, class: "button" %>
+  <%= link_to "View your order details", merchant_orders_path, class: "button" %>
+<% end %>

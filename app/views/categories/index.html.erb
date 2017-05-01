@@ -1,0 +1,16 @@
+<section class="title">
+  <h1> Browse By Category </h1>
+</section>
+
+
+<% @categories.each do |category|%>
+<aside class="category-box">
+
+   <em class= "category-title"><%="#{category.name}"%> <br></em>
+<%= link_to image_tag(category.img_url), category_product_category_path(:category_id => category.id) %>
+</aside>
+
+<%end%>
+<%if @current_merchant%>
+<%=link_to "Add a new category" ,new_category_path,:class=> "button"%>
+<%end%>

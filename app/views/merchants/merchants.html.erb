@@ -1,0 +1,14 @@
+<section class="title">
+  <h1> Browse By Merchants </h1>
+</section>
+
+
+<section>
+<% @merchants.each do |merchant|%>
+<aside class="merchant-box">
+<h1> <%= link_to "#{merchant.username}",all_product_path(:id => merchant.id), class:"merchant_name" %></h1>
+
+
+</aside>
+<%end%>
+</section>

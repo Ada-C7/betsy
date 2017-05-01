@@ -1,0 +1,19 @@
+<section class="title">
+  <h1> <%= @merchant.username%>'s Products </h1>
+</section>
+
+
+<section>
+  <% @products.each do |product| %>
+  <aside class="product-box">
+    <h4><%= link_to product.name, product_path(product) %> </h4>
+    <section class = "image-box">
+      <%= image_tag product.img_url %>
+    </section>
+  <p>
+    <h4>  <%= product.description%></h4>
+       <%= link_to "Add to Cart", new_order_product_path(product.id), class: "button" %>
+
+  </aside>
+  <% end %>
+</section>

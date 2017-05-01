@@ -1,0 +1,25 @@
+<section class="title">
+<h1> Order Confirmation </h1>
+</section>
+<table>
+  <tr colspan = "1">
+    <th colspan = "2">Order: <%= @order.id %></th>
+
+</tr>
+<tr>
+  <td>Name: <%= @order.name %></td>
+  <td rowspan = "3" >
+<p> Products:
+  <%@product_names.each_with_index do |product, index|%>
+
+  <p><%= index + 1%>.  <%= link_to "#{product.name}", product_path(product.id), :class=> "links" %> <%= number_to_currency(product.price) %>
+  <%end%>
+  <p>Subtotal: <%= number_to_currency(@order.subtotal) %></p>
+</tr>
+<tr>
+  <td>Status: <%= @order.status %></td>
+
+</tr>
+<tr>
+  <td>Shipping Address: <%= @order.address %></td>
+</tr>

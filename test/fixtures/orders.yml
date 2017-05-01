@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Benny Franklin
+  status: pending
+  email: bennyfrank@gmail.com
+  address: 99 fremont way
+  cc_name: Benjamin Franklin
+  cc_number: 102999203
+  cc_expiration: 1772/02
+  cc_cvv: 802
+  zip_code: 99201
+
+two:
+  name: Humphrey Bogart
+  status: MyString
+  email: MyString
+  address: MyString
+  cc_name: MyString
+  cc_number: 1
+  cc_expiration: MyString
+  cc_cvv: 1
+  zip_code: 1

@@ -1,0 +1,39 @@
+<section class="title">
+ <h1> Order Fulfillment </h1>
+</nav>
+</section>
+<h3> Orders completed: <%=@orders.length%></h3>
+<h3> Total revenue: <%= number_to_currency(@current_merchant.total_revenue) %></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Order Id</th>
+      <th>Status</th>
+      <th>Date</th>
+      <th>Products</th>
+      <th>Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= link_to "#{order.id}", order_summary_path(order.id), class: "button" %> </td>
+        <td><%= order.status %></td>
+        <td><%= order.updated_at.to_formatted_s(:long_ordinal) %></td>
+        <td>
+          <% order_revenue = 0 %>
+          <% order.order_products.each do |order_product| %>
+            <%= link_to order_product.product.name, product_path(order_product.product), class: "links" %>
+            Quantity: <%= order_product.quantity %>
+            <% revenue = order_product.quantity * order_product.product.price %>
+            <% order_revenue += revenue %>
+            Amount: <%= number_to_currency(revenue) %>
+            <br>
+          <% end %>
+        </td>
+        <td><%= number_to_currency(order_revenue) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

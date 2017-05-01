@@ -1,0 +1,10 @@
+<section>
+  <%= form_for @category do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :img_url %>
+    <%= f.text_field :img_url %>
+
+    <%= f.submit value: "Add Category" , class:"button" %>
+  <% end %>
+</section>

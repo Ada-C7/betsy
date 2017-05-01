@@ -1,0 +1,55 @@
+<section class="title">
+ <h1><%= @product.name %></h1>
+</nav>
+</section>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>ID</th>
+      <th>Image</th>
+      <th>Description</th>
+      <th>Categories</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @product.name %></td>
+      <td><%= @product.id %></td>
+      <td><%= image_tag @product.img_url %></td>
+      <td><%= @product.description%></td>
+      <%if @product.categories.length > 0%>
+        <td><%= @product.categories.each{ |category| category.name} %> </td>
+      <%else%>
+        <td></td>
+      <%end%>
+      <td><%= number_to_currency(@product.price) %></td>
+      <td><%= @product.quantity %>
+    </tr>
+  </tbody>
+</table>
+<%= link_to "View All Products", products_path, class: "button" %>
+<%= link_to "Add a New Product", new_product_path, class: "button" %>
+<%= link_to "Add to Cart", new_order_product_path(@product.id), class: "button" %>
+<% if @current_merchant != @product.merchant %>
+  <%= link_to "Add Review", new_product_review_path(@product.id), class: "button" %>
+<% end %>
+
+</section>
+
+<section class="title" id="review">
+  <h2> Reviews </h2>
+</section>
+
+<% @product_reviews.each do |review| %>
+  <aside class="aside">
+    Review # <%= review.id %><br>
+    By: <%= review.name%><br>
+    Product: <%= @product.name%><br>
+    Rating: <%= review.rating %><br>
+    Comment: <%= review.comment %><br>
+  </aside>
+<% end %>

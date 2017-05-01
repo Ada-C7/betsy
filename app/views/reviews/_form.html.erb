@@ -1,0 +1,15 @@
+<section>
+  <%= form_for [@product_review.product, @product_review] do |f| %>
+
+    <%= f.label :rating, :class=>'form-for-text' %>
+    <%= f.select :rating, [1, 2, 3, 4, 5]%>
+
+    <%= f.label :name, :class=>'form-for-text' %>
+    <%= f.text_field :name %>
+
+    <%= f.label :comment, :class=>'form-for-text' %>
+    <%= f.text_area :comment %>
+
+    <%= f.submit class: "button" %>
+  <% end %>
+</section>
