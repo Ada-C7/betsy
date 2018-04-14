@@ -1,0 +1,33 @@
+<main>
+<% @product.errors.each do |field, msg| %>
+  <li>
+    <%= field %>: <%= msg %>
+  </li>
+<% end %>
+
+<%= form_for @product do | f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+
+  <%= f.label :inventory %>
+  <%= f.select :inventory, ((0..100).map {|i| [i,i] }) %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "60x12" %>
+
+  <%= f.label :photo_url %>
+  <%= f.url_field :photo_url %>
+
+  <%= f.hidden_field :lifecycle, value: "available" %>
+  <%= f.hidden_field :vendor_id, value: session[:vendor_id] %>
+
+  <%= f.label :categories %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+
+  <%= f.submit class:"button" %>
+<% end %>
+</main>
